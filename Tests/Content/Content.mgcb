@@ -11,7 +11,7 @@
 #-------------------------------- References --------------------------------#
 
 /reference:..\..\Framework\bin\Debug\net4.8\ZZZ.Framework.dll
-/reference:..\..\ZZZ.Framework.Monogame\bin\Debug\net4.8\ZZZ.Framework.Monogame.dll
+/reference:..\..\Monogame\bin\Debug\net4.8\ZZZ.Framework.Monogame.dll
 
 #---------------------------------- Content ---------------------------------#
 

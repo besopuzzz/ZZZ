@@ -117,7 +117,7 @@
       <Project>{7d796012-ab45-49cb-8387-065d055fea8c}</Project>
       <Name>ZZZ.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ZZZ.Framework.Monogame\ZZZ.Framework.Monogame.csproj">
+    <ProjectReference Include="..\..\Monogame\ZZZ.Framework.Monogame.csproj">
       <Project>{900467d9-a2b0-4710-a6ef-1eb0126045b3}</Project>
       <Name>ZZZ.Framework.Monogame</Name>
     </ProjectReference>

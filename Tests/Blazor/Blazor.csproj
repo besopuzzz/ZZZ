@@ -39,7 +39,7 @@
   <Import Project="..\Shared\Shared.projitems" Label="Shared" />
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
-    <ProjectReference Include="..\..\ZZZ.Framework.Monogame\ZZZ.Framework.Monogame.csproj" />
+    <ProjectReference Include="..\..\Monogame\ZZZ.Framework.Monogame.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />

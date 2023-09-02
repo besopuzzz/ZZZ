@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsDX", "Tests\WindowsD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor", "Tests\Blazor\Blazor.csproj", "{D2977526-3A9E-43BE-A526-3B996AC72F69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.Framework.Monogame", "ZZZ.Framework.Monogame\ZZZ.Framework.Monogame.csproj", "{900467D9-A2B0-4710-A6EF-1EB0126045B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monogame", "Monogame\ZZZ.Framework.Monogame.csproj", "{900467D9-A2B0-4710-A6EF-1EB0126045B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
