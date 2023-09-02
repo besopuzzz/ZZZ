@@ -8,7 +8,7 @@
         public bool Stoped => ended;
         public bool IsLooped { get; set; }
         public float[] Anchors { get; set; }
-        public bool IsPaused { get; set; }
+        public bool IsPaused { get; set; } 
 
         public event EventHandler TimerEnded;
         public event EventHandler<GameTimer, float> AnchorIvoked;
