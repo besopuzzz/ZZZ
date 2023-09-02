@@ -1,0 +1,125 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ZZZ.Framework.Monogame/1.0.0": {
+        "dependencies": {
+          "Aether.Physics2D": "1.7.0",
+          "ZZZ.Framework": "1.0.0",
+          "nkast.Xna.Framework.Content.Pipeline": "3.9.9001",
+          "nkast.Xna.Framework.Content.Pipeline.Graphics": "3.9.9001",
+          "nkast.Xna.Framework.Ref": "3.9.9001"
+        },
+        "runtime": {
+          "ZZZ.Framework.Monogame.dll": {}
+        }
+      },
+      "Aether.Physics2D/1.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/Aether.Physics2D.dll": {
+            "assemblyVersion": "1.7.0.0",
+            "fileVersion": "1.7.0.0"
+          }
+        }
+      },
+      "nkast.Xna.Framework/3.9.9001": {
+        "runtime": {
+          "lib/netstandard2.0/Xna.Framework.dll": {
+            "assemblyVersion": "3.9.9001.0",
+            "fileVersion": "3.9.9001.0"
+          }
+        }
+      },
+      "nkast.Xna.Framework.Content.Pipeline/3.9.9001": {
+        "dependencies": {
+          "nkast.Xna.Framework": "3.9.9001"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Xna.Framework.Content.Pipeline.dll": {
+            "assemblyVersion": "3.9.9001.0",
+            "fileVersion": "3.9.9001.0"
+          }
+        }
+      },
+      "nkast.Xna.Framework.Content.Pipeline.Graphics/3.9.9001": {
+        "dependencies": {
+          "nkast.Xna.Framework": "3.9.9001",
+          "nkast.Xna.Framework.Content.Pipeline": "3.9.9001"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Xna.Framework.Content.Pipeline.Graphics.dll": {
+            "assemblyVersion": "3.9.9001.0",
+            "fileVersion": "3.9.9001.0"
+          }
+        }
+      },
+      "nkast.Xna.Framework.Ref/3.9.9001": {
+        "dependencies": {
+          "nkast.Xna.Framework": "3.9.9001"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MonoGame.Framework.dll": {
+            "assemblyVersion": "3.9.9001.0",
+            "fileVersion": "3.9.9001.0"
+          }
+        }
+      },
+      "ZZZ.Framework/1.0.0": {
+        "runtime": {
+          "ZZZ.Framework.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ZZZ.Framework.Monogame/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Aether.Physics2D/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rtx99Y4QqIkaOMetKh1NAhhMYBtOpgLRIWXcB3L2PoeqquDNlfz3dM5EVwNsNGzCuAlUo8SxPbsYskXF2Eeung==",
+      "path": "aether.physics2d/1.7.0",
+      "hashPath": "aether.physics2d.1.7.0.nupkg.sha512"
+    },
+    "nkast.Xna.Framework/3.9.9001": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kW7/jP2m+fq24cenjUzYqXR7rN+/OfKN7RRbObe70rxUcrSsL1VqzmnZ+6mqo2moAsujMOI2/hl85qmJLTvytQ==",
+      "path": "nkast.xna.framework/3.9.9001",
+      "hashPath": "nkast.xna.framework.3.9.9001.nupkg.sha512"
+    },
+    "nkast.Xna.Framework.Content.Pipeline/3.9.9001": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-m0e8IudvUx2gKVWVpHRrE036wDGTDF0WM0atzTLFpm89EnebVtwrRK62+ttCtCC5mSSfMgOXBw9o/iP9tan8Zw==",
+      "path": "nkast.xna.framework.content.pipeline/3.9.9001",
+      "hashPath": "nkast.xna.framework.content.pipeline.3.9.9001.nupkg.sha512"
+    },
+    "nkast.Xna.Framework.Content.Pipeline.Graphics/3.9.9001": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lmQzQMGS5k8GvoMKirihFq1ifQWp0Vw6VbsLQHZdNQ+YR/dFEvboTjf8i1vcKrY+LP3+zRCbJyjOSl57BNVhiw==",
+      "path": "nkast.xna.framework.content.pipeline.graphics/3.9.9001",
+      "hashPath": "nkast.xna.framework.content.pipeline.graphics.3.9.9001.nupkg.sha512"
+    },
+    "nkast.Xna.Framework.Ref/3.9.9001": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/OwoZpntjp9NA4rlfnGWaYst+15Jq9feJvyggl6pwKTyi0H5F9MiC1VaSLyL4JQV/NtohwvyjUDdfWy6+AI9lg==",
+      "path": "nkast.xna.framework.ref/3.9.9001",
+      "hashPath": "nkast.xna.framework.ref.3.9.9001.nupkg.sha512"
+    },
+    "ZZZ.Framework/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
