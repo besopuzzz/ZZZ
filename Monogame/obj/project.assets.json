@@ -73,7 +73,7 @@
           }
         }
       },
-      "ZZZ.Framework/1.0.0": {
+      "ZZZ.Framework/1.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.8",
         "compile": {
@@ -156,7 +156,7 @@
           }
         }
       },
-      "ZZZ.Framework/1.0.0": {
+      "ZZZ.Framework/1.0.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "compile": {
@@ -246,7 +246,7 @@
         "nkast.xna.framework.ref.nuspec"
       ]
     },
-    "ZZZ.Framework/1.0.0": {
+    "ZZZ.Framework/1.0.1": {
       "type": "project",
       "path": "../Framework/ZZZ.Framework.csproj",
       "msbuildProject": "../Framework/ZZZ.Framework.csproj"
@@ -255,14 +255,14 @@
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
       "Aether.Physics2D >= 1.7.0",
-      "ZZZ.Framework >= 1.0.0",
+      "ZZZ.Framework >= 1.0.1",
       "nkast.Xna.Framework.Content.Pipeline >= 3.9.9001",
       "nkast.Xna.Framework.Content.Pipeline.Graphics >= 3.9.9001",
       "nkast.Xna.Framework.Ref >= 3.9.9001"
     ],
     "net6.0": [
       "Aether.Physics2D >= 1.7.0",
-      "ZZZ.Framework >= 1.0.0",
+      "ZZZ.Framework >= 1.0.1",
       "nkast.Xna.Framework.Content.Pipeline >= 3.9.9001",
       "nkast.Xna.Framework.Content.Pipeline.Graphics >= 3.9.9001",
       "nkast.Xna.Framework.Ref >= 3.9.9001"

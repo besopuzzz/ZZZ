@@ -6,6 +6,18 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>10</LangVersion>
 		<Configurations>Debug;Release</Configurations>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>Easy scene graph with containers and components</Title>
+		<Authors>Vadim Baryshnikov</Authors>
+		<Company>ZZZ</Company>
+		<PackageProjectUrl>https://github.com/besopuzzz/ZZZ</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/besopuzzz/ZZZ</RepositoryUrl>
+		<PackageTags>scenegraph</PackageTags>
+		<NeutralLanguage>ru</NeutralLanguage>
+		<PackageId>ZZZ.Framework</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -22,6 +34,12 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Using Remove="System.Net.Http" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
