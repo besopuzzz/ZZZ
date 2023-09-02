@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{42DF472E-63AF-4AA3-8D6C-8BCACDA41CC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor", "ZZZ.Robotizm\Tests\Blazor\Blazor.csproj", "{E68D79C0-9F0B-4626-9171-0CD049E006E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopGL", "ZZZ.Robotizm\Tests\DesktopGL\DesktopGL.csproj", "{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "ZZZ.Robotizm\Tests\Shared\Shared.shproj", "{116FF1DE-A313-41FA-8B3B-AE8BC9D6017B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsDX", "ZZZ.Robotizm\Tests\WindowsDX\WindowsDX.csproj", "{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E68D79C0-9F0B-4626-9171-0CD049E006E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E68D79C0-9F0B-4626-9171-0CD049E006E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E68D79C0-9F0B-4626-9171-0CD049E006E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E68D79C0-9F0B-4626-9171-0CD049E006E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E68D79C0-9F0B-4626-9171-0CD049E006E6} = {42DF472E-63AF-4AA3-8D6C-8BCACDA41CC7}
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD} = {42DF472E-63AF-4AA3-8D6C-8BCACDA41CC7}
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4} = {42DF472E-63AF-4AA3-8D6C-8BCACDA41CC7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F3A7D97-7073-4CAA-AE9F-0025CEFC5D9C}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Tests\Shared\Shared.projitems*{116ff1de-a313-41fa-8b3b-ae8bc9d6017b}*SharedItemsImports = 13
+		..\Tests\Shared\Shared.projitems*{289efea1-b6dd-4ce4-934e-9f031c2eb5a4}*SharedItemsImports = 4
+		..\Tests\Shared\Shared.projitems*{72b4fb3d-5c8c-41c7-9c20-557dee229cfd}*SharedItemsImports = 4
+		..\Tests\Shared\Shared.projitems*{e68d79c0-9f0b-4626-9171-0cd049e006e6}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal
