@@ -54,3 +54,5 @@ C:\Users\u01\source\ZZZ\Framework\obj\Debug\net6.0\ZZZ.Framework.dll
 C:\Users\u01\source\ZZZ\Framework\obj\Debug\net6.0\refint\ZZZ.Framework.dll
 C:\Users\u01\source\ZZZ\Framework\obj\Debug\net6.0\ZZZ.Framework.pdb
 C:\Users\u01\source\ZZZ\Framework\obj\Debug\net6.0\ref\ZZZ.Framework.dll
+C:\Users\u01\source\ZZZ\Framework\bin\Debug\net6.0\ZZZ.Framework.xml
+C:\Users\u01\source\ZZZ\Framework\obj\Debug\net6.0\ZZZ.Framework.xml

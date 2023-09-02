@@ -18,7 +18,7 @@ namespace ZZZ.Framework
 
         /// <summary>
         /// Получает значение, включен или выключен контейнер.
-        /// <see cref="True"/> - объект включен. Иначе - выключен.
+        /// <see href="true"/> - объект включен. Иначе - выключен.
         /// </summary>
         bool Enabled { get; }
 
@@ -48,7 +48,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип компонента, по которому выполняется поиск регистратора <see cref="IRegistrar{T}"/>.</typeparam>
         /// <param name="component">Экземпляр компонента, который необходимо зарегистрировать.</param>
-        /// <remarks>Укажите экземпляр с типом, например <typeparamref name="IOtherType"/>, для зарегистрации экземпляра в регистраторe IRegistrar<see cref="{IOtherType}"/>.</remarks>
+        /// <remarks>Укажите экземпляр с типом, например <see href="IOtherType"/>, для зарегистрации экземпляра в регистраторe <see cref="IRegistrar{IOtherType}"/>.</remarks>
         internal void RegistrationComponent<T>(T component) where T : IComponent;
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип компонента, по которому выполняется поиск регистратора <see cref="IRegistrar{T}"/>.</typeparam>
         /// <param name="component">Экземпляр компонента, по которому необходимо отменить регистрацию.</param>
-        /// <remarks>Укажите экземпляр с типом, например <typeparamref name="IOtherType"/>, для отмены зарегистрации экземпляра в регистраторe IRegistrar<see cref="{IOtherType}"/>.</remarks>
+        /// <remarks>Укажите экземпляр с типом, например <see href="IOtherType"/>, для отмены зарегистрации экземпляра в регистраторe <see cref="IRegistrar{IOtherType}"/>.</remarks>
         internal void UnregistrationComponent<T>(T component) where T : IComponent;
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип контейнера.</typeparam>
         /// <param name="child">Экземпляр контейнера.</param>
-        /// <returns>Возвращает добавленный контейнер <see cref="{T}"/>.</returns>
+        /// <returns>Возвращает добавленный контейнер <paramref name="child"/>.</returns>
         T AddContainer<T>(T child) where T : IContainer;
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип компонента.</typeparam>
         /// <param name="component">Экземпляр компонента.</param>
-        /// <returns>Возвращает добавленный компонент <see cref="{T}"/>.</returns>
+        /// <returns>Возвращает добавленный компонент <paramref name="component"/>.</returns>
         T AddComponent<T>(T component) where T : IComponent;
 
         /// <summary>
@@ -113,21 +113,21 @@ namespace ZZZ.Framework
         /// Возвращает первый владеемый компонент.
         /// </summary>
         /// <typeparam name="T">Тип компонента.</typeparam>
-        /// <returns>Найденный <typeparamref name="T"/> компонент. Возвращает <see cref="null"/>, если компонент с типом <typeparamref name="T"/> отсутствует.</returns>
+        /// <returns>Найденный <typeparamref name="T"/> компонент. Возвращает <see href="null"/>, если компонент с типом <typeparamref name="T"/> отсутствует.</returns>
         T GetComponent<T>() where T : IComponent;
 
         /// <summary>
         /// Возвращает первый владеемый компонент.
         /// </summary>
         /// <param name="type">Тип компонента.</param>
-        /// <returns>Найденный компонент. Возвращает <see cref="null"/>, если компонент типа type отсутствует.</returns>
+        /// <returns>Найденный компонент. Возвращает <see href="null"/>, если компонент типа type отсутствует.</returns>
         IComponent GetComponent(Type type);
 
         /// <summary>
         /// Возвращает первый владеемый контейнер.
         /// </summary>
         /// <typeparam name="T">Тип контейнера.</typeparam>
-        /// <returns>Найденный <typeparamref name="T"/> контейнер. Возвращает <see cref="null"/>, если контейнер с типом <typeparamref name="T"/> отсутствует.</returns>
+        /// <returns>Найденный <typeparamref name="T"/> контейнер. Возвращает <see href="null"/>, если контейнер с типом <typeparamref name="T"/> отсутствует.</returns>
         T GetContainer<T>() where T : IContainer;
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace ZZZ.Framework
         /// Выполняет поиск контейнера начиная с корня.
         /// </summary>
         /// <typeparam name="T">Тип контейнера.</typeparam>
-        /// <returns>Первый найденный <typeparamref name="T"/> контейнер. Возвращает <see cref="null"/>, если контейнер не найден.</returns>
+        /// <returns>Первый найденный <typeparamref name="T"/> контейнер. Возвращает <see href="null"/>, если контейнер не найден.</returns>
         T FindContainer<T>() where T : IContainer;
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип контейнера.</typeparam>
         /// <param name="predicate">Делегат с условиями поиска.</param>
-        /// <returns>Первый найденный <typeparamref name="T"/> контейнер. Возвращает <see cref="null"/>, если контейнер не найден.</returns>
+        /// <returns>Первый найденный <typeparamref name="T"/> контейнер. Возвращает <see href="null"/>, если контейнер не найден.</returns>
         T FindContainer<T>(Predicate<T> predicate) where T : IContainer;
 
         /// <summary>
@@ -167,7 +167,6 @@ namespace ZZZ.Framework
         /// <summary>
         /// Выполняет поиск контейнеров начиная с корня.
         /// </summary>
-        /// <typeparam name="T">Тип контейнера.</typeparam>
         /// <param name="predicate">Делегат с условиями поиска.</param>
         /// <returns>Коллекция найденных <see cref="IEnumerable{IComponentContainer}"/> контейнеров.</returns>
         IEnumerable<IContainer> FindContainers(Predicate<IContainer> predicate);
@@ -176,7 +175,7 @@ namespace ZZZ.Framework
         /// Выполняет поиск компонента начиная с корня.
         /// </summary>
         /// <typeparam name="T">Тип компонента.</typeparam>
-        /// <returns>Первый найденный <typeparamref name="T"/> компонент. Возвращает <see cref="null"/>, если компонент не найден.</returns>
+        /// <returns>Первый найденный <typeparamref name="T"/> компонент. Возвращает <see href="null"/>, если компонент не найден.</returns>
         T FindComponent<T>() where T : IComponent;
 
         /// <summary>
@@ -184,7 +183,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип компонента.</typeparam>
         /// <param name="predicate">Делегат с условиями поиска.</param>
-        /// <returns>Первый найденный компонент. Возвращает <see cref="null"/>, если компонент не найден.</returns>
+        /// <returns>Первый найденный компонент. Возвращает <see href="null"/>, если компонент не найден.</returns>
         T FindComponent<T>(Predicate<T> predicate) where T : IComponent;
 
         /// <summary>
@@ -197,7 +196,6 @@ namespace ZZZ.Framework
         /// <summary>
         /// Выполняет поиск компонентов начиная с корня.
         /// </summary>
-        /// <typeparam name="T">Тип компонента.</typeparam>
         /// <param name="predicate">Делегат с условиями поиска.</param>
         /// <returns>Коллекция найденных <see cref="IEnumerable{IComponent}"/> компонентов.</returns>
         IEnumerable<IComponent> FindComponents(Predicate<IComponent> predicate);

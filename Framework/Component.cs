@@ -10,7 +10,7 @@
         {
             get
             {
-                return enabled & (Owner != null ? Owner.Enabled : true);
+                return enabled & (Owner == null || Owner.Enabled);
             }
 
             set
@@ -106,19 +106,19 @@
         /// <inheritdoc cref="IContainer.GetContainers"/>
         protected IEnumerable<IContainer> GetContainers() => Owner.GetContainers();
 
-        /// <inheritdoc cref="IContainer.FindContainer"/>
+        /// <inheritdoc cref="IContainer.FindContainer{T}()"/>
         protected T FindContainer<T>() where T : IContainer => Owner.FindContainer<T>();
 
-        /// <inheritdoc cref="IContainer.FindContainer"/>
+        /// <inheritdoc cref="IContainer.FindContainer{T}(Predicate{T})"/>
         protected IContainer FindContainer(Predicate<IContainer> predicate) => Owner.FindContainer(predicate);
 
         /// <inheritdoc cref="IContainer.FindContainers"/>
         protected IEnumerable<T> FindContainers<T>() where T : IContainer => Owner.FindContainers<T>();
 
-        /// <inheritdoc cref="IContainer.FindComponent"/>
+        /// <inheritdoc cref="IContainer.FindComponent{T}()"/>
         protected T FindComponent<T>() where T : IComponent => Owner.FindComponent<T>();
 
-        /// <inheritdoc cref="IContainer.FindComponent"/>
+        /// <inheritdoc cref="IContainer.FindComponent{T}(Predicate{T})"/>
         protected IComponent FindComponent(Predicate<IComponent> predicate) => Owner.FindComponent(predicate);
 
         /// <inheritdoc cref="IContainer.FindComponents"/>
@@ -152,7 +152,7 @@
         /// <summary>
         /// Освобождает управляемые и неуправляемые ресурсы компонента.
         /// </summary>
-        /// <param name="disposing">Если <see cref="False"/>, вызов выполнен деконструктором, иначе <see cref="IComponent.Owner"/>'ом.</param>
+        /// <param name="disposing">Если <see  href="false"/>, вызов выполнен деконструктором, иначе <see cref="IComponent.Owner"/>'ом.</param>
         /// <remarks>Унаследуйте метод и освободите компонент от управляемых ресурсов (noncontrolresource.Dispose()),
         /// если disposing истина, и от неуправляемых, назначив null.</remarks>
         protected virtual void Dispose(bool disposing)
@@ -163,9 +163,12 @@
         private void LocalEnabledChanged(IComponent sender, bool eventArgs)
         {
             OnEnabledChanged();
-            EnabledChanged?.Invoke(this, eventArgs);
+            EnabledChanged?.Invoke(sender, eventArgs);
         }
 
+        /// <summary>
+        /// Деконструктор компонента.
+        /// </summary>
         ~Component()
         {
             if (disposed)

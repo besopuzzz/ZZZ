@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XX9Y0G0k80dQnt4xBYwatDFU8S4mB9JerGbFfscu5dNTt6FfKZq9HwJ+joORfwju3fraAuH7K2MtkT7A5bTD6w==",
+  "dgSpecHash": "qccnJuPCS9+ZEb4ODAcutqunM95zVNijmDtIyLmR1D1jdasbi1DfyLSr0qwZB2bOPD8hCYc4Q3V9cadGBKa4Vw==",
   "success": true,
   "projectFilePath": "C:\\Users\\u01\\source\\ZZZ\\Monogame\\ZZZ.Framework.Monogame.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,8 @@
     "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework\\3.9.9001\\nkast.xna.framework.3.9.9001.nupkg.sha512",
     "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework.content.pipeline\\3.9.9001\\nkast.xna.framework.content.pipeline.3.9.9001.nupkg.sha512",
     "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework.content.pipeline.graphics\\3.9.9001\\nkast.xna.framework.content.pipeline.graphics.3.9.9001.nupkg.sha512",
-    "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework.ref\\3.9.9001\\nkast.xna.framework.ref.3.9.9001.nupkg.sha512"
+    "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework.ref\\3.9.9001\\nkast.xna.framework.ref.3.9.9001.nupkg.sha512",
+    "C:\\Users\\u01\\.nuget\\packages\\zzz.framework\\1.0.4\\zzz.framework.1.0.4.nupkg.sha512"
   ],
   "logs": []
 }

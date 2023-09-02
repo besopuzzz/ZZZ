@@ -15,13 +15,13 @@ namespace ZZZ.Framework.Monogame.Tiled.Components
         public Vector2 CellOrigin { get; set; }
 
         [ContentSerializer(CollectionItemName = "Tile")]
-        internal TileCollection Tiles = new TileCollection();
+        internal TileCollection Tiles = new();
 
         public event TilemapEvent TileAdded;
         public event TilemapEvent TileRemoved;
         public event TilemapEvent TileReplaced;
 
-        private List<TileAnimator> animatedTiles = new List<TileAnimator>();
+        private List<TileAnimator> animatedTiles = new();
         private Transformer transformer;
         private Grid grid;
 
@@ -144,7 +144,7 @@ namespace ZZZ.Framework.Monogame.Tiled.Components
             if(animator.Unregister(tileRenderData))
                 animatedTiles.Remove(animator);
         }
-        internal TileRenderData? GetTileObject(Point position)
+        internal TileRenderData GetTileObject(Point position)
         {
             return Tiles.Find(x => x.Position == position);
         }
@@ -162,8 +162,7 @@ namespace ZZZ.Framework.Monogame.Tiled.Components
         {
             var tile = GetTileObject(position);
 
-            if (tile == null)
-                tile = new TileRenderData(position, baseTile);
+            tile ??= new TileRenderData(position, baseTile);
 
             Tiles.Add(tile);
         }

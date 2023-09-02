@@ -9,7 +9,7 @@
       "ZZZ.Framework.Monogame/1.0.0": {
         "dependencies": {
           "Aether.Physics2D": "1.7.0",
-          "ZZZ.Framework": "1.0.0",
+          "ZZZ.Framework": "1.0.4",
           "nkast.Xna.Framework.Content.Pipeline": "3.9.9001",
           "nkast.Xna.Framework.Content.Pipeline.Graphics": "3.9.9001",
           "nkast.Xna.Framework.Ref": "3.9.9001"
@@ -68,9 +68,12 @@
           }
         }
       },
-      "ZZZ.Framework/1.0.0": {
+      "ZZZ.Framework/1.0.4": {
         "runtime": {
-          "ZZZ.Framework.dll": {}
+          "lib/net6.0/ZZZ.Framework.dll": {
+            "assemblyVersion": "1.0.4.0",
+            "fileVersion": "1.0.4.0"
+          }
         }
       }
     }
@@ -116,10 +119,12 @@
       "path": "nkast.xna.framework.ref/3.9.9001",
       "hashPath": "nkast.xna.framework.ref.3.9.9001.nupkg.sha512"
     },
-    "ZZZ.Framework/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
+    "ZZZ.Framework/1.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ph+y0zoPWmO/famDr8I8+Wm12EIT0dOvp1Pyo2i+CFdkUlCE+3tn4SHlqv+7AJ1PEtYAPU9I0vlPBU3eaX1I4w==",
+      "path": "zzz.framework/1.0.4",
+      "hashPath": "zzz.framework.1.0.4.nupkg.sha512"
     }
   }
 }

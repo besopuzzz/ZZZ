@@ -1,7 +1,7 @@
 ﻿namespace ZZZ.Framework
 {
     /// <summary>
-    /// Представляет базовый класс регистратора компонентов <see cref="TComponent"/>.
+    /// Представляет базовый класс регистратора компонентов <see href="TComponent"/>.
     /// </summary>
     /// <typeparam name="TComponent">Тип компонента, который регистратор будет обрабатывать.</typeparam>
     public abstract class Registrar<TComponent> : Component, IRegistrar<TComponent>

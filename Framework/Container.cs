@@ -19,7 +19,7 @@ namespace ZZZ.Framework
         {
             get
             {
-                return enabled & (Owner != null ? Owner.Enabled : true);
+                return enabled & (Owner == null || Owner.Enabled);
             }
 
             set
@@ -69,8 +69,8 @@ namespace ZZZ.Framework
         ///<inheritdoc cref="IContainer.ComponentRemoved"/>
         public event EventHandler<IContainer, IComponent> ComponentRemoved;
 
-        private EventedList<IComponent> components = new EventedList<IComponent>();
-        private EventedList<IContainer> containers = new EventedList<IContainer>();
+        private EventedList<IComponent> components = new();
+        private EventedList<IContainer> containers = new();
         private IContainer owner;
         private bool enabled = true;
         private bool disposed = false;
@@ -119,7 +119,7 @@ namespace ZZZ.Framework
         /// <summary>
         /// Освобождает управляемые и неуправляемые ресурсы контейнера.
         /// </summary>
-        /// <param name="disposing">Если <see cref="False"/>, вызов выполнен деконструктором, иначе <see cref="IComponent.Owner"/>'ом.</param>
+        /// <param name="disposing">Если <see href="false"/>, вызов выполнен деконструктором, иначе <see cref="IComponent.Owner"/>'ом.</param>
         /// <remarks>Унаследуйте метод и освободите контейнер от управляемых ресурсов (noncontrolresource.Dispose()),
         /// если disposing истина, и от неуправляемых, назначив null.</remarks>
         protected virtual void Dispose(bool disposing)
@@ -167,12 +167,10 @@ namespace ZZZ.Framework
         ///<inheritdoc cref="IContainer.AddComponent{T}(T)"/>
         public T AddComponent<T>(T component) where T : IComponent
         {
-            if (component.Owner != null)
-                component.Owner.RemoveComponent(component);
-
+            component.Owner?.RemoveComponent(component);
             component.Owner = this;
 
-            FindAndCreateRequireComponents(component);
+            Container.FindAndCreateRequireComponents(component);
             components.Add(component);
 
             OnComponentAdded(component);
@@ -187,7 +185,7 @@ namespace ZZZ.Framework
             if (!components.Contains(component))
                 return;
 
-            FindAndRemoveRequireComponents(component);
+            Container.FindAndRemoveRequireComponents(component);
             components.Remove(component);
 
             OnComponentRemoved(component);
@@ -199,9 +197,7 @@ namespace ZZZ.Framework
         ///<inheritdoc cref="IContainer.AddContainer{T}(T)"/>
         public T AddContainer<T>(T container) where T : IContainer
         {
-            if (container.Owner != null)
-                container.Owner.RemoveContainer(container);
-
+            container.Owner?.RemoveContainer(container);
             container.Owner = this;
 
             containers.Add(container);
@@ -262,7 +258,7 @@ namespace ZZZ.Framework
             return Owner.FindContainer<T>();
         }
 
-        ///<inheritdoc cref="IContainer.FindContainer(Predicate{IContainer})"/>
+        ///<inheritdoc cref="IContainer.FindContainer{T}(Predicate{T})"/>
         public T FindContainer<T>(Predicate<T> predicate) where T : IContainer
         {
             if (Owner == null)
@@ -298,7 +294,7 @@ namespace ZZZ.Framework
             return Owner.FindComponent<T>();
         }
 
-        ///<inheritdoc cref="IContainer.FindComponent(Predicate{IComponent})"/>
+        ///<inheritdoc cref="IContainer.FindContainer{T}(Predicate{T})"/>
         public T FindComponent<T>(Predicate<T> predicate) where T : IComponent
         {
             if (Owner == null)
@@ -325,6 +321,10 @@ namespace ZZZ.Framework
             return Owner.FindComponents<IComponent>();
         }
 
+        /// <summary>
+        /// Возвращает имя контейнера.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string name = string.IsNullOrWhiteSpace(Name) ? "Noname" : Name;
@@ -375,26 +375,26 @@ namespace ZZZ.Framework
             component.RegistrationComponents();
             component.Startup();
         }
-        private void FindAndCreateRequireComponents(IComponent component)
+        private static void FindAndCreateRequireComponents(IComponent component)
         {
             var attr = component.GetType().GetCustomAttributes<RequireComponentAttribute>();
 
             foreach (RequireComponentAttribute item in attr)
             {
-                CreateRequire(item, component);
+                Container.CreateRequire(item, component);
             }
         }
-        private void FindAndRemoveRequireComponents(IComponent component)
+        private static void FindAndRemoveRequireComponents(IComponent component)
         {
             var attr = component.GetType().GetCustomAttributes<RequireComponentAttribute>();
 
             foreach (RequireComponentAttribute item in attr)
             {
                 if (item.Remove)
-                    RemoveRequire(item, component);
+                    Container.RemoveRequire(item, component);
             }
         }
-        private void CreateRequire(RequireComponentAttribute attr, IComponent component)
+        private static void CreateRequire(RequireComponentAttribute attr, IComponent component)
         {
             if (attr?.Type == null)
                 return;
@@ -413,14 +413,10 @@ namespace ZZZ.Framework
             if (!attr.Duplicate & owner.GetComponent(attr.Type) != null)
                 return;
 
-            var required = Activator.CreateInstance(attr.Type) as IComponent;
-
-            if (required == null)
-                throw new Exception("The require component is not inherit from a IComponent!");
-
+            IComponent required = Activator.CreateInstance(attr.Type) as IComponent ?? throw new Exception("The require component is not inherit from a IComponent!");
             owner.AddComponent(required);
         }
-        private void RemoveRequire(RequireComponentAttribute attr, IComponent component)
+        private static void RemoveRequire(RequireComponentAttribute attr, IComponent component)
         {
             if (!attr.Remove)
                 return;
@@ -442,7 +438,7 @@ namespace ZZZ.Framework
         private T FindContainerRecursiveDown<T>(IContainer container, Predicate<T> predicate) where T : IContainer
         {
             var containers = container.GetContainers();
-            var finded = (T)containers.FirstOrDefault(x => x is T && predicate.Invoke((T)x));
+            var finded = (T)containers.FirstOrDefault(x => x is T t && predicate.Invoke(t));
 
             if (finded != null)
                 return finded;
@@ -460,7 +456,7 @@ namespace ZZZ.Framework
         private IEnumerable<T> FindContainersRecursiveDown<T>(IContainer container, Predicate<T> predicate) where T : IContainer
         {
             var containers = container.GetContainers();
-            var findeds = containers.Where(x => x is T && predicate.Invoke((T)x)).Cast<T>().ToList();
+            var findeds = containers.Where(x => x is T t && predicate.Invoke(t)).Cast<T>().ToList();
 
             foreach (var item in containers)
             {
@@ -472,7 +468,7 @@ namespace ZZZ.Framework
         private T FindComponentRecursiveDown<T>(IContainer container, Predicate<T> predicate) where T : IComponent
         {
             var containers = container.GetContainers();
-            var finded = (T)components.FirstOrDefault(x => x is T && predicate.Invoke((T)x));
+            var finded = (T)components.FirstOrDefault(x => x is T t && predicate.Invoke(t));
 
             if (finded != null)
                 return finded;
@@ -490,7 +486,7 @@ namespace ZZZ.Framework
         private IEnumerable<T> FindComponentsRecursiveDown<T>(IContainer container, Predicate<T> predicate) where T : IComponent
         {
             var containers = container.GetContainers();
-            var findeds = components.Where(x => x is T && predicate.Invoke((T)x)).Cast<T>().ToList();
+            var findeds = components.Where(x => x is T t && predicate.Invoke(t)).Cast<T>().ToList();
 
             foreach (var item in containers)
             {
@@ -506,6 +502,9 @@ namespace ZZZ.Framework
             EnabledChanged?.Invoke(this, result);
         }
 
+        /// <summary>
+        /// Деконструктор контейнера.
+        /// </summary>
         ~Container()
         {
             if (disposed)

@@ -73,9 +73,9 @@ namespace ZZZ.Framework.Monogame.FarseerPhysics.Components
         }
 
         private World world;
-        private Body body = new Body();
+        private readonly Body body = new();
         private Transformer transformer;
-        bool flag = false;
+        private bool flag = false;
 
         public Rigidbody()
         {
@@ -126,9 +126,9 @@ namespace ZZZ.Framework.Monogame.FarseerPhysics.Components
 
         protected override void Update(GameTime gameTime)
         {
-            Transform2D world = new Transform2D(body.Position.ToXna() * transformer.World.Scale, transformer.World.Scale, body.Rotation);
+            Transform2D world = new(body.Position.ToXna() * transformer.World.Scale, transformer.World.Scale, body.Rotation);
 
-            flag = true; // Protection against cycling after position change. See Transformer_WorldChanged event.
+            flag = true;
             body.LocalCenter = Vector2.Zero.ToAether();
             transformer.Local = world / transformer.World * transformer.Local;
             flag = false;
@@ -144,6 +144,9 @@ namespace ZZZ.Framework.Monogame.FarseerPhysics.Components
 
         private void Transformer_WorldChanged(ITransformer sender, Transform2D args)
         {
+            if (flag)
+                return;
+
             body.Position = (transformer.World.Position / transformer.World.Scale).ToAether();
             body.Rotation = transformer.World.Rotation;
         }

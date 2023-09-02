@@ -73,14 +73,17 @@
           }
         }
       },
-      "ZZZ.Framework/1.0.1": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.8",
+      "ZZZ.Framework/1.0.4": {
+        "type": "package",
         "compile": {
-          "bin/placeholder/ZZZ.Framework.dll": {}
+          "lib/net48/ZZZ.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "bin/placeholder/ZZZ.Framework.dll": {}
+          "lib/net48/ZZZ.Framework.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
@@ -156,14 +159,17 @@
           }
         }
       },
-      "ZZZ.Framework/1.0.1": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+      "ZZZ.Framework/1.0.4": {
+        "type": "package",
         "compile": {
-          "bin/placeholder/ZZZ.Framework.dll": {}
+          "lib/net6.0/ZZZ.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "bin/placeholder/ZZZ.Framework.dll": {}
+          "lib/net6.0/ZZZ.Framework.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -246,23 +252,34 @@
         "nkast.xna.framework.ref.nuspec"
       ]
     },
-    "ZZZ.Framework/1.0.1": {
-      "type": "project",
-      "path": "../Framework/ZZZ.Framework.csproj",
-      "msbuildProject": "../Framework/ZZZ.Framework.csproj"
+    "ZZZ.Framework/1.0.4": {
+      "sha512": "Ph+y0zoPWmO/famDr8I8+Wm12EIT0dOvp1Pyo2i+CFdkUlCE+3tn4SHlqv+7AJ1PEtYAPU9I0vlPBU3eaX1I4w==",
+      "type": "package",
+      "path": "zzz.framework/1.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net48/ZZZ.Framework.dll",
+        "lib/net48/ZZZ.Framework.xml",
+        "lib/net6.0/ZZZ.Framework.dll",
+        "lib/net6.0/ZZZ.Framework.xml",
+        "zzz.framework.1.0.4.nupkg.sha512",
+        "zzz.framework.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
       "Aether.Physics2D >= 1.7.0",
-      "ZZZ.Framework >= 1.0.1",
+      "ZZZ.Framework >= 1.0.4",
       "nkast.Xna.Framework.Content.Pipeline >= 3.9.9001",
       "nkast.Xna.Framework.Content.Pipeline.Graphics >= 3.9.9001",
       "nkast.Xna.Framework.Ref >= 3.9.9001"
     ],
     "net6.0": [
       "Aether.Physics2D >= 1.7.0",
-      "ZZZ.Framework >= 1.0.1",
+      "ZZZ.Framework >= 1.0.4",
       "nkast.Xna.Framework.Content.Pipeline >= 3.9.9001",
       "nkast.Xna.Framework.Content.Pipeline.Graphics >= 3.9.9001",
       "nkast.Xna.Framework.Ref >= 3.9.9001"
@@ -301,19 +318,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\u01\\source\\ZZZ\\Framework\\ZZZ.Framework.csproj": {
-              "projectPath": "C:\\Users\\u01\\source\\ZZZ\\Framework\\ZZZ.Framework.csproj"
-            }
-          }
+          "projectReferences": {}
         },
         "net48": {
           "targetAlias": "net4.8",
-          "projectReferences": {
-            "C:\\Users\\u01\\source\\ZZZ\\Framework\\ZZZ.Framework.csproj": {
-              "projectPath": "C:\\Users\\u01\\source\\ZZZ\\Framework\\ZZZ.Framework.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -329,6 +338,10 @@
           "Aether.Physics2D": {
             "target": "Package",
             "version": "[1.7.0, )"
+          },
+          "ZZZ.Framework": {
+            "target": "Package",
+            "version": "[1.0.4, )"
           },
           "nkast.Xna.Framework.Content.Pipeline": {
             "target": "Package",
@@ -367,6 +380,10 @@
           "Aether.Physics2D": {
             "target": "Package",
             "version": "[1.7.0, )"
+          },
+          "ZZZ.Framework": {
+            "target": "Package",
+            "version": "[1.0.4, )"
           },
           "nkast.Xna.Framework.Content.Pipeline": {
             "target": "Package",

@@ -18,14 +18,11 @@ C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net6.0\Content\DiagnosticsFont.xnb
 C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net6.0\ZZZ.Framework.Monogame.deps.json
 C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net6.0\ZZZ.Framework.Monogame.dll
 C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net6.0\ZZZ.Framework.Monogame.pdb
-C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net6.0\ZZZ.Framework.dll
-C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net6.0\ZZZ.Framework.pdb
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.csproj.AssemblyReference.cache
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.AssemblyInfoInputs.cache
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.AssemblyInfo.cs
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.csproj.CoreCompileInputs.cache
-C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.csproj.CopyComplete
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.dll
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\refint\ZZZ.Framework.Monogame.dll
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net6.0\ZZZ.Framework.Monogame.pdb

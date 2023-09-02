@@ -131,10 +131,7 @@
     <PackageReference Include="nkast.Xna.Framework.Content.Pipeline" Version="3.9.9001" />
     <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Graphics" Version="3.9.9001" />
     <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Framework\ZZZ.Framework.csproj" />
+    <PackageReference Include="ZZZ.Framework" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup>

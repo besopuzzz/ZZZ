@@ -14,7 +14,7 @@
         /// </summary>
         protected IEnumerable<TRegistrar> Registrars => registrars;
 
-        private List<TRegistrar>  registrars = new List<TRegistrar>();
+        private List<TRegistrar> registrars = new();
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Root{TRegistrar}"/> без владеемых компонентов и контейнеров.
@@ -41,20 +41,25 @@
 
         }
 
+        /// <inheritdoc cref="Container.RegistrationComponent{T}(T)"/>
         protected internal override void RegistrationComponent<T>(T component)
         {
-            foreach (IRegistrar<T> item in registrars.Where(x => x is IRegistrar<T>))
+            foreach (IRegistrar<T> item in registrars.Where(x => x is IRegistrar<T>).Select(v => (IRegistrar<T>)v))
             {
                 item.Reception(component);
             }
         }
+
+        /// <inheritdoc cref="Container.UnregistrationComponent{T}(T)"/>
         protected internal override void UnregistrationComponent<T>(T component)
         {
-            foreach (IRegistrar<T> item in registrars.Where(x => x is IRegistrar<T>))
+            foreach (IRegistrar<T> item in registrars.Where(x => x is IRegistrar<T>).Select(v => (IRegistrar<T>)v))
             {
                 item.Departure(component);
             }
         }
+
+        /// <inheritdoc cref="Container.OnComponentAdded{T}(T)"/>
         protected override void OnComponentAdded<T>(T component)
         {
             if (component is TRegistrar registrar)
@@ -65,6 +70,8 @@
 
             base.OnComponentAdded(component);
         }
+
+        /// <inheritdoc cref="Container.OnComponentRemoved{T}(T)"/>
         protected override void OnComponentRemoved<T>(T component)
         {
             if (component is TRegistrar registrar)
@@ -76,6 +83,7 @@
             base.OnComponentRemoved(component);
         }
 
+        /// <inheritdoc cref="Container.Dispose(bool)"/>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

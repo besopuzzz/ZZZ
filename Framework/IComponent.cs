@@ -12,7 +12,7 @@
 
         /// <summary>
         /// Получает значение, включен или выключен компонент.
-        /// <see cref="True"/> - объект включен. Иначе - выключен.
+        /// <see href="true"/> - объект включен; иначе - выключен.
         /// </summary>
         bool Enabled { get; }
 
@@ -25,7 +25,7 @@
         /// Запускает компонент. Вызывается единожды после добавления в <see cref="Owner"/> (если <see cref="Owner"/> уже запущен) или после запуска <see cref="Owner"/>.
         /// </summary>
         /// <remarks>Унаследуйте метод и подготовьте компонент к работе. 
-        /// Например, получите другой компонент <see cref="GetComponent{T}()"/> и подпишитесь на события <see cref="EnabledChanged"/>.</remarks>
+        /// Например, получите другой компонент <see cref="IContainer.GetComponent{T}()"/> и подпишитесь на события <see cref="EnabledChanged"/>.</remarks>
         internal void Startup();
 
         /// <summary>

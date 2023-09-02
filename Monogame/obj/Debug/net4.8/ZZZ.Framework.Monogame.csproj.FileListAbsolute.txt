@@ -25,7 +25,6 @@ C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net4.8\Xna.Framework.Content.Pipeline
 C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net4.8\Xna.Framework.Content.Pipeline.Graphics.dll
 C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net4.8\MonoGame.Framework.dll
 C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net4.8\ZZZ.Framework.dll
-C:\Users\u01\source\ZZZ\Monogame\bin\Debug\net4.8\ZZZ.Framework.pdb
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net4.8\ZZZ.Framework.Monogame.csproj.AssemblyReference.cache
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net4.8\ZZZ.Framework.Monogame.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\u01\source\ZZZ\Monogame\obj\Debug\net4.8\ZZZ.Framework.Monogame.AssemblyInfoInputs.cache

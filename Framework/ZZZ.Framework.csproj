@@ -7,17 +7,19 @@
 		<LangVersion>10</LangVersion>
 		<Configurations>Debug;Release</Configurations>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Easy scene graph with containers and components</Title>
+		<Title>ZZZ.Framework</Title>
 		<Authors>Vadim Baryshnikov</Authors>
 		<Company>ZZZ</Company>
 		<PackageProjectUrl>https://github.com/besopuzzz/ZZZ</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/besopuzzz/ZZZ</RepositoryUrl>
-		<PackageTags>scenegraph</PackageTags>
+		<PackageTags>scenegraph;component;controls;games;</PackageTags>
 		<NeutralLanguage>ru</NeutralLanguage>
 		<PackageId>ZZZ.Framework</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.0.1</Version>
+		<Version>1.0.5</Version>
+		<Description>Easy scene graph with containers and components</Description>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

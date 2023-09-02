@@ -21,7 +21,7 @@
             {
                 if (updateOrder == value)
                     return;
-
+                
                 updateOrder = value;
                 UpdateOrderChanged?.Invoke(this, EventArgs.Empty);
             }
