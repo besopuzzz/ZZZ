@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<TargetFrameworks>net4.8;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="Component.cs" />
+		<Compile Include="ComponentCollection.cs" />
+		<Compile Include="Controller.cs" />
+		<Compile Include="RequireComponentAttribute.cs" />
+		<Compile Include="EventHandler.cs" />
+		<Compile Include="Container.cs" />
+		<Compile Include="IComponent.cs" />
+		<Compile Include="IRegistrar.cs" />
+		<Compile Include="IContainer.cs" />
+		<Compile Include="Root.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+</Project>

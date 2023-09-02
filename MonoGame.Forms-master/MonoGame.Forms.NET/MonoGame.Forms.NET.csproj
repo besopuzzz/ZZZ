@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <Title>MonoGame.Forms</Title>
+    <Authors>Marcel Härtel</Authors>
+    <Description>MonoGame.Forms is the easiest way of integrating a MonoGame render window into your Windows Forms project. It should make your life much easier, when you want to create your own editor environment.</Description>
+    <Copyright>Copyright (c) 2023 BlizzCrafter</Copyright>
+    <PackageProjectUrl>https://github.com/BlizzCrafter/MonoGame.Forms</PackageProjectUrl>
+    <PackageIcon>LogoSquare_256.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/BlizzCrafter/MonoGame.Forms</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MonoGame;WindowsForms;Editor</PackageTags>
+	<Version>3.2.0</Version>
+    <AssemblyVersion>3.2.0</AssemblyVersion>
+    <FileVersion>3.2.0</FileVersion>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageId>MonoGame.Forms.NET</PackageId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;8618;8625;8600;8618;8604;8622;8602</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8618;8625;8600;8618;8604;8622;8602</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\Logos\LogoSquare_256.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.WindowsDX.9000" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Graphics" Version="3.9.9001" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

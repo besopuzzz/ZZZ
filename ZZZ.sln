@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZZZ.Framework", "Framework\ZZZ.Framework.csproj", "{7D796012-AB45-49CB-8387-065D055FEA8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{A92CAFAC-2BB7-4C06-B9FF-300AAED890A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopGL", "Tests\DesktopGL\DesktopGL.csproj", "{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Tests\Shared\Shared.shproj", "{116FF1DE-A313-41FA-8B3B-AE8BC9D6017B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsDX", "Tests\WindowsDX\WindowsDX.csproj", "{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor", "Tests\Blazor\Blazor.csproj", "{D2977526-3A9E-43BE-A526-3B996AC72F69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.Framework.Monogame", "ZZZ.Framework.Monogame\ZZZ.Framework.Monogame.csproj", "{900467D9-A2B0-4710-A6EF-1EB0126045B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D796012-AB45-49CB-8387-065D055FEA8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D796012-AB45-49CB-8387-065D055FEA8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D796012-AB45-49CB-8387-065D055FEA8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D796012-AB45-49CB-8387-065D055FEA8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2977526-3A9E-43BE-A526-3B996AC72F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2977526-3A9E-43BE-A526-3B996AC72F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2977526-3A9E-43BE-A526-3B996AC72F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2977526-3A9E-43BE-A526-3B996AC72F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{900467D9-A2B0-4710-A6EF-1EB0126045B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{900467D9-A2B0-4710-A6EF-1EB0126045B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{900467D9-A2B0-4710-A6EF-1EB0126045B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{900467D9-A2B0-4710-A6EF-1EB0126045B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72B4FB3D-5C8C-41C7-9C20-557DEE229CFD} = {A92CAFAC-2BB7-4C06-B9FF-300AAED890A1}
+		{116FF1DE-A313-41FA-8B3B-AE8BC9D6017B} = {A92CAFAC-2BB7-4C06-B9FF-300AAED890A1}
+		{289EFEA1-B6DD-4CE4-934E-9F031C2EB5A4} = {A92CAFAC-2BB7-4C06-B9FF-300AAED890A1}
+		{D2977526-3A9E-43BE-A526-3B996AC72F69} = {A92CAFAC-2BB7-4C06-B9FF-300AAED890A1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BBA8E3C6-617B-4C2E-9FEB-BAE78A02E37F}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Tests\Shared\Shared.projitems*{116ff1de-a313-41fa-8b3b-ae8bc9d6017b}*SharedItemsImports = 13
+		Tests\Shared\Shared.projitems*{289efea1-b6dd-4ce4-934e-9f031c2eb5a4}*SharedItemsImports = 4
+		Tests\Shared\Shared.projitems*{72b4fb3d-5c8c-41c7-9c20-557dee229cfd}*SharedItemsImports = 4
+		Tests\Shared\Shared.projitems*{d2977526-3a9e-43be-a526-3b996ac72f69}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal

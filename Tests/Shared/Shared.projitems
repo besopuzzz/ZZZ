@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>116ff1de-a313-41fa-8b3b-ae8bc9d6017b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ZZZ.Framework.Main</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)editor\IPrefabView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)editor\PrefabsMenuRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)editor\prefabstypes\TilePrefab.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeroController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MainGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ui\BoolButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ui\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ui\EditorPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ui\IRectangler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Label.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ui\Rectangler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Editor\PrefabsTypes\" />
+  </ItemGroup>
+</Project>
