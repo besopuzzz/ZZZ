@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "ZZZ.Framework/1.0.4": {
+      "ZZZ.Framework/1.0.5": {
         "runtime": {
           "ZZZ.Framework.dll": {}
         }
@@ -14,7 +14,7 @@
     }
   },
   "libraries": {
-    "ZZZ.Framework/1.0.4": {
+    "ZZZ.Framework/1.0.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

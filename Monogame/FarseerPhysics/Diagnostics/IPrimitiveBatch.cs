@@ -3,10 +3,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Vector2 = tainicom.Aether.Physics2D.Common.Vector2;
-using Vector3 = tainicom.Aether.Physics2D.Common.Vector3;
+using Vector2 = nkast.Aether.Physics2D.Common.Vector2;
+using Vector3 = nkast.Aether.Physics2D.Common.Vector3;
 
-namespace tainicom.Aether.Physics2D.Diagnostics
+namespace nkast.Aether.Physics2D.Diagnostics
 {
     public interface IPrimitiveBatch
     {        

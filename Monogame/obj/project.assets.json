@@ -2,13 +2,17 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.8": {
-      "Aether.Physics2D/1.7.0": {
+      "Aether.Physics2D/2.0.0": {
         "type": "package",
         "compile": {
-          "lib/net40/Aether.Physics2D.dll": {}
+          "lib/net40/Aether.Physics2D.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net40/Aether.Physics2D.dll": {}
+          "lib/net40/Aether.Physics2D.dll": {
+            "related": ".xml"
+          }
         }
       },
       "nkast.Xna.Framework/3.9.9001": {
@@ -73,7 +77,7 @@
           }
         }
       },
-      "ZZZ.Framework/1.0.4": {
+      "ZZZ.Framework/1.0.5": {
         "type": "package",
         "compile": {
           "lib/net48/ZZZ.Framework.dll": {
@@ -88,13 +92,17 @@
       }
     },
     "net6.0": {
-      "Aether.Physics2D/1.7.0": {
+      "Aether.Physics2D/2.0.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Aether.Physics2D.dll": {}
+          "lib/netstandard2.0/Aether.Physics2D.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Aether.Physics2D.dll": {}
+          "lib/netstandard2.0/Aether.Physics2D.dll": {
+            "related": ".xml"
+          }
         }
       },
       "nkast.Xna.Framework/3.9.9001": {
@@ -159,7 +167,7 @@
           }
         }
       },
-      "ZZZ.Framework/1.0.4": {
+      "ZZZ.Framework/1.0.5": {
         "type": "package",
         "compile": {
           "lib/net6.0/ZZZ.Framework.dll": {
@@ -175,17 +183,20 @@
     }
   },
   "libraries": {
-    "Aether.Physics2D/1.7.0": {
-      "sha512": "Rtx99Y4QqIkaOMetKh1NAhhMYBtOpgLRIWXcB3L2PoeqquDNlfz3dM5EVwNsNGzCuAlUo8SxPbsYskXF2Eeung==",
+    "Aether.Physics2D/2.0.0": {
+      "sha512": "GT64PKbk+3XIUVXB1ueDQU9+l/MaswYD9DTkuJDxnW4eE6X20VEVyIshTGUY+hmVOLJlnWD+i1+nTgNH6kRMDQ==",
       "type": "package",
-      "path": "aether.physics2d/1.7.0",
+      "path": "aether.physics2d/2.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "aether.physics2d.1.7.0.nupkg.sha512",
+        "aether.physics2d.2.0.0.nupkg.sha512",
         "aether.physics2d.nuspec",
+        "icon.png",
         "lib/net40/Aether.Physics2D.dll",
-        "lib/netstandard2.0/Aether.Physics2D.dll"
+        "lib/net40/Aether.Physics2D.xml",
+        "lib/netstandard2.0/Aether.Physics2D.dll",
+        "lib/netstandard2.0/Aether.Physics2D.xml"
       ]
     },
     "nkast.Xna.Framework/3.9.9001": {
@@ -252,10 +263,10 @@
         "nkast.xna.framework.ref.nuspec"
       ]
     },
-    "ZZZ.Framework/1.0.4": {
-      "sha512": "Ph+y0zoPWmO/famDr8I8+Wm12EIT0dOvp1Pyo2i+CFdkUlCE+3tn4SHlqv+7AJ1PEtYAPU9I0vlPBU3eaX1I4w==",
+    "ZZZ.Framework/1.0.5": {
+      "sha512": "KgY9ZwQ4d2J6mOUBRcF+aaHMFh6Q/pm46EBf/HOMg/GohSKLggicUGePRJAwDwNM8exjF+cjdgqanT1FTtXAKQ==",
       "type": "package",
-      "path": "zzz.framework/1.0.4",
+      "path": "zzz.framework/1.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -264,22 +275,22 @@
         "lib/net48/ZZZ.Framework.xml",
         "lib/net6.0/ZZZ.Framework.dll",
         "lib/net6.0/ZZZ.Framework.xml",
-        "zzz.framework.1.0.4.nupkg.sha512",
+        "zzz.framework.1.0.5.nupkg.sha512",
         "zzz.framework.nuspec"
       ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
-      "Aether.Physics2D >= 1.7.0",
-      "ZZZ.Framework >= 1.0.4",
+      "Aether.Physics2D >= 2.0.0",
+      "ZZZ.Framework >= 1.0.5",
       "nkast.Xna.Framework.Content.Pipeline >= 3.9.9001",
       "nkast.Xna.Framework.Content.Pipeline.Graphics >= 3.9.9001",
       "nkast.Xna.Framework.Ref >= 3.9.9001"
     ],
     "net6.0": [
-      "Aether.Physics2D >= 1.7.0",
-      "ZZZ.Framework >= 1.0.4",
+      "Aether.Physics2D >= 2.0.0",
+      "ZZZ.Framework >= 1.0.5",
       "nkast.Xna.Framework.Content.Pipeline >= 3.9.9001",
       "nkast.Xna.Framework.Content.Pipeline.Graphics >= 3.9.9001",
       "nkast.Xna.Framework.Ref >= 3.9.9001"
@@ -337,11 +348,11 @@
         "dependencies": {
           "Aether.Physics2D": {
             "target": "Package",
-            "version": "[1.7.0, )"
+            "version": "[2.0.0, )"
           },
           "ZZZ.Framework": {
             "target": "Package",
-            "version": "[1.0.4, )"
+            "version": "[1.0.5, )"
           },
           "nkast.Xna.Framework.Content.Pipeline": {
             "target": "Package",
@@ -379,11 +390,11 @@
         "dependencies": {
           "Aether.Physics2D": {
             "target": "Package",
-            "version": "[1.7.0, )"
+            "version": "[2.0.0, )"
           },
           "ZZZ.Framework": {
             "target": "Package",
-            "version": "[1.0.4, )"
+            "version": "[1.0.5, )"
           },
           "nkast.Xna.Framework.Content.Pipeline": {
             "target": "Package",

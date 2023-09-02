@@ -1,4 +1,4 @@
-﻿using tainicom.Aether.Physics2D.Diagnostics;
+﻿using nkast.Aether.Physics2D.Diagnostics;
 using ZZZ.Framework.Monogame.Content;
 using ZZZ.Framework.Monogame.FarseerPhysics.Components;
 using ZZZ.Framework.Monogame.Rendering.Components;

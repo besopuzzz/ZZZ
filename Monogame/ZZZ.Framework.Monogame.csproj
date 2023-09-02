@@ -6,6 +6,7 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <LangVersion>10</LangVersion>
 	  <Configurations>Debug;Release</Configurations>
+	  <BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -127,11 +128,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aether.Physics2D" Version="1.7.0" />
+    <PackageReference Include="Aether.Physics2D" Version="2.0.0" />
     <PackageReference Include="nkast.Xna.Framework.Content.Pipeline" Version="3.9.9001" />
     <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Graphics" Version="3.9.9001" />
     <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
-    <PackageReference Include="ZZZ.Framework" Version="1.0.4" />
+    <PackageReference Include="ZZZ.Framework" Version="1.0.5" />
   </ItemGroup>
 
   <ItemGroup>

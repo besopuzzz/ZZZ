@@ -9,12 +9,12 @@
 */
 
 using Microsoft.Xna.Framework;
-using tainicom.Aether.Physics2D.Common;
-using tainicom.Aether.Physics2D.Dynamics;
-using Vector2 = tainicom.Aether.Physics2D.Common.Vector2;
-using Vector3 = tainicom.Aether.Physics2D.Common.Vector3;
+using nkast.Aether.Physics2D.Common;
+using nkast.Aether.Physics2D.Dynamics;
+using Vector2 = nkast.Aether.Physics2D.Common.Vector2;
+using Vector3 = nkast.Aether.Physics2D.Common.Vector3;
 
-namespace tainicom.Aether.Physics2D.Diagnostics
+namespace nkast.Aether.Physics2D.Diagnostics
 {
     /// Implement and register this class with a World to provide debug drawing of physics
     /// entities in your game.

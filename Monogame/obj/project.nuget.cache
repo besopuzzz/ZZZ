@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "qccnJuPCS9+ZEb4ODAcutqunM95zVNijmDtIyLmR1D1jdasbi1DfyLSr0qwZB2bOPD8hCYc4Q3V9cadGBKa4Vw==",
+  "dgSpecHash": "dOxzmCc10IJg4QB3oO+/g0DXF38N4MV2MOGJZMn27Qk3gmc4Sva16aIHJ1L9NOE713vMQrg5PkZEtQktiyojyg==",
   "success": true,
   "projectFilePath": "C:\\Users\\u01\\source\\ZZZ\\Monogame\\ZZZ.Framework.Monogame.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\u01\\.nuget\\packages\\aether.physics2d\\1.7.0\\aether.physics2d.1.7.0.nupkg.sha512",
+    "C:\\Users\\u01\\.nuget\\packages\\aether.physics2d\\2.0.0\\aether.physics2d.2.0.0.nupkg.sha512",
     "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework\\3.9.9001\\nkast.xna.framework.3.9.9001.nupkg.sha512",
     "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework.content.pipeline\\3.9.9001\\nkast.xna.framework.content.pipeline.3.9.9001.nupkg.sha512",
     "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework.content.pipeline.graphics\\3.9.9001\\nkast.xna.framework.content.pipeline.graphics.3.9.9001.nupkg.sha512",
     "C:\\Users\\u01\\.nuget\\packages\\nkast.xna.framework.ref\\3.9.9001\\nkast.xna.framework.ref.3.9.9001.nupkg.sha512",
-    "C:\\Users\\u01\\.nuget\\packages\\zzz.framework\\1.0.4\\zzz.framework.1.0.4.nupkg.sha512"
+    "C:\\Users\\u01\\.nuget\\packages\\zzz.framework\\1.0.5\\zzz.framework.1.0.5.nupkg.sha512"
   ],
   "logs": []
 }

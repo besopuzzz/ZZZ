@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using tainicom.Aether.Physics2D.Dynamics;
+using nkast.Aether.Physics2D.Dynamics;
 using ZZZ.Framework.Monogame.Transforming;
 using ZZZ.Framework.Monogame.Transforming.Components;
 using ZZZ.Framework.Monogame.Updating.Components;
@@ -92,7 +92,7 @@ namespace ZZZ.Framework.Monogame.FarseerPhysics.Components
             transformer.WorldChanged += Transformer_WorldChanged;
 
             body.Tag = Owner;
-            body.LocalCenter = tainicom.Aether.Physics2D.Common.Vector2.Zero;
+            body.LocalCenter = nkast.Aether.Physics2D.Common.Vector2.Zero;
             body.Position = (transformer.World.Position / transformer.World.Scale).ToAether();
             body.Rotation = transformer.World.Rotation;
             body.Enabled = Enabled;

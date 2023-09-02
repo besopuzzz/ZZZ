@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using FVector2 = tainicom.Aether.Physics2D.Common.Vector2;
+using FVector2 = nkast.Aether.Physics2D.Common.Vector2;
 
 namespace ZZZ.Framework.Monogame.FarseerPhysics
 {

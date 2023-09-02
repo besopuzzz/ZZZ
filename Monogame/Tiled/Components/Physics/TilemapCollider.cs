@@ -1,6 +1,6 @@
-﻿using tainicom.Aether.Physics2D.Collision.Shapes;
-using tainicom.Aether.Physics2D.Dynamics;
-using tainicom.Aether.Physics2D.Dynamics.Contacts;
+﻿using nkast.Aether.Physics2D.Collision.Shapes;
+using nkast.Aether.Physics2D.Dynamics;
+using nkast.Aether.Physics2D.Dynamics.Contacts;
 using ZZZ.Framework.Monogame.FarseerPhysics;
 using ZZZ.Framework.Monogame.FarseerPhysics.Components;
 using ZZZ.Framework.Monogame.Tiled.Content;

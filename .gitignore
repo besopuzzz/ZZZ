@@ -3,12 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-/Tests/Blazor
-/Tests/Content
-/Tests/DesctopGL
-/Tests/Shared
-/Tests/WindowsDX
-
 # User-specific files
 *.rsuser
 *.suo

@@ -17,15 +17,16 @@
 		<NeutralLanguage>ru</NeutralLanguage>
 		<PackageId>ZZZ.Framework</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.0.5</Version>
+		<Version>1.0.6</Version>
 		<Description>Easy scene graph with containers and components</Description>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework</BaseOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Compile Include="Component.cs" />
 		<Compile Include="ComponentCollection.cs" />
-		<Compile Include="Controller.cs" />
+		<Compile Include="Registrar.cs" />
 		<Compile Include="RequireComponentAttribute.cs" />
 		<Compile Include="EventHandler.cs" />
 		<Compile Include="Container.cs" />

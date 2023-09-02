@@ -8,10 +8,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Vector3 = tainicom.Aether.Physics2D.Common.Vector3;
-using Vector2 = tainicom.Aether.Physics2D.Common.Vector2;
+using Vector3 = nkast.Aether.Physics2D.Common.Vector3;
+using Vector2 = nkast.Aether.Physics2D.Common.Vector2;
 
-namespace tainicom.Aether.Physics2D.Diagnostics
+namespace nkast.Aether.Physics2D.Diagnostics
 {
     public class PrimitiveBatch : IPrimitiveBatch, IDisposable
     {
@@ -119,12 +119,12 @@ namespace tainicom.Aether.Physics2D.Diagnostics
             return _hasBegun;
         }
 
-        public int AddVertex(tainicom.Aether.Physics2D.Common.Vector3 position, Color color, PrimitiveType primitiveType)
+        public int AddVertex(nkast.Aether.Physics2D.Common.Vector3 position, Color color, PrimitiveType primitiveType)
         {
             return AddVertex(ref position, color, primitiveType);
         }
 
-        public int AddVertex(ref tainicom.Aether.Physics2D.Common.Vector3 position, Color color, PrimitiveType primitiveType)
+        public int AddVertex(ref nkast.Aether.Physics2D.Common.Vector3 position, Color color, PrimitiveType primitiveType)
         {
             if (!_hasBegun)
                 throw new InvalidOperationException("Begin must be called before AddVertex can be called.");
@@ -157,12 +157,12 @@ namespace tainicom.Aether.Physics2D.Diagnostics
         }
 
 
-        public int AddVertex(tainicom.Aether.Physics2D.Common.Vector2 position, Color color, PrimitiveType primitiveType)
+        public int AddVertex(nkast.Aether.Physics2D.Common.Vector2 position, Color color, PrimitiveType primitiveType)
         {
             return AddVertex(ref position, color, primitiveType);
         }
 
-        public int AddVertex(ref tainicom.Aether.Physics2D.Common.Vector2 position, Color color, PrimitiveType primitiveType)
+        public int AddVertex(ref nkast.Aether.Physics2D.Common.Vector2 position, Color color, PrimitiveType primitiveType)
         {
             if (!_hasBegun)
                 throw new InvalidOperationException("Begin must be called before AddVertex can be called.");
