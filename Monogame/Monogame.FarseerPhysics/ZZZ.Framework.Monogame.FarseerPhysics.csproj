@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<TargetFrameworks>net4.8;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release</Configurations>
+		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame.FarseerPhysics</BaseOutputPath>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+    <PackageReference Include="Aether.Physics2D" Version="2.0.0" />
+    <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="ColliderEventArgs.cs" />
+	  <Compile Include="Components\BoxCollider.cs" />
+	  <Compile Include="Components\Collider.cs" />
+	  <Compile Include="Components\ColliderLayer.cs" />
+	  <Compile Include="Components\IBody.cs" />
+	  <Compile Include="Components\Rigidbody.cs" />
+	  <Compile Include="Components\WorldRegistrar.cs" />
+	  <Compile Include="Diagnostics\Components\WorldRenderer.cs" />
+	  <Compile Include="Diagnostics\DebugView.cs" />
+	  <Compile Include="Diagnostics\DebugViewBase.cs" />
+	  <Compile Include="Diagnostics\DebugViewFlags.cs" />
+	  <Compile Include="Diagnostics\Extensions.cs" />
+	  <Compile Include="Diagnostics\IPrimitiveBatch.cs" />
+	  <Compile Include="Diagnostics\PrimitiveBatch.cs" />
+	  <Compile Include="Extentions.cs" />
+	  <Compile Include="Extentions\SceneExtentions.cs" />
+	  <Compile Include="PhysicsMaterial.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
+	  <ProjectReference Include="..\Monogame.Rendering\ZZZ.Framework.Monogame.Rendering.csproj" />
+	  <ProjectReference Include="..\Monogame.Transforming\ZZZ.Framework.Monogame.Transforming.csproj" />
+	  <ProjectReference Include="..\Monogame.Updating\ZZZ.Framework.Monogame.Updating.csproj" />
+	  <ProjectReference Include="..\Monogame\ZZZ.Framework.Monogame.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<TargetFrameworks>net4.8;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release</Configurations>
+		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame.Updating</BaseOutputPath>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+    <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="Components\IUpdateComponent.cs" />
+	  <Compile Include="Components\UpdateComponent.cs" />
+	  <Compile Include="Extentions\SceneExtentions.cs" />
+	  <Compile Include="UpdateComponents.cs" />
+	  <Compile Include="Components\UpdateRegistrar.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
+	  <ProjectReference Include="..\Monogame\ZZZ.Framework.Monogame.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<TargetFrameworks>net4.8;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release</Configurations>
+		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame.Tiling</BaseOutputPath>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+    <PackageReference Include="Aether.Physics2D" Version="2.0.0" />
+    <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="Components\Grid.cs" />
+	  <Compile Include="Components\Physics\TilemapCollider.cs" />
+	  <Compile Include="Components\Rendering\GridRenderer.cs" />
+	  <Compile Include="Components\Rendering\TilemapRenderer.cs" />
+	  <Compile Include="Components\Tilemap.cs" />
+	  <Compile Include="Assets\AnimatedTile.cs" />
+	  <Compile Include="Assets\RuledTile.cs" />
+	  <Compile Include="Assets\Tile.cs" />
+	  <Compile Include="Assets\Tileset.cs" />
+	  <Compile Include="TileAnimationData.cs" />
+	  <Compile Include="TileAnimator.cs" />
+	  <Compile Include="TileCollection.cs" />
+	  <Compile Include="TileCollectionEvent.cs" />
+	  <Compile Include="TileData.cs" />
+	  <Compile Include="TilemapColliderEventArgs.cs" />
+	  <Compile Include="TilemapEvent.cs" />
+	  <Compile Include="TileNeighbor.cs" />
+	  <Compile Include="TileRenderData.cs" />
+	  <Compile Include="TileRule.cs" />
+	  <Compile Include="TileRulePointType.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
+	  <ProjectReference Include="..\Monogame.Asseting\ZZZ.Framework.Monogame.Asseting.csproj" />
+	  <ProjectReference Include="..\Monogame.FarseerPhysics\ZZZ.Framework.Monogame.FarseerPhysics.csproj" />
+	  <ProjectReference Include="..\Monogame.Rendering\ZZZ.Framework.Monogame.Rendering.csproj" />
+	  <ProjectReference Include="..\Monogame.Transforming\ZZZ.Framework.Monogame.Transforming.csproj" />
+	  <ProjectReference Include="..\Monogame.Updating\ZZZ.Framework.Monogame.Updating.csproj" />
+	  <ProjectReference Include="..\Monogame\ZZZ.Framework.Monogame.csproj" />
+	</ItemGroup>
+</Project>

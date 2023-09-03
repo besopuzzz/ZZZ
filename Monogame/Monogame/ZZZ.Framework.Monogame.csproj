@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	  <TargetFrameworks>net4.8;net6.0</TargetFrameworks>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <LangVersion>10</LangVersion>
+	  <Configurations>Debug;Release</Configurations>
+	  <BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Disposable.cs" />
+    <Compile Include="Extentions\Vector2Extention.cs" />    
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="MonogameRegistrar.cs" />
+    <Compile Include="Scene.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Graphics" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
+  </ItemGroup>
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
+	</ItemGroup>
+
+</Project>

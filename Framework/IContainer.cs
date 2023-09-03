@@ -48,7 +48,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип компонента, по которому выполняется поиск регистратора <see cref="IRegistrar{T}"/>.</typeparam>
         /// <param name="component">Экземпляр компонента, который необходимо зарегистрировать.</param>
-        /// <remarks>Укажите экземпляр с типом, например <see href="IOtherType"/>, для зарегистрации экземпляра в регистраторe <see cref="IRegistrar{IOtherType}"/>.</remarks>
+        /// <remarks>Укажите экземпляр с типом, например <see href="IOtherType"/>, для зарегистрации экземпляра в регистраторe <see href="IRegistrar{IOtherType}"/>.</remarks>
         internal void RegistrationComponent<T>(T component) where T : IComponent;
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ZZZ.Framework
         /// </summary>
         /// <typeparam name="T">Тип компонента, по которому выполняется поиск регистратора <see cref="IRegistrar{T}"/>.</typeparam>
         /// <param name="component">Экземпляр компонента, по которому необходимо отменить регистрацию.</param>
-        /// <remarks>Укажите экземпляр с типом, например <see href="IOtherType"/>, для отмены зарегистрации экземпляра в регистраторe <see cref="IRegistrar{IOtherType}"/>.</remarks>
+        /// <remarks>Укажите экземпляр с типом, например <see href="IOtherType"/>, для отмены зарегистрации экземпляра в регистраторe <see href="IRegistrar{IOtherType}"/>.</remarks>
         internal void UnregistrationComponent<T>(T component) where T : IComponent;
 
         /// <summary>

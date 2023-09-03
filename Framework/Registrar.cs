@@ -4,7 +4,7 @@
     /// Представляет базовый класс регистратора компонентов <see href="TComponent"/>.
     /// </summary>
     /// <typeparam name="TComponent">Тип компонента, который регистратор будет обрабатывать.</typeparam>
-    public abstract class Registrar<TComponent> : Component, IRegistrar<TComponent>
+    public abstract class Registrar<TComponent> : Registrar, IRegistrar<TComponent>
         where TComponent : IComponent
     {
         /// <inheritdoc cref="IRegistrar{TComponent}.Reception(TComponent)"/>
@@ -24,4 +24,12 @@
         }
     }
 
+    /// <summary>
+    /// Представляет базовый класс регистратора без регистрации компонентов.
+    /// </summary>
+    /// <remarks>Используйте этот класс для инициализации, например, статичных классов.</remarks>
+    public abstract partial class Registrar : Component, IRegistrar
+    {
+
+    }
 }

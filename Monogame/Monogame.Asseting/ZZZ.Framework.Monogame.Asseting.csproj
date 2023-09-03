@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	  <TargetFrameworks>net4.8;net6.0</TargetFrameworks>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <LangVersion>10</LangVersion>
+	  <Configurations>Debug;Release</Configurations>
+	  <BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame.Asseting</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Assets\Asset.cs" />
+    <Compile Include="AssetManager.cs" />
+    <Compile Include="Assets\IAsset.cs" />
+    <Compile Include="Components\AssetRegistrar.cs" />
+    <Compile Include="Components\IAssetComponent.cs" />
+    <Compile Include="Extentions\SceneExtentions.cs" />
+    <Compile Include="Pipeline\AssetContent.cs" />
+    <Compile Include="Pipeline\Importers\AssetImporter.cs" />
+    <Compile Include="Pipeline\Processors\AssetProcessor.cs" />
+    <Compile Include="Pipeline\Readers\AssetReader.cs" />
+    <Compile Include="Pipeline\Writers\AssetWriter.cs" />
+    <Compile Include="SharedDicitionary.cs" />
+    <Compile Include="SharedList.cs" />
+    <Compile Include="TypeSerializers\SharedDictionaryTypeSerializer.cs" />
+    <Compile Include="TypeSerializers\SharedListTypeSerializer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Graphics" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
+  </ItemGroup>
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
+	  <ProjectReference Include="..\Monogame\ZZZ.Framework.Monogame.csproj" />
+	</ItemGroup>
+
+</Project>

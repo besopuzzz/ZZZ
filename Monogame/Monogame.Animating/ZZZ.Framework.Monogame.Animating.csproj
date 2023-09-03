@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<TargetFrameworks>net4.8;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release</Configurations>
+		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame.Animating</BaseOutputPath>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Graphics" Version="3.9.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="AnimationPlayer.cs" />
+	  <Compile Include="Components\Animator.cs" />
+	  <Compile Include="Condition.cs" />
+	  <Compile Include="Assets\Animation.cs" />
+	  <Compile Include="Assets\AnimatorController.cs" />
+	  <Compile Include="GameTimer.cs" />
+	  <Compile Include="Parameter.cs" />
+	  <Compile Include="ParameterCondition.cs" />
+	  <Compile Include="Parameters\BooleanParameter.cs" />
+	  <Compile Include="Parameters\FloatParameter.cs" />
+	  <Compile Include="Parameters\Int32Parameter.cs" />
+	  <Compile Include="Stage.cs" />
+	  <Compile Include="Stages.cs" />
+	  <Compile Include="Transition.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
+	  <ProjectReference Include="..\Monogame.Asseting\ZZZ.Framework.Monogame.Asseting.csproj" />
+	  <ProjectReference Include="..\Monogame.Rendering\ZZZ.Framework.Monogame.Rendering.csproj" />
+	  <ProjectReference Include="..\Monogame.Transforming\ZZZ.Framework.Monogame.Transforming.csproj" />
+	  <ProjectReference Include="..\Monogame.Updating\ZZZ.Framework.Monogame.Updating.csproj" />
+	  <ProjectReference Include="..\Monogame\ZZZ.Framework.Monogame.csproj" />
+	</ItemGroup>
+</Project>
