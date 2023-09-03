@@ -6,7 +6,7 @@ namespace ZZZ.Framework.Monogame.Auding.Extentions
     {
         public static Scene UseFarseerPhysics(this Scene scene, bool debug = false)
         {
-            scene.AddComponent(new WorldRegistrar() {  Debug = debug});
+            scene.AddComponent(new WorldRegistrar() {  Debug = debug, DrawOrder = 1});
 
             return scene;
         }
