@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<XnaContent xmlns:Content="ZZZ.Framework.Animations.Content">
+  <Asset Type="Content:Animation" ContentName="">
+    <Frames>
+      <Frame>
+        <Key>0</Key>
+        <Value ContentName="Sprites/robot_56" />
+      </Frame>
+      <Frame>
+        <Key>0.05</Key>
+        <Value ContentName="Sprites/robot_57" />
+      </Frame>
+      <Frame>
+        <Key>0.1</Key>
+        <Value ContentName="Sprites/robot_58" />
+      </Frame>
+      <Frame>
+        <Key>0.15</Key>
+        <Value ContentName="Sprites/robot_59" />
+      </Frame>
+    </Frames>
+    <Duration>0.2</Duration>
+  </Asset>
+</XnaContent>

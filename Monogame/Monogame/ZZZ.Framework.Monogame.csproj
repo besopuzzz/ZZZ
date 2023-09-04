@@ -6,18 +6,123 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <LangVersion>10</LangVersion>
 	  <Configurations>Debug;Release</Configurations>
-	  <BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Animating\AnimationPlayer.cs" />
+    <Compile Include="Animating\Assets\Animation.cs" />
+    <Compile Include="Animating\Assets\AnimatorController.cs" />
+    <Compile Include="Animating\Components\Animator.cs" />
+    <Compile Include="Animating\Condition.cs" />
+    <Compile Include="Animating\GameTimer.cs" />
+    <Compile Include="Animating\Parameter.cs" />
+    <Compile Include="Animating\ParameterCondition.cs" />
+    <Compile Include="Animating\Parameters\BooleanParameter.cs" />
+    <Compile Include="Animating\Parameters\FloatParameter.cs" />
+    <Compile Include="Animating\Parameters\Int32Parameter.cs" />
+    <Compile Include="Animating\Stage.cs" />
+    <Compile Include="Animating\Stages.cs" />
+    <Compile Include="Animating\Transition.cs" />
+    <Compile Include="AssetManager.cs" />
+    <Compile Include="Assets\Asset.cs" />
+    <Compile Include="Assets\IAsset.cs" />
+    <Compile Include="Assets\Pipeline\AssetContent.cs" />
+    <Compile Include="Assets\Pipeline\Importers\AssetImporter.cs" />
+    <Compile Include="Assets\Pipeline\Processors\AssetProcessor.cs" />
+    <Compile Include="Assets\Pipeline\Readers\AssetReader.cs" />
+    <Compile Include="Assets\Pipeline\Writers\AssetWriter.cs" />
+    <Compile Include="Assets\TypeSerializers\ContainerTypeSerializer.cs" />
+    <Compile Include="Assets\TypeSerializers\SharedDictionaryTypeSerializer.cs" />
+    <Compile Include="Assets\TypeSerializers\SharedListTypeSerializer.cs" />
+    <Compile Include="Auding\Assets\Music.cs" />
+    <Compile Include="Auding\Assets\MusicPlaylist.cs" />
+    <Compile Include="Auding\Assets\Sound.cs" />
+    <Compile Include="Auding\Components\Musicbox.cs" />
+    <Compile Include="Auding\Components\SoundEmitter.cs" />
+    <Compile Include="Auding\Components\SoundListener.cs" />
+    <Compile Include="Auding\Components\SoundRegistrar.cs" />
+    <Compile Include="Auding\Extentions\SceneExtentions.cs" />
+    <Compile Include="Auding\ISoundComponent.cs" />
+    <Compile Include="Auding\MusicboxEvent.cs" />
+    <Compile Include="Auding\PlayState.cs" />
+    <Compile Include="Auding\SoundEvent.cs" />
     <Compile Include="Disposable.cs" />
-    <Compile Include="Extentions\Vector2Extention.cs" />    
+    <Compile Include="Extentions\Vector2Extention.cs" />
+    <Compile Include="FarsserPhysics\ColliderEventArgs.cs" />
+    <Compile Include="FarsserPhysics\Components\BoxCollider.cs" />
+    <Compile Include="FarsserPhysics\Components\Collider.cs" />
+    <Compile Include="FarsserPhysics\Components\ColliderLayer.cs" />
+    <Compile Include="FarsserPhysics\Components\IBody.cs" />
+    <Compile Include="FarsserPhysics\Components\Rigidbody.cs" />
+    <Compile Include="FarsserPhysics\Components\WorldRegistrar.cs" />
+    <Compile Include="FarsserPhysics\Diagnostics\Components\WorldRenderer.cs" />
+    <Compile Include="FarsserPhysics\Diagnostics\DebugView.cs" />
+    <Compile Include="FarsserPhysics\Diagnostics\DebugViewBase.cs" />
+    <Compile Include="FarsserPhysics\Diagnostics\DebugViewFlags.cs" />
+    <Compile Include="FarsserPhysics\Diagnostics\Extensions.cs" />
+    <Compile Include="FarsserPhysics\Diagnostics\IPrimitiveBatch.cs" />
+    <Compile Include="FarsserPhysics\Diagnostics\PrimitiveBatch.cs" />
+    <Compile Include="FarsserPhysics\Extentions.cs" />
+    <Compile Include="FarsserPhysics\Extentions\SceneExtentions.cs" />
+    <Compile Include="FarsserPhysics\PhysicsMaterial.cs" />    
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="MonogameRegistrar.cs" />
+    <Compile Include="Rendering\Assets\Font.cs" />
+    <Compile Include="Rendering\Assets\Pipeline\SpriteProcessor.cs" />
+    <Compile Include="Rendering\Assets\Pipeline\SpriteReader.cs" />
+    <Compile Include="Rendering\Assets\Pipeline\SpriteTypeSerializer.cs" />
+    <Compile Include="Rendering\Assets\Sprite.cs" />
+    <Compile Include="Rendering\Components\Camera.cs" />
+    <Compile Include="Rendering\Components\FPSCounter.cs" />
+    <Compile Include="Rendering\Components\ICamera.cs" />
+    <Compile Include="Rendering\Components\IRenderComponent.cs" />
+    <Compile Include="Rendering\Components\RenderComponent.cs" />
+    <Compile Include="Rendering\Components\RenderRegistrar.cs" />
+    <Compile Include="Rendering\Components\SpriteRenderer.cs" />
+    <Compile Include="Rendering\Components\TextRenderer.cs" />
+    <Compile Include="Rendering\Extentions\SceneExtentions.cs" />
+    <Compile Include="Rendering\RenderBatch.cs" />
+    <Compile Include="Rendering\RenderComponents.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\RenderLayer.cs" />
+    <Compile Include="Rendering\RenderLayerEventArgs.cs" />
+    <Compile Include="Rendering\RenderLayers.cs" />
+    <Compile Include="Rendering\RenderSheet.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="SharedDicitionary.cs" />
+    <Compile Include="SharedList.cs" />
+    <Compile Include="Tiling\Assets\AnimatedTile.cs" />
+    <Compile Include="Tiling\Assets\RuledTile.cs" />
+    <Compile Include="Tiling\Assets\Tile.cs" />
+    <Compile Include="Tiling\Assets\Tileset.cs" />
+    <Compile Include="Tiling\Components\Grid.cs" />
+    <Compile Include="Tiling\Components\Physics\TilemapCollider.cs" />
+    <Compile Include="Tiling\Components\Rendering\GridRenderer.cs" />
+    <Compile Include="Tiling\Components\Rendering\TilemapRenderer.cs" />
+    <Compile Include="Tiling\Components\Tilemap.cs" />
+    <Compile Include="Tiling\TileAnimationData.cs" />
+    <Compile Include="Tiling\TileAnimator.cs" />
+    <Compile Include="Tiling\TileCollection.cs" />
+    <Compile Include="Tiling\TileCollectionEvent.cs" />
+    <Compile Include="Tiling\TileData.cs" />
+    <Compile Include="Tiling\TilemapColliderEventArgs.cs" />
+    <Compile Include="Tiling\TilemapEvent.cs" />
+    <Compile Include="Tiling\TileNeighbor.cs" />
+    <Compile Include="Tiling\TileRenderData.cs" />
+    <Compile Include="Tiling\TileRule.cs" />
+    <Compile Include="Tiling\TileRulePointType.cs" />
+    <Compile Include="Transforming\Components\ITransformer.cs" />
+    <Compile Include="Transforming\Components\Transformer.cs" />
+    <Compile Include="Transforming\Transform2D.cs" />
+    <Compile Include="Updating\Components\IUpdateComponent.cs" />
+    <Compile Include="Updating\Components\UpdateComponent.cs" />
+    <Compile Include="Updating\Components\UpdateRegistrar.cs" />
+    <Compile Include="Updating\Extentions\SceneExtentions.cs" />
+    <Compile Include="Updating\UpdateComponents.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aether.Physics2D" Version="2.0.0" />
     <PackageReference Include="nkast.Xna.Framework.Content.Pipeline" Version="3.9.9001" />
     <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Graphics" Version="3.9.9001" />
     <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.9.9001" />
@@ -27,6 +132,14 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Content\DiagnosticsFont.xnb">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="FarsserPhysics\Content\DiagnosticsFont.xnb">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

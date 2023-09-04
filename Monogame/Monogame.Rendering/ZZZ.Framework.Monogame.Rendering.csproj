@@ -6,7 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>10</LangVersion>
 		<Configurations>Debug;Release</Configurations>
-		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame.Rendering</BaseOutputPath>
 	</PropertyGroup>
 
 
@@ -21,34 +20,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="Components\Camera.cs" />
-	  <Compile Include="Components\FPSCounter.cs" />
-	  <Compile Include="Components\ICamera.cs" />
-	  <Compile Include="Components\IRenderComponent.cs" />
-	  <Compile Include="Components\RenderComponent.cs" />
-	  <Compile Include="Components\SpriteRenderer.cs" />
-	  <Compile Include="Components\TextRenderer.cs" />
-	  <Compile Include="Assets\Font.cs" />
-	  <Compile Include="Assets\Sprite.cs" />
-	  <Compile Include="Assets\Pipeline\SpriteProcessor.cs" />
-	  <Compile Include="Assets\Pipeline\SpriteReader.cs" />
-	  <Compile Include="Assets\Pipeline\SpriteTypeSerializer.cs" />
-	  <Compile Include="Extentions\SceneExtentions.cs" />
-	  <Compile Include="RenderBatch.cs" />
-	  <Compile Include="RenderComponents.cs" />
-	  <Compile Include="Components\RenderRegistrar.cs" />
-	  <Compile Include="Renderer.cs" />
-	  <Compile Include="RenderLayer.cs" />
-	  <Compile Include="RenderLayerEventArgs.cs" />
-	  <Compile Include="RenderLayers.cs" />
-	  <Compile Include="RenderSheet.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
-	  <ProjectReference Include="..\Monogame.Asseting\ZZZ.Framework.Monogame.Asseting.csproj" />
 	  <ProjectReference Include="..\Monogame.Transforming\ZZZ.Framework.Monogame.Transforming.csproj" />
-	  <ProjectReference Include="..\Monogame.Updating\ZZZ.Framework.Monogame.Updating.csproj" />
 	  <ProjectReference Include="..\Monogame\ZZZ.Framework.Monogame.csproj" />
 	</ItemGroup>
 </Project>

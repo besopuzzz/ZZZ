@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-16"?>
+<XnaContent xmlns:Framework="ZZZ.Framework">
+  <Asset Type="Framework:GameObject">
+    <Name></Name>
+    <Enabled>true</Enabled>
+    <Components>
+      <Item Type="ZZZ.Framework.Rendering.Components.SpriteRenderer">
+        <Enabled>true</Enabled>
+        <Layer>First</Layer>
+        <Depth>0</Depth>
+        <Sprite AssetName="Sprites/robot_48" />
+        <Color>FFFFFFFF</Color>
+        <SpriteEffect>None</SpriteEffect>
+      </Item>
+      <Item Type="ZZZ.Framework.Animations.Components.Animator">
+        <Enabled>true</Enabled>
+        <UpdateOrder>0</UpdateOrder>
+        <Controller>#Resource1</Controller>
+        <Animations>
+          <Animation>
+            <Key>down</Key>
+            <Value>
+              <Name Null="true" />
+              <Frames>
+                <Frame>
+                  <Key>0</Key>
+                  <Value AssetName="Sprites/robot_48" />
+                </Frame>
+              </Frames>
+              <Duration>1</Duration>
+            </Value>
+          </Animation>
+          <Animation>
+            <Key>left</Key>
+            <Value>
+              <Name Null="true" />
+              <Frames>
+                <Frame>
+                  <Key>0</Key>
+                  <Value AssetName="Sprites/robot_18" />
+                </Frame>
+              </Frames>
+              <Duration>1</Duration>
+            </Value>
+          </Animation>
+          <Animation>
+            <Key>right</Key>
+            <Value>
+              <Name Null="true" />
+              <Frames>
+                <Frame>
+                  <Key>0</Key>
+                  <Value AssetName="Sprites/robot_34" />
+                </Frame>
+              </Frames>
+              <Duration>1</Duration>
+            </Value>
+          </Animation>
+          <Animation>
+            <Key>up</Key>
+            <Value>
+              <Name Null="true" />
+              <Frames>
+                <Frame>
+                  <Key>0</Key>
+                  <Value AssetName="Sprites/robot_4" />
+                </Frame>
+              </Frames>
+              <Duration>1</Duration>
+            </Value>
+          </Animation>
+        </Animations>
+      </Item>
+      <Item Type="ZZZ.Framework.FarseerPhysics.Components.Rigidbody">
+        <Enabled>true</Enabled>
+        <UpdateOrder>0</UpdateOrder>
+        <Velocity>0 0</Velocity>
+        <AngularVelocity>0</AngularVelocity>
+        <BodyType>Dynamic</BodyType>
+        <Mass>1</Mass>
+        <LinearDamping>3</LinearDamping>
+        <AngularDamping>3</AngularDamping>
+        <Inertia>0</Inertia>
+        <IsBullet>false</IsBullet>
+        <FixedRotation>true</FixedRotation>
+        <IgnoreGravity>true</IgnoreGravity>
+      </Item>
+      <Item Type="ZZZ.Framework.FarseerPhysics.Components.BoxCollider">
+        <Enabled>true</Enabled>
+        <Offset>0 0</Offset>
+        <Material>
+          <Friction>1</Friction>
+          <Restitution>0.7</Restitution>
+        </Material>
+        <IsTrigger>false</IsTrigger>
+        <Layer>Cat1</Layer>
+        <Size>30 30</Size>
+      </Item>
+      <Item Type="Robotizm.HeroController">
+        <Enabled>true</Enabled>
+        <UpdateOrder>0</UpdateOrder>
+        <Speed>1 1</Speed>
+      </Item>
+    </Components>
+    <Childs>
+      <Item Type="Framework:GameObject">
+        <Name></Name>
+        <Enabled>true</Enabled>
+        <Components>
+          <Item Type="ZZZ.Framework.Rendering.Components.SpriteRenderer">
+            <Enabled>true</Enabled>
+            <Layer>First</Layer>
+            <Depth>0</Depth>
+            <Sprite AssetName="Sprites/robot_56" />
+            <Color>FFFFFFFF</Color>
+            <SpriteEffect>None</SpriteEffect>
+          </Item>
+          <Item Type="ZZZ.Framework.Animations.Components.Animator">
+            <Enabled>true</Enabled>
+            <UpdateOrder>0</UpdateOrder>
+            <Controller>#Resource1</Controller>
+            <Animations>
+              <Animation>
+                <Key>down</Key>
+                <Value>
+                  <Name Null="true" />
+                  <Frames>
+                    <Frame>
+                      <Key>0</Key>
+                      <Value AssetName="Sprites/robot_56" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.05</Key>
+                      <Value AssetName="Sprites/robot_57" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.1</Key>
+                      <Value AssetName="Sprites/robot_58" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.15</Key>
+                      <Value AssetName="Sprites/robot_59" />
+                    </Frame>
+                  </Frames>
+                  <Duration>0.2</Duration>
+                </Value>
+              </Animation>
+              <Animation>
+                <Key>up</Key>
+                <Value>
+                  <Name Null="true" />
+                  <Frames>
+                    <Frame>
+                      <Key>0</Key>
+                      <Value AssetName="Sprites/robot_56" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.05</Key>
+                      <Value AssetName="Sprites/robot_57" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.1</Key>
+                      <Value AssetName="Sprites/robot_58" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.15</Key>
+                      <Value AssetName="Sprites/robot_59" />
+                    </Frame>
+                  </Frames>
+                  <Duration>0.2</Duration>
+                </Value>
+              </Animation>
+              <Animation>
+                <Key>right</Key>
+                <Value>
+                  <Name Null="true" />
+                  <Frames>
+                    <Frame>
+                      <Key>0</Key>
+                      <Value AssetName="Sprites/robot_41" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.05</Key>
+                      <Value AssetName="Sprites/robot_42" />
+                    </Frame>
+                  </Frames>
+                  <Duration>0.1</Duration>
+                </Value>
+              </Animation>
+              <Animation>
+                <Key>left</Key>
+                <Value>
+                  <Name Null="true" />
+                  <Frames>
+                    <Frame>
+                      <Key>0</Key>
+                      <Value AssetName="Sprites/robot_26" />
+                    </Frame>
+                    <Frame>
+                      <Key>0.05</Key>
+                      <Value AssetName="Sprites/robot_27" />
+                    </Frame>
+                  </Frames>
+                  <Duration>0.1</Duration>
+                </Value>
+              </Animation>
+            </Animations>
+          </Item>
+        </Components>
+        <Childs />
+      </Item>
+    </Childs>
+  </Asset>
+  <Resources>
+    <Resource ID="#Resource1" Type="ZZZ.Framework.Animations.Content.AnimatorController">
+      <Name Null="true" />
+      <Parameters Type="ZZZ.Framework.Content.SharedDicitionary[string,ZZZ.Framework.Animations.Parameter]">
+        <Item>
+          <Key>velocityX</Key>
+          <Value>#Resource2</Value>
+        </Item>
+        <Item>
+          <Key>velocityY</Key>
+          <Value>#Resource3</Value>
+        </Item>
+      </Parameters>
+      <Stages>
+        <Item>#Resource4</Item>
+        <Item>#Resource5</Item>
+        <Item>#Resource6</Item>
+        <Item>#Resource7</Item>
+      </Stages>
+      <StartStage>
+        <Name Null="true" />
+        <Transitions>
+          <Transition>
+            <Next>#Resource4</Next>
+            <Conditions />
+          </Transition>
+        </Transitions>
+        <IsLoop>true</IsLoop>
+      </StartStage>
+    </Resource>
+    <Resource ID="#Resource2" Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+      <Value>0</Value>
+    </Resource>
+    <Resource ID="#Resource3" Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+      <Value>0</Value>
+    </Resource>
+    <Resource ID="#Resource4" Type="ZZZ.Framework.Animations.Stage">
+      <Name>down</Name>
+      <Transitions>
+        <Transition>
+          <Next>#Resource7</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>-1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource5</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>-1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource6</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+      </Transitions>
+      <IsLoop>true</IsLoop>
+    </Resource>
+    <Resource ID="#Resource5" Type="ZZZ.Framework.Animations.Stage">
+      <Name>left</Name>
+      <Transitions>
+        <Transition>
+          <Next>#Resource4</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource6</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource7</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>-1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+      </Transitions>
+      <IsLoop>true</IsLoop>
+    </Resource>
+    <Resource ID="#Resource6" Type="ZZZ.Framework.Animations.Stage">
+      <Name>right</Name>
+      <Transitions>
+        <Transition>
+          <Next>#Resource4</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource5</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>-1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource7</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>-1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+      </Transitions>
+      <IsLoop>true</IsLoop>
+    </Resource>
+    <Resource ID="#Resource7" Type="ZZZ.Framework.Animations.Stage">
+      <Name>up</Name>
+      <Transitions>
+        <Transition>
+          <Next>#Resource6</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource5</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource2</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>-1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>0</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+        <Transition>
+          <Next>#Resource4</Next>
+          <Conditions>
+            <Condition>
+              <AnimatorParameter>#Resource3</AnimatorParameter>
+              <Parameter Type="ZZZ.Framework.Animations.Parameters.Int32Parameter">
+                <Value>1</Value>
+              </Parameter>
+              <ParameterCondition>Equals</ParameterCondition>
+            </Condition>
+          </Conditions>
+        </Transition>
+      </Transitions>
+      <IsLoop>true</IsLoop>
+    </Resource>
+  </Resources>
+</XnaContent>

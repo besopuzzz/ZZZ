@@ -20,7 +20,6 @@
 		<Version>1.0.6</Version>
 		<Description>Easy scene graph with containers and components</Description>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework</BaseOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>

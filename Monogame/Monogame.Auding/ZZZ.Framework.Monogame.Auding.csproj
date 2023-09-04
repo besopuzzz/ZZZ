@@ -6,7 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>10</LangVersion>
 		<Configurations>Debug;Release</Configurations>
-		<BaseOutputPath>C:\Users\u01\source\ZZZ.Libraries\Framework.Monogame.Auding</BaseOutputPath>
 	</PropertyGroup>
 
 
@@ -19,24 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="Components\Musicbox.cs" />
-	  <Compile Include="Components\SoundEmitter.cs" />
-	  <Compile Include="Components\SoundListener.cs" />
-	  <Compile Include="Assets\Music.cs" />
-	  <Compile Include="Assets\MusicPlaylist.cs" />
-	  <Compile Include="Assets\Sound.cs" />
-	  <Compile Include="Extentions\SceneExtentions.cs" />
-	  <Compile Include="ISoundComponent.cs" />
-	  <Compile Include="MusicboxEvent.cs" />
-	  <Compile Include="PlayState.cs" />
-	  <Compile Include="Components\SoundRegistrar.cs" />
-	  <Compile Include="SoundEvent.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\..\Framework\ZZZ.Framework.csproj" />
-	  <ProjectReference Include="..\Monogame.Asseting\ZZZ.Framework.Monogame.Asseting.csproj" />
 	  <ProjectReference Include="..\Monogame.Transforming\ZZZ.Framework.Monogame.Transforming.csproj" />
-	  <ProjectReference Include="..\Monogame.Updating\ZZZ.Framework.Monogame.Updating.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
-﻿ 
-
+﻿
 namespace ZZZ.Framework.Monogame
 {
     public class Scene : Root<IMonogameRegistrar>, IGameComponent
@@ -10,8 +9,9 @@ namespace ZZZ.Framework.Monogame
         {
         }
 
-        public Scene(Game game) : this()
+        public void Initialize(Game game)
         {
+            AssetManager.Initialize(game.Services);
             this.game = game;
         }
 

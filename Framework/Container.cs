@@ -75,6 +75,7 @@ namespace ZZZ.Framework
         private bool enabled = true;
         private bool disposed = false;
         private string name = "";
+        private bool started = false;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Container"/> без владеемых компонентов и контейнеров.
@@ -87,33 +88,39 @@ namespace ZZZ.Framework
         ///<inheritdoc cref="IContainer.Startup"/>
         protected virtual void Startup()
         {
-            foreach (var item in components.ToList())
-                StartupComponent(components, item);
-
-            foreach (var item in containers.ToList())
-                StartupContainer(containers, item);
+            var comps = components.ToList();
+            var conts = containers.ToList();
 
             containers.ItemAdded += StartupContainer;
             containers.ItemRemoved += ShoutdownContainer;
 
             components.ItemAdded += StartupComponent;
             components.ItemRemoved += ShoutdownComponent;
+
+            foreach (var item in comps)
+                StartupComponent(components, item);
+
+            foreach (var item in conts.ToList())
+                StartupContainer(containers, item);
         }
 
         ///<inheritdoc cref="IContainer.Shutdown"/>
         protected virtual void Shoutdown()
         {
+            var comps = components.ToList();
+            var conts = containers.ToList();
+
+            foreach (var item in conts)
+                ShoutdownContainer(containers, item);
+
+            foreach (var item in comps)
+                ShoutdownComponent(components, item);
+
             containers.ItemAdded -= StartupContainer;
             containers.ItemRemoved -= ShoutdownContainer;
 
             components.ItemAdded -= StartupComponent;
             components.ItemRemoved -= ShoutdownComponent;
-
-            foreach (var item in containers.ToList())
-                ShoutdownContainer(containers, item);
-
-            foreach (var item in components.ToList())
-                ShoutdownComponent(components, item);
         }
 
         /// <summary>
@@ -190,7 +197,7 @@ namespace ZZZ.Framework
 
             OnComponentRemoved(component);
             ComponentRemoved?.Invoke(this, component);
-            
+
             component.Owner = null;
         }
 
