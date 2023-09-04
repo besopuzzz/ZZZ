@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using ZZZ.Framework;
 using ZZZ.Framework.Monogame;
 using ZZZ.Framework.Monogame.Transforming;
 using ZZZ.Framework.Monogame.Transforming.Components;
@@ -7,6 +8,7 @@ using ZZZ.Framework.Monogame.Updating.Components;
 
 namespace WinDX
 {
+    [RequireComponent(Type = typeof(Transformer))]
     public class SceneTransformerController : UpdateComponent
     {
         private KeyboardState keyboardState;

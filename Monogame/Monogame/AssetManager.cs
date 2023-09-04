@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+using System;
+using System.Reflection;
 using System.Xml;
 
 namespace ZZZ.Framework.Monogame
@@ -66,6 +68,18 @@ namespace ZZZ.Framework.Monogame
             
             return result;
         }
+
+        public static async Task<T> CreateCopyAsync<T>(T obj)
+        {
+            T value = default(T);
+
+            value = await Task.Run(() => {
+                return CreateCopy<T>(obj);
+            });
+
+            return value;
+        }
+
         public static T CreateCopy<T>(T obj)
         {
             T copy = default(T)!;

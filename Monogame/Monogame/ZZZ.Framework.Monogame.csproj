@@ -137,9 +137,6 @@
 	  <None Update="Content\DiagnosticsFont.xnb">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="FarsserPhysics\Content\DiagnosticsFont.xnb">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>

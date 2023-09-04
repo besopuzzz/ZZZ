@@ -44,6 +44,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AudingComponent.cs" />
     <Compile Include="DemoPanelView.cs" />
     <Compile Include="HeroController.cs" />
     <Compile Include="PrefabCreaterComponent.cs" />

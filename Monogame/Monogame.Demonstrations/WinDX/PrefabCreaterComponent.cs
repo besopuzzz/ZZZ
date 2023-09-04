@@ -13,6 +13,7 @@ using ZZZ.Framework.Monogame.Updating.Components;
 
 namespace WinDX
 {
+    [RequireComponent(Type = typeof(Transformer))]
     public class PrefabCreaterComponent : UpdateComponent
     {
         public IContainer Prefab { get; set; }
@@ -20,21 +21,44 @@ namespace WinDX
 
         private MouseState mouseState;
         private MouseState oldMouseState;
+        private Task<IContainer> prefab;
+        
+        private Transformer parentTranaform;
+
+        protected override void Startup()
+        {
+            parentTranaform = GetComponent<Transformer>();
+
+            base.Startup();
+        }
 
         protected override void Update(GameTime gameTime)
         {
             mouseState = Mouse.GetState();
 
-            if(mouseState.LeftButton == ButtonState.Pressed & oldMouseState.LeftButton == ButtonState.Released) 
+            if (prefab != null)
             {
-                var copy = AssetManager.CreateCopy2<IContainer>(Prefab);
-                Transformer transformer = copy.GetComponent<Transformer>();
+                if (prefab.IsCompleted)
+                {
+                    var component = prefab.Result as IContainer;
 
-                Transform2D mouseTransform = new Transform2D(mouseState.Position.ToVector2());
+                    Transformer transformer = component.GetComponent<Transformer>();
+                    Transform2D mouseTransform = Transform2D.CreateTranslation(mouseState.Position.ToVector2()) / parentTranaform.World;
 
-                transformer.Local = mouseTransform;
+                    transformer.Local = transformer.Local * Transform2D.CreateTranslation(mouseTransform.Position - transformer.Local.Position);
 
-                DropContainer.AddContainer(copy);
+                    DropContainer.AddContainer(component);
+
+                    prefab = null;
+                }
+            }
+            else
+            {
+
+                if (mouseState.LeftButton == ButtonState.Pressed & oldMouseState.LeftButton == ButtonState.Released)
+                {
+                    prefab = AssetManager.CreateCopyAsync<IContainer>(Prefab);
+                }
             }
 
             oldMouseState = mouseState;

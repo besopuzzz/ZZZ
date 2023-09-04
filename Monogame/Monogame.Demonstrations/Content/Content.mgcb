@@ -62,78 +62,9 @@
 /processorParam:OriginY=16
 /build:Sprites/robot.png
 
-#begin Musics/a194940a5c292b1.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/a194940a5c292b1.mp3
-
 #begin Musics/kalambur.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Musics/kalambur.mp3
-
-#begin Musics/Kalambur_-_Derevnya_durakov_14186.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/Kalambur_-_Derevnya_durakov_14186.mp3
-
-#begin Fonts/CenturyGothic.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/processorParam:Smoothing=Normal
-/build:Fonts/CenturyGothic.spritefont
-
-#begin Animation.xml
-/importer:AssetImporter
-/processor:AssetProcessor
-/build:Animation.xml
-
-#begin hero.xml
-/importer:AssetImporter
-/processor:AssetProcessor
-/build:hero.xml
-
-#begin Scene1.xml
-/importer:AssetImporter
-/processor:AssetProcessor
-/build:Scene1.xml
-
-#begin UI/menu_nastr_2.png
-/importer:TextureImporter
-/processor:SpriteProcessor
-/processorParam:FrameWidth=32
-/processorParam:FrameHeight=32
-/processorParam:OffsetStartX=0
-/processorParam:OffsetStartY=0
-/processorParam:OffsetEndX=0
-/processorParam:OffsetEndY=0
-/processorParam:OriginX=16
-/processorParam:OriginY=16
-/build:UI/menu_nastr_2.png
-
-#begin UI/menu.png
-/importer:TextureImporter
-/processor:SpriteProcessor
-/processorParam:FrameWidth=32
-/processorParam:FrameHeight=32
-/processorParam:OffsetStartX=0
-/processorParam:OffsetStartY=0
-/processorParam:OffsetEndX=0
-/processorParam:OffsetEndY=0
-/processorParam:OriginX=16
-/processorParam:OriginY=16
-/build:UI/menu.png
-
-#begin Fonts/CenturyGothic8.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/processorParam:Smoothing=Normal
-/build:Fonts/CenturyGothic8.spritefont
 

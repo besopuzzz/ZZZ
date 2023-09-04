@@ -27,6 +27,7 @@ using ZZZ.Framework.Monogame.Updating.Components;
 
 namespace WinDX
 {
+    [RequireComponent(Type = typeof(Transformer))]
     public class DemoPanelView : UpdateComponent
     {
         public DemoMode Mode
@@ -51,13 +52,11 @@ namespace WinDX
         private TilemapCollider tilemapCollider;
         private SceneTransformerController sceneTransformerController;
 
-        public DemoPanelView()
-        {
-
-        }
-
         protected override void Startup()
         {
+            var transformer = GetComponent<Transformer>();
+            transformer.Local = Transform2D.CreateTranslation(100, 100);
+
             var font = new Font(AssetManager.Load<SpriteFont>("DiagnosticsFont"));
             currentMode = new TextRenderer(font);
             currentControlText = new TextRenderer(font) { Offset = new Vector2(0, 15) };
@@ -225,15 +224,11 @@ namespace WinDX
 
             #endregion
 
-            auding.AddComponent(new TextRenderer(font)).Text.Append("Sound emmiter here!");
-            auding.AddComponent(new SoundEmitter() { Sound = new Sound(AssetManager.Load<SoundEffect>("Musics/kalambur")), IsLooped = true});
-
-            AddContainer(auding);
-
+            auding.AddComponent(new AudingComponent());
             sceneTransformerController = AddComponent(new SceneTransformerController());
-
             asseting.AddComponent(new PrefabCreaterComponent() { Prefab = hero, DropContainer = Owner });
 
+            AddContainer(auding);
             AddContainer(asseting);
 
             ChangeMode(demoMode);
@@ -246,11 +241,11 @@ namespace WinDX
         private void ChangeMode(DemoMode mode)
         {
             DisableAll();
-            hero.GetComponent<Transformer>().Local = new Transform2D(10, 10);
+
             StringBuilder text = currentControlText.Text;
             text.Clear();
-
             text.AppendLine("Use keys WASD to control character.");
+            text.AppendLine("Use key Tabs to switch current mode.");
 
             switch (mode)
             {
@@ -271,12 +266,13 @@ namespace WinDX
                     auding.Enabled = true;
                     break;
                 case DemoMode.Transforming:
-                    text.AppendLine("Use arrows to move scene.");
-                    text.AppendLine("Use X and Z to rotate scene.");
-                    text.AppendLine("Use Plus and Minus to scale scene.");
+                    text.AppendLine("Use arrows keys to move DemoPanel.");
+                    text.AppendLine("Use X and Z keys to rotate DemoPanel.");
+                    text.AppendLine("Use Plus and Minus keys to scale DemoPanel.");
                     sceneTransformerController.Enabled = true;
                     break;
                 case DemoMode.Asseting:
+                    text.AppendLine("Click left button mouse to async drop copy character. It's very slow method...");
                     asseting.Enabled = true;
                     break;
                 default:

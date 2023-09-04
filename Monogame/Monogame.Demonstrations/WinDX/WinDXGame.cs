@@ -37,7 +37,6 @@ namespace WinDX
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
-        private Camera camera;
         private Scene scene;
 
         protected override void Initialize()
@@ -52,16 +51,6 @@ namespace WinDX
             scene.AddComponent(new Transformer());
 
             scene.AddContainer(new Container() { Name = "Demo panel" }).AddComponent(new DemoPanelView());
-
-
-
-            //scene.AddContainer(CreateLevel());
-
-
-
-            //var xml = AssetManager.Serialize(CreateHero());
-
-            //scene.AddContainer(AssetManager.Deserialize<Container>(xml));
 
             Components.Add(scene);
 

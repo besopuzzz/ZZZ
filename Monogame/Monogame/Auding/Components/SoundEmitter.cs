@@ -184,7 +184,7 @@ namespace ZZZ.Framework.Monogame.Auding.Components
 
             base.Startup();
 
-            started = false;
+            started = true;
         }
 
         private void Transformer_WorldChanged(ITransformer sender, Transform2D args)
@@ -290,6 +290,8 @@ namespace ZZZ.Framework.Monogame.Auding.Components
 
             base.Update(gameTime);
         }
+
+        
 
         void ISoundEmitter.ApplyDistancing()
         {
