@@ -1,0 +1,569 @@
+<XnaContent xmlns:Framework="Microsoft.Xna.Framework">
+  <Asset Type="ZZZ.KNI.Framework.Scene">
+    <Name>Сцена</Name>
+    <Enabled>true</Enabled>
+    <Components Type="ZZZ.KNI.Framework.IComponent[]">
+      <Item Type="ZZZ.KNI.Framework.Physics.Components.WorldRegistrar">
+        <Enabled>true</Enabled>
+        <UpdateOrder>0</UpdateOrder>
+        <DrawOrder>1</DrawOrder>
+        <Debug>true</Debug>
+      </Item>
+      <Item Type="ZZZ.KNI.Framework.Updating.Components.UpdateRegistrar">
+        <Enabled>true</Enabled>
+        <UpdateOrder>0</UpdateOrder>
+        <DrawOrder>0</DrawOrder>
+      </Item>
+      <Item Type="ZZZ.KNI.Framework.Rendering.Components.RenderRegistrar">
+        <Enabled>true</Enabled>
+        <UpdateOrder>0</UpdateOrder>
+        <DrawOrder>0</DrawOrder>
+      </Item>
+      <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+        <Enabled>true</Enabled>
+        <Local>
+          <Position>0 0</Position>
+          <Scale>1 1</Scale>
+          <Rotation>0</Rotation>
+        </Local>
+      </Item>
+    </Components>
+    <Containers Type="ZZZ.KNI.Framework.IContainer[]">
+      <Item Type="ZZZ.KNI.Framework.Container">
+        <Name>MainCamera</Name>
+        <Enabled>true</Enabled>
+        <Components Type="ZZZ.KNI.Framework.IComponent[]">
+          <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+            <Enabled>true</Enabled>
+            <Local>
+              <Position>0 0</Position>
+              <Scale>1 1</Scale>
+              <Rotation>0</Rotation>
+            </Local>
+          </Item>
+          <Item Type="ZZZ.KNI.Framework.Rendering.Components.Camera">
+            <Enabled>true</Enabled>
+            <Layer>0</Layer>
+            <Order>0</Order>
+            <FixedRotation>true</FixedRotation>
+            <StartToCenter>true</StartToCenter>
+          </Item>
+        </Components>
+        <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+      </Item>
+      <Item Type="ZZZ.KNI.Framework.Container">
+        <Name></Name>
+        <Enabled>true</Enabled>
+        <Components Type="ZZZ.KNI.Framework.IComponent[]">
+          <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+            <Enabled>true</Enabled>
+            <Local>
+              <Position>0 0</Position>
+              <Scale>1 1</Scale>
+              <Rotation>0</Rotation>
+            </Local>
+          </Item>
+          <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.FarsserPhysics.TilemapCollider">
+            <Enabled>true</Enabled>
+            <IsTrigger>false</IsTrigger>
+            <Layer>Cat1</Layer>
+          </Item>
+          <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TilemapRenderer">
+            <Enabled>true</Enabled>
+            <Layer>1</Layer>
+            <Order>0</Order>
+          </Item>
+          <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.Animating.TilemapAnimator">
+            <Enabled>true</Enabled>
+            <UpdateOrder>0</UpdateOrder>
+            <Speed>1</Speed>
+          </Item>
+          <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.Tilemap">
+            <Enabled>true</Enabled>
+            <UpdateOrder>0</UpdateOrder>
+            <TileSize>32 32</TileSize>
+            <NotAdded>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>0 0</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>1 1</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>2 2</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>3 3</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>4 4</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>5 5</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>6 6</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>7 7</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>8 8</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>9 9</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>10 10</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>11 11</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>12 12</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>13 13</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>14 14</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>15 15</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>16 16</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>17 17</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>18 18</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>19 19</Position>
+                    <BaseTile>#Resource1</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+              <Item Type="ZZZ.KNI.Framework.Container">
+                <Name></Name>
+                <Enabled>true</Enabled>
+                <Components Type="ZZZ.KNI.Framework.IComponent[]">
+                  <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+                    <Enabled>true</Enabled>
+                    <Local>
+                      <Position>0 0</Position>
+                      <Scale>1 1</Scale>
+                      <Rotation>0</Rotation>
+                    </Local>
+                  </Item>
+                  <Item Type="ZZZ.KNI.Framework.Tiling2._0.Components.TileBaseComponent">
+                    <Enabled>true</Enabled>
+                    <Position>5 2</Position>
+                    <BaseTile>#Resource2</BaseTile>
+                  </Item>
+                </Components>
+                <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+              </Item>
+            </NotAdded>
+          </Item>
+        </Components>
+        <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+      </Item>
+      <Item Type="ZZZ.KNI.Framework.Container">
+        <Name></Name>
+        <Enabled>true</Enabled>
+        <Components Type="ZZZ.KNI.Framework.IComponent[]">
+          <Item Type="ZZZ.KNI.Framework.Transforming.Components.Transformer">
+            <Enabled>true</Enabled>
+            <Local>
+              <Position>200 0</Position>
+              <Scale>1 1</Scale>
+              <Rotation>0</Rotation>
+            </Local>
+          </Item>
+          <Item Type="ZZZ.KNI.Framework.Auding.Components.SoundEmitter">
+            <Enabled>true</Enabled>
+            <UpdateOrder>0</UpdateOrder>
+            <Sound Asset="Musics/kalambur" />
+            <IsLooped>true</IsLooped>
+            <Mute>false</Mute>
+            <Volume>0.3</Volume>
+            <Pan>0</Pan>
+            <Pitch>-0.5</Pitch>
+            <PlayImmediately>true</PlayImmediately>
+            <MaxRadius>600</MaxRadius>
+            <MinRadius>10</MinRadius>
+            <UseDistanceScaling>true</UseDistanceScaling>
+          </Item>
+        </Components>
+        <Containers Type="ZZZ.KNI.Framework.IContainer[]" />
+      </Item>
+    </Containers>
+    <Services Type="Framework:GameServiceContainer" />
+  </Asset>
+  <Resources>
+    <Resource ID="#Resource1" Type="ZZZ.KNI.GameProject.MainGame+Tile">
+      <Sprites>
+        <Item Asset="Sprites/main_0" />
+        <Item Asset="Sprites/main_1" />
+        <Item Asset="Sprites/main_2" />
+      </Sprites>
+      <Duration>1</Duration>
+      <Sprite Asset="Sprites/main_0" />
+      <SpriteEffect>None</SpriteEffect>
+      <Color>FFFFFFFF</Color>
+      <Vertices />
+    </Resource>
+    <Resource ID="#Resource2" Type="ZZZ.KNI.GameProject.MainGame+HeroTile">
+      <Sprites>
+        <Item Asset="Sprites/main_0" />
+        <Item Asset="Sprites/main_1" />
+        <Item Asset="Sprites/main_2" />
+      </Sprites>
+      <Duration>1</Duration>
+      <Sprite Asset="Sprites/main_0" />
+      <SpriteEffect>None</SpriteEffect>
+      <Color>FFFFFFFF</Color>
+      <Vertices />
+    </Resource>
+  </Resources>
+</XnaContent>

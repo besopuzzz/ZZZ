@@ -1,0 +1,84 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:..\bin\AnyCPU\Debug\net8.0-windows\Content\
+/intermediateDir:obj/$(Platform)
+/platform:Windows
+/config:
+/profile:HiDef
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+/reference:..\..\ZZZ.Framework.ContentPipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.ContentPipeline.dll
+/reference:..\..\ZZZ.Framework.ContentPipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.dll
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Sprites/main.png
+/importer:TextureImporter
+/processor:SpriteProcessor
+/processorParam:FrameWidth=32
+/processorParam:FrameHeight=32
+/processorParam:OffsetStartX=0
+/processorParam:OffsetStartY=0
+/processorParam:OffsetEndX=0
+/processorParam:OffsetEndY=0
+/processorParam:OriginX=16
+/processorParam:OriginY=16
+/build:Sprites/main.png
+
+#begin Sprites/pall.png
+/importer:TextureImporter
+/processor:SpriteProcessor
+/processorParam:FrameWidth=32
+/processorParam:FrameHeight=32
+/processorParam:OffsetStartX=0
+/processorParam:OffsetStartY=0
+/processorParam:OffsetEndX=0
+/processorParam:OffsetEndY=0
+/processorParam:OriginX=16
+/processorParam:OriginY=16
+/build:Sprites/pall.png
+
+#begin Sprites/robot.png
+/importer:TextureImporter
+/processor:SpriteProcessor
+/processorParam:FrameWidth=32
+/processorParam:FrameHeight=32
+/processorParam:OffsetStartX=0
+/processorParam:OffsetStartY=0
+/processorParam:OffsetEndX=0
+/processorParam:OffsetEndY=0
+/processorParam:OriginX=16
+/processorParam:OriginY=16
+/build:Sprites/robot.png
+
+#begin Musics/kalambur.mp3
+/importer:Mp3Importer
+/processor:SoundProcessor
+/processorParam:Quality=Best
+/build:Musics/kalambur.mp3
+
+#begin Scenes/scene.xml
+/copy:Scenes/scene.xml
+
+#begin effect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:effect.fx
+
+#begin Sprites/duck.png
+/importer:TextureImporter
+/processor:SpriteProcessor
+/processorParam:FrameWidth=32
+/processorParam:FrameHeight=32
+/processorParam:OffsetStartX=0
+/processorParam:OffsetStartY=0
+/processorParam:OffsetEndX=0
+/processorParam:OffsetEndY=0
+/processorParam:OriginX=0
+/processorParam:OriginY=0
+/build:Sprites/duck.png
+

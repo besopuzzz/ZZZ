@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RollForward>Major</RollForward>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ProjectGuid>e4b1a4f7-d852-4e23-a23f-81fdcbf45e65</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZZZ.GameProject</RootNamespace>
+    <AssemblyName>ZZZ.GameProject</AssemblyName>
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <DefineConstants>$(DefineConstants);WINDOWSDX</DefineConstants>
+    <KniPlatform>Windows</KniPlatform>
+	  <LangVersion>12</LangVersion>
+  </PropertyGroup>
+	
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+	
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+	
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="HeroController.cs" />
+    <Compile Include="MainGame.cs" />
+    <Compile Include="Services\AssetProvider.cs" />
+    <Compile Include="Services\MonogameExtentions.cs" />
+    <Compile Include="Services\RenderManager.cs" />
+    <Compile Include="TestComponent.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Tiles\Tile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="nkast.Xna.Framework" Version="3.12.9001" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL.9000" Version="3.12.9001" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <KniContentReference Include="Content\Content.mgcb" />
+    <None Include="app.manifest" />
+    <None Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Framework.Pipeline\ZZZ.Framework.Pipeline.csproj" />
+    <ProjectReference Include="..\..\src\Framework\ZZZ.Framework.csproj" />
+  </ItemGroup>
+</Project>
