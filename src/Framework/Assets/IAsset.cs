@@ -1,7 +1,7 @@
 ﻿namespace ZZZ.Framework.Assets
 {
-    public interface IAsset : IDisposable
+    public interface IAsset
     {
-        string Name { get; }
+        string Name { get; set; }
     }
 }

@@ -80,11 +80,7 @@ namespace ZZZ.Framework.Physics.Components
             get => body.FixedRotation;
             set => body.FixedRotation = value;
         }
-        public bool IgnoreGravity
-        {
-            get => body.IgnoreGravity;
-            set => body.IgnoreGravity = value;
-        }
+        public Vector2 Gravity { get; set; }
 
 
         private Body body;
@@ -104,12 +100,29 @@ namespace ZZZ.Framework.Physics.Components
 
         protected override void OnEnabledChanged()
         {
-            body.Enabled = body.Enabled;
+            body.Enabled = Enabled;
 
             base.OnEnabledChanged();
         }
 
-        void IRigidbody.Attach(Body spoof)
+        public void ApplyForce(Vector2 vector)
+        {
+            body.ApplyForce(vector / IRigidbody.PixelsPerMeter);
+        }
+        public void ApplyAngularImpulse(float impulse)
+        {
+            body.ApplyAngularImpulse(impulse);
+        }
+        public void ApplyLinearImpulse(Vector2 vector)
+        {
+            body.ApplyLinearImpulse(vector / IRigidbody.PixelsPerMeter);
+        }
+        public void ApplyTorque(float torque)
+        {
+            body.ApplyTorque(torque);
+        }
+
+        void IPhysicBody.Attach(Body spoof)
         {
             spoof.BodyType = body.BodyType;
             spoof.Mass = body.Mass;
@@ -123,7 +136,7 @@ namespace ZZZ.Framework.Physics.Components
             body = spoof;
         }
 
-        void IRigidbody.Detach()
+        void IPhysicBody.Detach()
         {
             spoof.BodyType = body.BodyType;
             spoof.Mass = body.Mass;

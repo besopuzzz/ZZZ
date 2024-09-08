@@ -1,15 +1,17 @@
-﻿using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+﻿using Microsoft.Xna.Framework.Content.Pipeline;
+using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 
 namespace ZZZ.KNI.Content.Pipeline.Serializers
 {
     public class AssetTypeSerializer<T> : ContentTypeSerializer<T>
-        where T : Asset
+        where T : IAsset
     {
-        private AssetIntermediateSerializer anyTypeSerializer;
+        private ReflectiveTypeSerializer anyTypeSerializer;
 
         protected override void Initialize(IntermediateSerializer serializer)
         {
-            anyTypeSerializer = new AssetIntermediateSerializer();
+            anyTypeSerializer = new ReflectiveTypeSerializer();
+            anyTypeSerializer.Initialize(serializer, TargetType);
 
             base.Initialize(serializer);
         }
@@ -19,25 +21,42 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
             var name = input.Xml.GetAttribute("Asset");
 
             if (existingInstance == null)
-                existingInstance = (T)Activator.CreateInstance(typeof(T), true);
+                existingInstance = (T)Activator.CreateInstance(typeof(T), true)!;
+
+            existingInstance.Name = name;
 
             if (string.IsNullOrEmpty(name))
             {
-                return (T)anyTypeSerializer.Deserialize(input, format, existingInstance, TargetType);
+                anyTypeSerializer.Deserialize(input, format, existingInstance, TargetType);
+
+                return existingInstance;
             }
 
-            existingInstance.Name = name;
+            var loaded = AssetManager.Load<T>(name);
+
+            if (loaded != null)
+                return loaded;
+
 
             return existingInstance;
         }
 
         protected override void Serialize(IntermediateWriter output, T value, ContentSerializerAttribute format)
         {
-            if(string.IsNullOrWhiteSpace(value.Name))
+            if (string.IsNullOrWhiteSpace(value.Name))
             {
                 anyTypeSerializer.Serialize(output, value, format, TargetType);
             }
-            else output.Xml.WriteAttributeString("Asset", value.Name);
+            else
+            {
+                ExternalReference<T> externalReference = new ExternalReference<T>(value.Name);
+
+                var method = output.GetType().GetField("_filePath",  System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                method.SetValue(output, "Content/");
+
+                output.WriteExternalReference(externalReference);
+                //output.Xml.WriteAttributeString("Asset", value.Name);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ZZZ.Framework.Components.Tiling
         public float Duration { get; set; }
         public float StartOffset { get; set; }
         public Sprite[] Sprites { get; set; }
-        public List<SpriteRenderer> Renderers { get; } = new List<SpriteRenderer>();
+        public List<TileRenderer> Renderers { get; } = new List<TileRenderer>();
         public IAnimatedTile Tile { get; set; }
 
         private float currentTime = 0f;
@@ -35,6 +35,8 @@ namespace ZZZ.Framework.Components.Tiling
 
         public void Update(float dt)
         {
+            if(Renderers.Count == 0) return;
+
             currentTime += dt;
 
             if (currentTime >= Duration)

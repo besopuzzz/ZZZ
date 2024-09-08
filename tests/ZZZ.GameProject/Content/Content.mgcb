@@ -5,27 +5,46 @@
 /intermediateDir:obj/$(Platform)
 /platform:Windows
 /config:
-/profile:HiDef
+/profile:Reach
 /compress:False
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\ZZZ.Framework.ContentPipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.ContentPipeline.dll
-/reference:..\..\ZZZ.Framework.ContentPipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.dll
+/reference:..\..\..\src\Framework.Pipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.dll
+/reference:..\..\..\src\Framework.Pipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.Pipeline.dll
+/reference:..\bin\AnyCPU\Debug\net8.0-windows\Aether.Physics2D.Diagnostics.dll
+/reference:..\bin\AnyCPU\Debug\net8.0-windows\Aether.Physics2D.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin Sprites/duck.png
+/importer:TextureImporter
+/processor:SpriteProcessor
+/processorParam:FrameWidth=0
+/processorParam:FrameHeight=0
+/processorParam:Pivot=Center
+/processorParam:ColorKeyColor=255, 0, 255, 255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/duck.png
 
 #begin Sprites/main.png
 /importer:TextureImporter
 /processor:SpriteProcessor
 /processorParam:FrameWidth=32
 /processorParam:FrameHeight=32
-/processorParam:OffsetStartX=0
-/processorParam:OffsetStartY=0
-/processorParam:OffsetEndX=0
-/processorParam:OffsetEndY=0
-/processorParam:OriginX=16
-/processorParam:OriginY=16
+/processorParam:Pivot=Center
+/processorParam:ColorKeyColor=255, 0, 255, 255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=False
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
 /build:Sprites/main.png
 
 #begin Sprites/pall.png
@@ -33,12 +52,14 @@
 /processor:SpriteProcessor
 /processorParam:FrameWidth=32
 /processorParam:FrameHeight=32
-/processorParam:OffsetStartX=0
-/processorParam:OffsetStartY=0
-/processorParam:OffsetEndX=0
-/processorParam:OffsetEndY=0
-/processorParam:OriginX=16
-/processorParam:OriginY=16
+/processorParam:Pivot=Center
+/processorParam:ColorKeyColor=255, 0, 255, 255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
 /build:Sprites/pall.png
 
 #begin Sprites/robot.png
@@ -46,39 +67,21 @@
 /processor:SpriteProcessor
 /processorParam:FrameWidth=32
 /processorParam:FrameHeight=32
-/processorParam:OffsetStartX=0
-/processorParam:OffsetStartY=0
-/processorParam:OffsetEndX=0
-/processorParam:OffsetEndY=0
-/processorParam:OriginX=16
-/processorParam:OriginY=16
+/processorParam:Pivot=Center
+/processorParam:ColorKeyColor=255, 0, 255, 255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
 /build:Sprites/robot.png
 
-#begin Musics/kalambur.mp3
-/importer:Mp3Importer
-/processor:SoundProcessor
-/processorParam:Quality=Best
-/build:Musics/kalambur.mp3
-
-#begin Scenes/scene.xml
-/copy:Scenes/scene.xml
-
-#begin effect.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:effect.fx
-
-#begin Sprites/duck.png
-/importer:TextureImporter
-/processor:SpriteProcessor
-/processorParam:FrameWidth=32
-/processorParam:FrameHeight=32
-/processorParam:OffsetStartX=0
-/processorParam:OffsetStartY=0
-/processorParam:OffsetEndX=0
-/processorParam:OffsetEndY=0
-/processorParam:OriginX=0
-/processorParam:OriginY=0
-/build:Sprites/duck.png
+#begin Fonts/System.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Smoothing=Normal
+/build:Fonts/System.spritefont
 

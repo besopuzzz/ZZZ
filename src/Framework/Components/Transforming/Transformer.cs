@@ -1,14 +1,14 @@
-﻿namespace ZZZ.Framework.Components.Transforming
+﻿using System.ComponentModel;
+
+namespace ZZZ.Framework.Components.Transforming
 {
     /// <summary>
     /// Представляет основной компонент для позиционирования игровых <see cref="GameObject"/>.
     /// </summary>
     /// <remarks>Используйте компонент для установки локальной трансформации игрового объекта <see cref="Local"/> и получайте мировую
     /// трансформацию <see cref="World"/>.</remarks>
-
     public class Transformer : Component
     {
-        [Serialize]
         public Transform2D Local
         {
             get => local;
@@ -20,9 +20,8 @@
                 local = value;
 
                 world = local * parent.World;
-                WorldChanged?.Invoke(this, world);
 
-                hasChanges = true;
+                OnWorldChanged(this, world);
             }
         }
 
@@ -38,18 +37,29 @@
                 local = value / world * local;
 
                 world = value;
-                WorldChanged?.Invoke(this, world);
 
-                hasChanges = true;
+                OnWorldChanged(this, world);
             }
         }
 
         [ContentSerializerIgnore]
         public Transformer Parent => parent;
 
-        public bool HasChanges { get => hasChanges; internal set => hasChanges = value; }
+        [ContentSerializerIgnore]
+        public bool HasChanges 
+        { 
+            get => hasChanges;
+            internal set
+            {
+                if (hasChanges == value)
+                    return;
+
+                hasChanges = value;
+            }
+        }
 
         private event EventHandler<Transformer, Transform2D> WorldChanged;
+
         private Transformer parent;
         private Transform2D local = new Transform2D();
         private Transform2D world = new Transform2D();
@@ -194,7 +204,12 @@
         {
             world = local * parent.World;
 
-            hasChanges = true;
+            OnWorldChanged(this, world);
+        }
+
+        protected virtual void OnWorldChanged(Transformer sender, Transform2D args)
+        {
+            HasChanges = true;
 
             WorldChanged?.Invoke(this, world);
         }

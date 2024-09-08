@@ -6,32 +6,6 @@ namespace ZZZ.KNI.Content.Pipeline
 {
     public partial class AssetSerializer
     {
-
-        static AssetSerializer()
-        {
-            //AssetTypesGenerator.Generate();
-
-
-
-        }
-
-        private class StringWriterWithEncoding : StringWriter
-        {
-            public StringWriterWithEncoding(StringBuilder sb, Encoding encoding)
-                : base(sb)
-            {
-                this.m_Encoding = encoding;
-            }
-            private readonly Encoding m_Encoding;
-            public override Encoding Encoding
-            {
-                get
-                {
-                    return this.m_Encoding;
-                }
-            }
-        }
-
         public static string Serialize<T>(T value)
         {
             XmlWriterSettings settings = new XmlWriterSettings();
@@ -39,28 +13,28 @@ namespace ZZZ.KNI.Content.Pipeline
             settings.Indent = true;
             settings.Encoding = Encoding.UTF8;
 
-            StringBuilder builder = new StringBuilder();
+            string result = "";
 
-            using (StringWriter stringWriter = new StringWriter(builder))
+            using (TextWriter stringWriter = new StringWriter())
             {
                 using (XmlWriter writer = XmlWriter.Create(stringWriter, settings))
                 {
                     IntermediateSerializer.Serialize<T>(writer, value, null);
                 }
+
+                result = stringWriter.ToString();
             }
 
-            return builder.ToString();
+            return result;
         }
 
         public static object Deserialize(string value)
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
-
             object result;
 
             using (TextReader stream = new StringReader(value))
             {
-                using (XmlReader writer = XmlReader.Create(stream, settings))
+                using (XmlReader writer = XmlReader.Create(stream))
                 {
                     result = IntermediateSerializer.Deserialize<object>(writer, null);
                 }

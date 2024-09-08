@@ -4,10 +4,9 @@ using System.Xml;
 
 namespace ZZZ.KNI.Content.Pipeline.Serializers
 {
-    internal class AssetIntermediateSerializer
+    internal sealed class ReflectiveTypeSerializer
     {
-        public IEnumerable<ElementInfo> Elements => elements;
-        public struct ElementInfo
+        private struct ElementInfo
         {
             public ContentSerializerAttribute Attribute;
 
@@ -16,8 +15,7 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
             public Action<object, object> Setter;
 
             public Func<object, object> Getter;
-        }
-       
+        }       
         private readonly List<ElementInfo> elements = new List<ElementInfo>();
         private bool GetElementInfo(MemberInfo member, out ElementInfo info)
         {
@@ -28,14 +26,14 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
                 return false;
             }
 
-            PropertyInfo prop = member as PropertyInfo;
-            FieldInfo fieldInfo = member as FieldInfo;
-            ContentSerializerAttribute customAttribute = member.GetCustomAttribute<ContentSerializerAttribute>();
+            var prop = member as PropertyInfo;
+            var field = member as FieldInfo;
+            var attribute = member.GetCustomAttribute<ContentSerializerAttribute>();
 
-            if (customAttribute != null)
+            if (attribute != null)
             {
-                info.Attribute = customAttribute.Clone();
-                if (string.IsNullOrEmpty(customAttribute.ElementName))
+                info.Attribute = attribute.Clone();
+                if (string.IsNullOrEmpty(attribute.ElementName))
                 {
                     info.Attribute.ElementName = member.Name;
                 }
@@ -51,13 +49,14 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
                         return false;
                     }
 
-                    MethodInfo setMethod = prop.GetSetMethod(nonPublic: true);
+                    MethodInfo setMethod = prop.GetSetMethod(true);
+
                     if (setMethod != null && !setMethod.IsPublic)
                     {
                         return false;
                     }
 
-                    if (setMethod == null/* && !serializer.GetTypeSerializer(prop.PropertyType).CanDeserializeIntoExistingObject*/)
+                    if (setMethod == null)
                     {
                         return false;
                     }
@@ -67,7 +66,7 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
                         return false;
                     }
                 }
-                else if (fieldInfo != null && !fieldInfo.IsPublic)
+                else if (field != null && !field.IsPublic)
                 {
                     return false;
                 }
@@ -78,8 +77,6 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
 
             if (prop != null)
             {
-                //info.Serializer = serializer.GetTypeSerializer(prop.PropertyType);
-
                 if (prop.CanWrite)
                 {
                     info.Setter = delegate (object o, object v)
@@ -90,29 +87,18 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
 
                 info.Getter = (object o) => prop.GetValue(o, null);
             }
-            else if (fieldInfo != null)
+            else if (field != null)
             {
-                //info.Serializer = serializer.GetTypeSerializer(fieldInfo.FieldType);
-                info.Type = fieldInfo.FieldType;
-                info.Setter = fieldInfo.SetValue;
-                info.Getter = fieldInfo.GetValue;
+                info.Type = field.FieldType;
+                info.Setter = field.SetValue;
+                info.Getter = field.GetValue;
             }
 
             return true;
         }
 
-        private bool initialized = false;
-
-        public AssetIntermediateSerializer()
+        public void Initialize(IntermediateSerializer serializer, Type type)
         {
-
-        }
-
-        private void Initialize(IntermediateSerializer serializer, Type type)
-        {
-            if (initialized)
-                return;
-
             if(type.BaseType != null)
                 Initialize(serializer, type.BaseType);
 
@@ -135,15 +121,11 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
                     elements.Add(info2);
                 }
             }
-
-            initialized = true;
         }
 
         public object Deserialize(IntermediateReader input, ContentSerializerAttribute format, object existingInstance, Type targetType)
         {
-            Initialize(input.Serializer, targetType);
-
-            foreach (ElementInfo info in Elements)
+            foreach (ElementInfo info in elements)
             {
                 if (!info.Attribute.FlattenContent && !input.MoveToElement(info.Attribute.ElementName))
                 {
@@ -183,9 +165,7 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
 
         public void Serialize(IntermediateWriter output, object value, ContentSerializerAttribute format, Type targetType)
         {
-            Initialize(output.Serializer, targetType);
-
-            foreach (ElementInfo element in Elements)
+            foreach (ElementInfo element in elements)
             {
 
                 object value2 = element.Getter(value);

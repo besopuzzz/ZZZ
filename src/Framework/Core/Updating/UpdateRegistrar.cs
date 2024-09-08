@@ -3,12 +3,23 @@ using ZZZ.Framework.Core.Updating.Components;
 
 namespace ZZZ.Framework.Core.Updating
 {
+    /// <summary>
+    /// Представляет регистратор, который вызывает метод обновления <see cref="IUpdateComponent.Update(GameTime)"/> у компонента.
+    /// </summary>
+    /// <remarks>Вызов обновления будет выполняться согласно порядку экземпляра <see cref="UpdateRegistrar.OrderTypes"/>
+    /// и включенному свойству <see cref="IComponent.Enabled"/>.</remarks>
     public class UpdateRegistrar : BaseRegistrar<IUpdateComponent>, IAnyRegistrar<IUpdateComponent>
     {
+        /// <summary>
+        /// Получает экземпляр сортировщика обновляемых компонентов.
+        /// </summary>
         public UpdateOrderList OrderTypes { get; }
 
         private readonly UpdateComponents updateComponentZs;
 
+        /// <summary>
+        /// Представляет экземпляр обновляющего регистратора.
+        /// </summary>
         public UpdateRegistrar()
         {
             OrderTypes = new UpdateOrderList();

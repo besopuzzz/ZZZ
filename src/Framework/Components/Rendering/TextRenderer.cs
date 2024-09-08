@@ -7,8 +7,9 @@ namespace ZZZ.Framework.Components.Rendering
     [RequireComponent(typeof(Transformer))]
     public class TextRenderer : Component, IRender
     {
+        [ContentSerializerIgnore]
         public SpriteFont Font { get; set; }
-        public StringBuilder Text { get; set; } = new StringBuilder();
+        public string Text { get; set; } = " ";
         public SpriteEffects SpriteEffect { get; set; } = SpriteEffects.None;
         public Vector2 Origin { get; set; }
         public Color Color { get; set; } = Color.White;
@@ -40,15 +41,6 @@ namespace ZZZ.Framework.Components.Rendering
 
         }
 
-        public void SetFromString(string text)
-        {
-            if(Text == null)
-                Text = new StringBuilder();
-
-            Text.Clear();
-            Text.Append(text);
-        }
-
         protected override void Awake()
         {
             transformer = GetComponent<Transformer>();
@@ -56,11 +48,11 @@ namespace ZZZ.Framework.Components.Rendering
             base.Awake();
         }
 
-        void IRender.Render(RenderManager renderManager)
+        void IRender.Render(SpriteBatch spriteBatch)
         {
             Transform2D transform = transformer.World;
 
-            renderManager.DrawText(Font, Text, transform, Color, Origin, SpriteEffect, false);
+            spriteBatch.DrawText(Font, Text, transform, Color, Origin, SpriteEffect, false);
         }
     }
 }

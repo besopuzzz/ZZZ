@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework
+﻿using ZZZ.Framework.Serialization;
+
+namespace ZZZ.Framework
 {
     /// <summary>
     /// Представляет структуру для трансформации 2D вектора.
@@ -6,21 +8,25 @@
     /// <remarks>Используйте любой доступной способ для инициализации трансформации
     /// и переводите в локальные или мировые координаты. Порядок перевода необходимо соблюдать. Например, 
     /// для перевода из локальных координат в мировые, необходимо выполнить операцию inWorld = Local * World.</remarks>
+    [Serialize]
     public struct Transform2D : IEquatable<Transform2D>
     {
         /// <summary>
         /// Получает значение положения по координате X.
         /// </summary>
+        [Serialize]
         public Vector2 Position;
 
         /// <summary>
         /// Получает скаляр по координате X.
         /// </summary>
+        [Serialize]
         public Vector2 Scale;
 
         /// <summary>
         /// Получает значение вращения.
         /// </summary>
+        [Serialize]
         public float Rotation;
 
         /// <summary>
@@ -291,5 +297,18 @@
                 * GetMatrixTranslation();
         }
 
+        public Rectangle CreateBounds(Vector2 size)
+        {
+            return CreateBounds(size, this);
+        }
+
+        public static Rectangle CreateBounds(Vector2 size, Transform2D transform)
+        {
+            Rectangle rectangle = new Rectangle();
+            rectangle.Location = transform.Position.ToPoint();
+            rectangle.Size = (size * transform.Scale).ToPoint();
+
+            return rectangle;
+        }
     }
 }

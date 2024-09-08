@@ -16,6 +16,11 @@ namespace ZZZ.Framework
             GameManager.UnregistrationComponent(component);
         }
 
+        protected internal override Scene GetCurrentScene()
+        {
+            return this;
+        }
+
         internal void Run()
         {
             Awake();

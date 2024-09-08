@@ -11,10 +11,7 @@ namespace ZZZ.Framework.Components.Tiling
         [ContentSerializer(SharedResource = true)]
         public ITile BaseTile { get; set; }
 
-        private Tilemap tilemap { get;  set; }
-
-        public event EventHandler<Point, TileComponent> NeedSetData;
-
+        private Tilemap tilemap;
         private Transformer transformer;
 
         internal TileComponent()
@@ -24,13 +21,15 @@ namespace ZZZ.Framework.Components.Tiling
 
         protected override void Awake()
         {
+            tilemap = Owner.Owner?.GetComponent<Tilemap>();
+
+            if (tilemap == null)
+                throw new Exception($"Tilemap not found in parent GameObject");
+
             transformer = GetComponent<Transformer>();
-            tilemap = Owner.Owner.GetComponent<Tilemap>();
 
             BaseTile.Startup(Position, tilemap, Owner);
             BaseTile.Refresh(Position, tilemap);
-
-            //transformer.Local = Transform2D.CreateTranslation(tilemap.GetPositionFromPoint(Position));
 
             base.Awake();
         }
@@ -49,7 +48,7 @@ namespace ZZZ.Framework.Components.Tiling
 
             BaseTile.GetData(Position, tilemap, ref offset);
 
-            transformer.Local = Transform2D.CreateTranslation(tilemap.GetPositionFromPoint(Position)) * offset;
+            transformer.Local = offset * Transform2D.CreateTranslation(tilemap.GetPositionFromPoint(Position));
         }
     }
 }

@@ -3,13 +3,31 @@ using ZZZ.Framework.Core.Registrars;
 
 namespace ZZZ.Framework
 {
+    /// <summary>
+    /// Представляет базовый класс регистратора компонентов.
+    /// </summary>
+    /// <typeparam name="T">Тип обрабатываемых компонентов.</typeparam>
     public abstract class BaseRegistrar<T> : Disposable, IRegistrar, IGameComponent, IDrawable, IUpdateable
         where T : IComponent
     {
+        /// <summary>
+        /// Экземпляр игрового менеджера, который использует этот регистратор.
+        /// </summary>
         protected GameManager GameManager => manager;
-        protected Scene Scene => scene;
+
+        /// <summary>
+        /// Получает значение, прошел ли инициализацию регистратор.
+        /// </summary>
         public bool Initialized => initialized;
+
+        /// <summary>
+        /// Тип обрабатываемых компонентов.
+        /// </summary>
         public Type Target => typeof(T);
+
+        /// <summary>
+        /// Порядок вызова метода <see cref="BaseRegistrar{T}.Draw(GameTime)"/> в отношении к другим регистраторам.
+        /// </summary>
         public int DrawOrder
         {
             get
@@ -25,6 +43,10 @@ namespace ZZZ.Framework
                 }
             }
         }
+
+        /// <summary>
+        /// Получает или устанавливает значение, будет ли вызываться метод рисования <see cref="BaseRegistrar{T}.Draw(GameTime)"/>.
+        /// </summary>
         public bool Visible
         {
             get
@@ -40,6 +62,10 @@ namespace ZZZ.Framework
                 }
             }
         }
+
+        /// <summary>
+        /// Получает или устанавливает значение, будет ли вызываться метод обновления <see cref="BaseRegistrar{T}.Update(GameTime)"/>.
+        /// </summary>
         public bool Enabled
         {
             get
@@ -55,6 +81,10 @@ namespace ZZZ.Framework
                 }
             }
         }
+
+        /// <summary>
+        /// Порядок вызова метода <see cref="BaseRegistrar{T}.Update(GameTime)"/> в отношении к другим регистраторам.
+        /// </summary>
         public int UpdateOrder
         {
             get
@@ -71,15 +101,28 @@ namespace ZZZ.Framework
             }
         }
 
+        /// <summary>
+        /// Вызывает событие, когда у свойства <see cref="DrawOrder"/> изменили значение.
+        /// </summary>
         public event EventHandler<EventArgs> DrawOrderChanged;
+
+        /// <summary>
+        /// Вызывает событие, когда у свойства <see cref="UpdateOrder"/> изменили значение.
+        /// </summary>
         public event EventHandler<EventArgs> UpdateOrderChanged;
+
+        /// <summary>
+        /// Вызывает событие, когда у свойства <see cref="Enabled"/> изменили значение.
+        /// </summary>
         public event EventHandler<EventArgs> EnabledChanged;
+
+        /// <summary>
+        /// Вызывает событие, когда у свойства <see cref="Visible"/> изменили значение.
+        /// </summary>
         public event EventHandler<EventArgs> VisibleChanged;
 
-        Scene IRegistrar.Scene { get => scene; set => scene = value; }
         GameManager IRegistrar.GameManager { get => manager; set => manager = value; }
 
-        private Scene scene;
         private GameManager manager;
         private bool initialized = false;
         private bool _visible = true;
@@ -88,36 +131,57 @@ namespace ZZZ.Framework
         private int _updateOrder;
 
         /// <summary>
-        /// Инициализирует новый экземпляр регистратора
+        /// Инициализирует новый экземпляр регистратора.
         /// </summary>
-        /// <param name="gameManager">Экземпляр игрового менеджера.</param>
-        /// <exception cref="ArgumentNullException"></exception>
         protected BaseRegistrar()
         {
 
         }
 
+        /// <summary>
+        /// Инициализирует регистратор. Инициализация вызывается во время или после загрузки основного класса <see cref="Game"/>.
+        /// </summary>
         protected virtual void Initialize()
         {
 
         }
 
+        /// <summary>
+        /// Вызывает метод обновления регистратора. Метод не будет обрабатываться, если значение <see cref="Enabled"/> будет false.
+        /// Частота вызова зависит от логики основного класса <see cref="Game"/>.
+        /// </summary>
+        /// <param name="gameTime">Экземпляр класса содержащий информацию о времени.</param>
         protected virtual void Update(GameTime gameTime)
         {
 
         }
 
+        /// <summary>
+        /// Вызывает метод рисования регистратора. Метод не будет обрабатываться, если значение <see cref="Visible"/> будет false.
+        /// Частота вызова зависит от логики основного класса <see cref="Game"/>.
+        /// </summary>
+        /// <param name="gameTime">Экземпляр класса содержащий информацию о времени.</param>
         protected virtual void Draw(GameTime gameTime)
         {
 
         }
 
+        /// <summary>
+        /// Вызывает внутреннее событие регистрации нового компонента. 
+        /// </summary>
+        /// <param name="component">Экземпляр нового компонента.</param>
         protected virtual void OnReception(T component)
         {
+
         }
 
+        /// <summary>
+        /// Вызывает внутреннее событие снятия с регистрации компонента. 
+        /// </summary>
+        /// <param name="component">Экземпляр нового компонента.</param>
         protected virtual void OnDeparture(T component)
         {
+
         }
 
         private void Component_EnabledChanged(object sender, EventArgs e)
@@ -146,6 +210,7 @@ namespace ZZZ.Framework
                     onlyDisabled.DisabledDeparture(component);
             }
         }
+
         void IRegistrar.RegistrationObject(IComponent comp)
         {
             if (!Target.IsAssignableFrom(comp.GetType()))

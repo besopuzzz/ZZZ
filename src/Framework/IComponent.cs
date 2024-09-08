@@ -1,9 +1,11 @@
-﻿namespace ZZZ.Framework
+﻿using System.ComponentModel;
+
+namespace ZZZ.Framework
 {
     /// <summary>
     /// Представляет основной интерфейс для игровых компонентов.
     /// </summary>
-    public interface IComponent : IDisposable
+    public interface IComponent : IDisposable, INotifyPropertyChanged
     {
         /// <summary>
         /// Получает значение, включен или выключен компонент.

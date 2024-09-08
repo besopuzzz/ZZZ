@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace ZZZ.Framework.Assets.Pipeline.Readers
 {
@@ -18,8 +12,6 @@ namespace ZZZ.Framework.Assets.Pipeline.Readers
         private ContentTypeReaderManager _compiler;
         private static HashSet<MemberInfo> _sharedResources = new HashSet<MemberInfo>();
 
-        protected int _typeVersion;
-
         public void Initialize(ContentTypeReaderManager compiler, Type assetType)
         {
             _compiler = compiler;
@@ -29,24 +21,12 @@ namespace ZZZ.Framework.Assets.Pipeline.Readers
             if (type != null && type != typeof(object) && !assetType.IsValueType)
                 Initialize(compiler, type);
 
-            var runtimeType = assetType.GetCustomAttributes(typeof(ContentSerializerRuntimeTypeAttribute), false).FirstOrDefault() as ContentSerializerRuntimeTypeAttribute;
+            var runtimeType = assetType.GetCustomAttribute<ContentSerializerRuntimeTypeAttribute>();
             if (runtimeType != null)
                 _runtimeType = runtimeType.RuntimeType;
 
-            var typeVersion = assetType.GetCustomAttributes(typeof(ContentSerializerTypeVersionAttribute), false).FirstOrDefault() as ContentSerializerTypeVersionAttribute;
-            if (typeVersion != null)
-                _typeVersion = typeVersion.TypeVersion;
-
-
             _properties.AddRange(GetAllProperties(assetType).Where(IsValidProperty).ToArray());
             _fields.AddRange(GetAllFields(assetType).Where(IsValidField).ToArray());
-        }
-
-
-        public static ConstructorInfo GetDefaultConstructor(Type type)
-        {
-            var attrs = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
-            return type.GetConstructor(attrs, null, new Type[0], null);
         }
 
         public static PropertyInfo[] GetAllProperties(Type type)
@@ -64,12 +44,6 @@ namespace ZZZ.Framework.Assets.Pipeline.Readers
             var attrs = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
             return type.GetFields(attrs);
         }
-
-        public static bool IsClass(Type type)
-        {
-            return type.IsClass;
-        }
-
 
         private static bool PropertyIsPublic(PropertyInfo property)
         {

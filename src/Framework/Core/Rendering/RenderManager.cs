@@ -1,4 +1,8 @@
-﻿using ZZZ.Framework.Rendering.Assets;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Platform.Graphics;
+using nkast.Aether.Physics2D.Dynamics;
+using ZZZ.Framework.Rendering.Assets;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ZZZ.Framework.Core.Rendering
 {
@@ -17,10 +21,9 @@ namespace ZZZ.Framework.Core.Rendering
         /// </summary>
         public Rectangle ViewBounds => device.Viewport.Bounds;
 
-        public Matrix CameraProjection { get; internal set; }
-
         public Sprite Pixel { get; private set; }
 
+        public static RenderManager Instance { get; private set; }
 
         private GraphicsDevice device;
         private Texture2D pixel;
@@ -31,13 +34,11 @@ namespace ZZZ.Framework.Core.Rendering
         /// Инициализирует экземпляр менеджера.
         /// </summary>
         /// <param name="graphicsDevice">Графическое устройство.</param>
-        public RenderManager()
+        public RenderManager(GraphicsDevice graphicsDevice)
         {
-
-        }
-
-        public void Initialize(GraphicsDevice graphicsDevice)
-        {
+            if (Instance == null)
+                Instance = this;
+            else return;
 
             device = graphicsDevice;
 
@@ -47,12 +48,11 @@ namespace ZZZ.Framework.Core.Rendering
             Pixel = new Sprite(pixel, null, Vector2.One / 2);
 
             spriteBatch = new SpriteBatch(graphicsDevice);
-
+            currentGameTime = new GameTime();
         }
 
         internal void SetGameTime(GameTime gameTime)
         {
-            if (currentGameTime == null)
                 currentGameTime = gameTime;
         }
 
@@ -116,103 +116,114 @@ namespace ZZZ.Framework.Core.Rendering
         }
 
         /// <summary>
-        /// Выполняет рисование спрайта.
+        /// Выполняет рисование текста.
         /// </summary>
-        public void DrawText(SpriteFont font, StringBuilder stringBuilder, Transform2D world, Color color, Vector2 origin, SpriteEffects effects, bool rtl)
+        public void DrawText(SpriteFont font, StringBuilder stringBuilder, Transform2D world, Color color, Vector2 origin, SpriteEffects effects, float depth,bool rtl)
         {
-            spriteBatch.DrawString(font, stringBuilder, world.Position, color, world.Rotation, origin, world.Scale, effects, 0f, rtl);
+            spriteBatch.DrawString(font, stringBuilder, world.Position, color, world.Rotation, origin, world.Scale, effects, depth, rtl);
         }
 
         /// <summary>
         /// Выполняет рисование спрайта.
         /// </summary>
-        public void DrawText(SpriteFont font, string text, Transform2D world, Color color, Vector2 origin, SpriteEffects effects, bool rtl)
+        public void DrawText( SpriteFont font, string text, Transform2D world, Color color, Vector2 origin, SpriteEffects effects, bool rtl)
         {
+            if (string.IsNullOrWhiteSpace(text))
+                return;
+
             spriteBatch.DrawString(font, text, world.Position, color, world.Rotation, origin, world.Scale, effects, 0f, rtl);
         }
 
+
         /// <summary>
-        /// Выполняет рисование спрайта.
+        /// Выполняет рисование текста.
         /// </summary>
-        public void DrawText(SpriteFont font, string text, Transform2D world, Rectangle region, Color color, Vector2 origin)
+        public void DrawText(SpriteFont font, StringBuilder text, Rectangle destination, Color color)
         {
-            Transform2D offset = new Transform2D(); // Indent from each character
-
-            for (int i = 0; i < text.Length; i++) // Iterate over each character
-            {
-                char character = text[i];
-
-                switch (character)
-                {
-                    case '\n':
-                        // New line indent
-                        offset = Transform2D.CreateTranslation(0f, font.LineSpacing);
-                        continue;
-                    case '\r':
-                        continue;
-                }
-
-                var glyf = font.Glyphs[character];
-                var glyfSource = glyf.BoundsInTexture; // Rectangle source of character 
-
-                Rectangle glyfRect = new Rectangle(region.Location + offset.Position.ToPoint(), glyfSource.Size); // Destination rectangle for character
-
-                var overlapRect = Rectangle.Intersect(glyfRect, region); // Create overlapp
-
-                if (overlapRect.Width == 0 && overlapRect.Height == 0) // Exit if current character rectangle not included in destination rectangle
-                    continue;
-
-                // Set new size destination and source for current character 
-                glyfSource.Size = overlapRect.Size;
-                glyfRect.Size = overlapRect.Size;
-
-                var newWorld = offset * world;
-
-                // Draw
-                spriteBatch.Draw(font.Texture, newWorld.Position, glyfSource, color, newWorld.Rotation, origin, newWorld.Scale, SpriteEffects.None, 0f);
-
-                offset *= Transform2D.CreateTranslation(glyf.WidthIncludingBearings, 0f);
-            }
+            DrawText(font, text.ToString(), destination, color); 
         }
 
-        /// <summary>
-        /// Выполняет рисование спрайта.
-        /// </summary>
         public void DrawText(SpriteFont font, string text, Rectangle destination, Color color)
         {
-            Point offset = new Point();
+            DrawText(font, text, destination, color, 0f);
+        }
+        /// <summary>
+        /// Выполняет рисование текста.
+        /// </summary>
+        public void DrawText(SpriteFont font, string text, Rectangle destination, Color color, float rotation)
+        { 
+            Point zero = Point.Zero;
+            bool flag = true;
 
             for (int i = 0; i < text.Length; i++)
             {
-                char character = text[i];
+                char c = text[i];
 
-                switch (character)
+                switch (c)
                 {
                     case '\n':
-                        offset = new Point(0, font.LineSpacing);
+                        zero.X = 0;
+                        zero.Y += font.LineSpacing;
+                        flag = true;
                         continue;
                     case '\r':
                         continue;
+                    case '\b':
+                        continue;
                 }
 
-                var glyf = font.Glyphs[character];
-                var glyfSource = glyf.BoundsInTexture;
+                if (text.Length != i + 1)
+                    if (text[i + 1] == '\b')
+                        continue;
 
-                Rectangle glyfRect = new Rectangle(destination.Location + offset, glyfSource.Size);
 
-                var overlapRect = Rectangle.Intersect(glyfRect, destination);
+                SpriteFont.Glyph ptr;
 
-                if (overlapRect.Width == 0 && overlapRect.Height == 0)
+                if (font.Glyphs.ContainsKey(c))
+                    ptr = font.Glyphs[c];
+                else ptr = font.Glyphs[font.DefaultCharacter.Value];
+
+                if (flag)
+                {
+                    zero.X = Math.Max((int)ptr.LeftSideBearing, 0);
+                    flag = false;
+                }
+                else
+                {
+                    zero.X += (int)font.Spacing + (int)ptr.LeftSideBearing;
+                }
+
+                Rectangle destination2 = new Rectangle(zero,ptr.BoundsInTexture.Size);
+                destination2.X += ptr.Cropping.X;
+                destination2.Y += ptr.Cropping.Y;
+                destination2.Location += destination.Location;
+
+                destination2 = Rectangle.Intersect(destination2, destination);
+
+
+                float sin = (float)Math.Sin(rotation);
+                float cos = (float)Math.Cos(rotation);
+
+                var scaled = destination.Location.ToVector2() - destination2.Location.ToVector2();
+
+                Vector2 rotated = new Vector2(cos * scaled.X - sin * scaled.Y, sin * scaled.X + cos * scaled.Y);
+
+                destination2.Location -= rotated.ToPoint() - scaled.ToPoint();
+
+                Rectangle source = ptr.BoundsInTexture;
+
+                source.Size = new Point(Math.Min(source.Width, destination2.Width), Math.Min(source.Height, destination2.Height));
+
+                if (destination2.IsEmpty)
                     continue;
 
-                glyfSource.Size = overlapRect.Size;
-                glyfRect.Size = overlapRect.Size;
+                spriteBatch.Draw(font.Texture, destination2, source, color, rotation, Vector2.Zero, SpriteEffects.None, 0f);
 
-                spriteBatch.Draw(font.Texture, glyfRect, glyfSource, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
-
-                offset += new Point((int)glyf.WidthIncludingBearings, 0);
+                zero.X += (int)ptr.Width + (int)ptr.RightSideBearing;
             }
         }
+
+
 
         /// <summary>
         /// Выполняет рисование спрайта.

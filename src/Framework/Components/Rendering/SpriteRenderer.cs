@@ -1,6 +1,7 @@
 ﻿using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Core.Rendering.Components;
+using ZZZ.Framework.Core.Rendering.Entities;
 using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Components.Rendering
@@ -34,7 +35,7 @@ namespace ZZZ.Framework.Components.Rendering
 
         public event EventHandler<SortLayerArgs> LayerChanged;
 
-        private SortLayer layer = SortLayer.Layer0;
+        private SortLayer layer = SortLayer.Layer1;
         private Transformer transformer;
 
         protected override void Awake()
@@ -44,11 +45,11 @@ namespace ZZZ.Framework.Components.Rendering
             base.Awake();
         }
 
-        void IRender.Render(RenderManager renderManager)
+        void IRender.Render(SpriteBatch spriteBatch)
         {
             Transform2D transform = transformer.World;
 
-            renderManager.DrawSprite(Sprite, transform,Color, SpriteEffect);
+            spriteBatch.DrawSprite(Sprite, transform, Color, SpriteEffect);
         }
     }
 }

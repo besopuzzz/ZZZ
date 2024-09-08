@@ -10,7 +10,7 @@ using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.KNI.GameProject
 {
-    public class Tile : Asset, ITile, IRenderTile, IColliderTile, IAnimatedTile
+    public class Tile : IAsset, ITile, IRenderTile, IColliderTile, IAnimatedTile
     {
         public Sprite[] Sprites { get; set; }
         public float Duration { get; set; } = 1f;
@@ -18,6 +18,13 @@ namespace ZZZ.KNI.GameProject
         public SpriteEffects SpriteEffect { get; set; }
         public Color Color { get; set; } = Color.White;
         public List<Vector2> Vertices { get; set; } = new List<Vector2>();
+
+        public string Name { get; set; } = "";
+
+        public void Dispose()
+        {
+
+        }
 
         public virtual void GetAnimationData(Point position, Tilemap tilemap, ref TileAnimationData data)
         {
@@ -27,12 +34,15 @@ namespace ZZZ.KNI.GameProject
 
         public virtual void GetColliderData(Point position, Tilemap tilemap, ref TileColliderData renderedTile)
         {
-            //renderedTile.Vertices = new List<Vector2>() { new Vector2(0, 0), new Vector2(0, 32), new Vector2(32) };
+            renderedTile.Friction = 20f;
+            renderedTile.Density = 10f;
+            //renderedTile.Offset = new Vector2(-16);
+            //renderedTile.Vertices = new List<Vector2>() { new Vector2(0, 0), new Vector2(0, 32), new Vector2(32), new Vector2(32,0) };
         }
 
         public virtual void GetData(Point position, Tilemap tilemap, ref Transform2D offset)
         {
-
+            //offset = Transform2D.CreateTranslation(new Vector2( 32f));
         }
 
         public virtual void GetRenderingData(Point position, Tilemap tilemap, ref TileRenderData renderedTile)

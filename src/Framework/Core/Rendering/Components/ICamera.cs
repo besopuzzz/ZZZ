@@ -9,7 +9,8 @@
         /// Матрица проекции.
         /// </summary>
         Matrix Projection { get; }
+        bool IsMain { get; }
         void UpdateMatrix();
-        void Render(RenderManager renderManager, IReadOnlyList<IRender> components);
+        void Render(SpriteBatch spriteBatch);
     }
 }

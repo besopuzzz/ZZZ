@@ -17,6 +17,7 @@ namespace ZZZ.Framework.Components.Physics
         public BodyController()
         {
             body = new Body();
+            body.IgnoreGravity = true;
             body.BodyType = BodyType.Static;
             colliders = new List<ICollider>();
         }
@@ -58,7 +59,7 @@ namespace ZZZ.Framework.Components.Physics
 
         private void Owner_ComponentAdded(GameObject sender, IComponent e)
         {
-            if (e is not IRigidbody rb)
+            if (e is not IPhysicBody rb)
                 return;
 
             rb.Attach(body);
@@ -69,13 +70,13 @@ namespace ZZZ.Framework.Components.Physics
             }
             else
             {
-                rigidbody = rb;
+                rigidbody = (IRigidbody)rb;
             }
         }
 
         private void Owner_ComponentRemoved(GameObject sender, IComponent e)
         {
-            if (e is not IRigidbody rb)
+            if (e is not IPhysicBody rb)
                 return;
 
             rb.Detach();
@@ -95,13 +96,20 @@ namespace ZZZ.Framework.Components.Physics
         {
             body.Position = (transformer.World.Position / transformer.World.Scale) / IRigidbody.PixelsPerMeter;
             body.Rotation = transformer.World.Rotation;
+
+            if (rigidbody != null && rigidbody.Gravity != Vector2.Zero && body.Awake && body.Enabled)
+            {
+                body.LinearVelocity += (rigidbody.Gravity) / IRigidbody.PixelsPerMeter;
+            }
         }
 
         void IBody.UpdateTransformer()
         {
-            Transform2D world = new(body.Position * IRigidbody.PixelsPerMeter * transformer.World.Scale, transformer.World.Scale, body.Rotation);
+            Transform2D world = new Transform2D();
+            world.Position = body.Position * IRigidbody.PixelsPerMeter * transformer.World.Scale;
+            world.Scale = transformer.World.Scale;
+            world.Rotation = body.Rotation;
 
-            //body.LocalCenter = Vector2.Zero;
             transformer.Local = world / transformer.World * transformer.Local;
         }
 

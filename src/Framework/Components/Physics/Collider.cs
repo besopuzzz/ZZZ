@@ -1,4 +1,6 @@
-﻿using nkast.Aether.Physics2D.Collision.Shapes;
+﻿using nkast.Aether.Physics2D.Collision;
+using nkast.Aether.Physics2D.Collision.Shapes;
+using nkast.Aether.Physics2D.Common;
 using nkast.Aether.Physics2D.Dynamics;
 using nkast.Aether.Physics2D.Dynamics.Contacts;
 using ZZZ.Framework.Components.Physics;
@@ -120,18 +122,21 @@ namespace ZZZ.Framework.Physics.Components
 
         protected abstract void OnOffsetChanged(Vector2 oldOffset, Vector2 offset);
 
-        void IRigidbody.Attach(Body body)
+        void IPhysicBody.Attach(Body body)
         {
             this.body = body;
             body.Add(fixture);
 
+            body.LocalCenter = Vector2.Zero;
+            
             fixture.CollidesWith = (Category)(int)layer; // Layer change throw error if Body is null...
         }
 
-        void IRigidbody.Detach()
+        void IPhysicBody.Detach()
         {
             body.Remove(fixture);
             body = null;
         }
     }
+
 }

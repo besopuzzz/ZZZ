@@ -11,7 +11,9 @@
     {
         private List<Component> components;
 
-        /// <inheritdoc cref="BaseRegistrar{T}.BaseRegistrar(GameManager)"/>
+        /// <summary>
+        /// Инициализирует новый экземпляр инициализирующего регистратора.
+        /// </summary>
         public InitializeRegistrar()
         {
             components = new List<Component>();

@@ -10,7 +10,7 @@ namespace ZZZ.Framework
         private Scene scene;
         private GameManager manager;
 
-        internal SceneLoader(GameManager gameManager) 
+        internal SceneLoader(GameManager gameManager)
         {
             if (instance == null)
                 instance = this;
@@ -25,18 +25,19 @@ namespace ZZZ.Framework
 
         public static void Load(Scene scene)
         {
-            if (instance == null)
-                throw new Exception("SceneLoader not work before create instance GameManager!");
-
-            if (scene is null)
-                throw new ArgumentNullException(nameof(scene));
+            ArgumentNullException.ThrowIfNull(scene);
 
             instance.scene = scene;
 
+            if (scene?.GameManager == null)
+                return;
+
             scene.GameManager = instance.manager;
 
-            if (instance.manager.Initialized)
-                ((GameObject)scene).Awake();
+            if (!scene.GameManager.Initialized)
+                return;
+
+            ((GameObject)scene).Awake();
         }
     }
 }

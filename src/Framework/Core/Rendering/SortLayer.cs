@@ -3,9 +3,8 @@
     [Flags]
     public enum SortLayer : int
     {
-        Layer0 = 0,
-        Layer1 = 1,
-        Layer2 = Layer1 << 1,
+        Layer1 = 0,
+        Layer2 = 1,
         Layer3 = Layer2 << 1,
         Layer4 = Layer3 << 1,
         Layer5 = Layer4 << 1,
@@ -35,6 +34,7 @@
         Layer29 = Layer28 << 1,
         Layer30 = Layer29 << 1,
         Layer31 = Layer30 << 1,
-        All = ~Layer0
+        Layer32 = Layer31 << 1,
+        All = int.MaxValue
     }
 }

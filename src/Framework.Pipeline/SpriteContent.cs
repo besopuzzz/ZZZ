@@ -12,7 +12,7 @@ namespace ZZZ.KNI.Content.Pipeline
             public Vector2 Origin { get; set; }
         }
         public List<Frame> Frames { get; set; }
-        public Texture2DContent Texture { get; set; }
+        public TextureContent Texture { get; set; }
     }
 
 }

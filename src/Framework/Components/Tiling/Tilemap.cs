@@ -1,20 +1,33 @@
-﻿using ZZZ.Framework.Assets.Tiling;
+﻿using System.ComponentModel;
+using ZZZ.Framework.Assets.Tiling;
 
 namespace ZZZ.Framework.Components.Tiling
 {
     public class Tilemap : Component, ITilemap
     {
-        public Vector2 TileSize { get; set; } = new Vector2(32);
+        public Vector2 TileSize
+        {
+            get => tileSize;
+            set
+            { 
+                if(tileSize ==  value) return;
+            
+                tileSize = value;
+
+                RefreshAll();
+            }
+        }
 
         [ContentSerializer]
         private List<GameObject> NotAdded { get; } = new List<GameObject>();
 
         private Dictionary<TileComponent, ITile> cache = new Dictionary<TileComponent, ITile>();
         private List<ITilemap> tilemaps = new List<ITilemap>();
+        private Vector2 tileSize = new Vector2(32);
 
         protected override void Awake()
         {
-            tilemaps.AddRange(GetComponents<ITilemap>()); // Find all tilemap handlers
+            tilemaps.AddRange(GetComponents<ITilemap>()); // Find all ITilemaps
 
             foreach (var item in GetGameObjects()) // Find added tiles (after deserialize)
             {
@@ -32,7 +45,6 @@ namespace ZZZ.Framework.Components.Tiling
             }
 
             NotAdded.Clear(); // Forget all new tiles
-
 
             Owner.ComponentAdded += Owner_ComponentAdded;
             Owner.ComponentRemoved += Owner_ComponentRemoved;
@@ -134,6 +146,27 @@ namespace ZZZ.Framework.Components.Tiling
                 tilemap.SetData(component.Owner, component.BaseTile, component.Position, this);
             }
         }
+
+        public void RefreshAll()
+        {
+            if (!Started)
+                return;
+
+            foreach (var item in GetGameObjects())
+            {
+                var component = item.GetComponent<TileComponent>();
+
+                if (component == null) continue;
+
+                component.SetData();
+
+                foreach (var tilemap in tilemaps)
+                {
+                    tilemap.SetData(component.Owner, component.BaseTile, component.Position, this);
+                }
+            }
+        }
+
         public TTile GetTile<TTile>(Point position) where TTile : ITile
         {
             return (TTile)GetTileComponent(position).BaseTile;

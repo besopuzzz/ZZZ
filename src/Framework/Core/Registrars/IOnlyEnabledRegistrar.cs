@@ -1,20 +1,21 @@
 ﻿namespace ZZZ.Framework.Core.Registrars
 {
     /// <summary>
-    /// Представляет интерфейс регистратора для регистрации только включенных компонентов <see cref="Component.Enabled"/>=true.
+    /// Представляет интерфейс регистратора, который обрабатывает только включенные компоненты.
     /// </summary>
     /// <typeparam name="T">Тип компонентов.</typeparam>
+    /// <remarks>Например, если компонент был принят, а потом был выключен (<see cref="IComponent.Enabled"/> равен false), то компонент будет депортирован.</remarks>
     public interface IOnlyEnabledRegistrar<T> : IRegistrar
         where T : IComponent
     {
         /// <summary>
-        /// Регистрация компонента, которого включили.
+        /// Вызывает прием компонента, который включили.
         /// </summary>
         /// <param name="component">Экземпляр компонента.</param>
         void EnabledReception(T component);
 
         /// <summary>
-        /// Снятие с регистрации компонента, которого выключили.
+        /// Вызывает депортацию компонента, который выключили.
         /// </summary>
         /// <param name="component">Экземпляр компонента.</param>
         void EnabledDeparture(T component);

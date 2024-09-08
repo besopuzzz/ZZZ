@@ -4,6 +4,17 @@ namespace ZZZ.Framework.Rendering.Assets
 {
     public sealed class Sprite : Asset
     {
+        public override string Name 
+        { 
+            get => base.Name;
+            set
+            {
+                base.Name = value;
+            }
+        }
+
+        public int Index => index;
+
         [ContentSerializer]
         public Rectangle? Source { get; }
 
@@ -17,10 +28,18 @@ namespace ZZZ.Framework.Rendering.Assets
             }
         }
         internal List<Sprite> Sprites { get; } = new List<Sprite>();
-        public Texture2D Texture => texture;
+        internal Sprite Parent => parent;
 
+        [ContentSerializerIgnore]
+        public Texture2D Texture => texture;
+        public Point Size
+        {
+            get => Source.HasValue ? Source.Value.Size : Texture.Bounds.Size;
+        }
 
         private Texture2D texture;
+        private int index = 0;
+        private Sprite parent;
 
         internal Sprite()
         {
@@ -34,10 +53,14 @@ namespace ZZZ.Framework.Rendering.Assets
             Source = source;
         }
 
+
+
         public Sprite CreateSub(Rectangle source, Vector2 origin)
         {
             Sprite sprite = new Sprite(Texture, source, origin);
+            sprite.index = Sprites.Count;
             sprite.Name = Name + $"_{Sprites.Count}";
+            sprite.parent = this;
 
             Sprites.Add(sprite);
 

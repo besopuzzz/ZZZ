@@ -1,14 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 using ZZZ.Framework;
+using ZZZ.Framework.Assets;
+using ZZZ.Framework.Assets.Rendering;
 using ZZZ.Framework.Auding.Components;
+using ZZZ.Framework.Components;
 using ZZZ.Framework.Components.Rendering;
 using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering;
+using ZZZ.Framework.Core.Rendering.Components;
 using ZZZ.Framework.Core.Updating;
 using ZZZ.Framework.Core.Updating.Components;
 using ZZZ.Framework.Physics.Components;
+using ZZZ.Framework.UserInterfacing.Components;
 
 namespace ZZZ.KNI.GameProject
 {
@@ -19,20 +27,40 @@ namespace ZZZ.KNI.GameProject
     {
         public Vector2 MaxSpeed { get; set; } = new Vector2(0.5f);
 
+        private Tilemap tilemap;
         private Rigidbody rigidbody;
         private SoundListener soundListener;
         private Transformer camera;
         private Scene scene;
         private UpdateRegistrar updateRegistrar;
-        private TestComponent testComponent;
         private KeyboardState oldState;
         private Transformer myTransfrom;
+        private FPSCounter fPSCounter;
 
         protected override void Awake()
         {
+            tilemap = FindComponent<Tilemap>();
+            scene = FindGameObject<Scene>();
+            rigidbody = GetComponent<Rigidbody>();
+
+            soundListener = GetComponent<SoundListener>();
+            tilemapCollider = FindComponent<TilemapCollider>();
+
             camera = FindComponent<Camera>()?.Owner?.GetComponent<Transformer>();
-            testComponent = GetComponent<TestComponent>();
             myTransfrom = GetComponent<Transformer>();
+            fPSCounter = GetComponent<FPSCounter>();
+
+
+            GameObject label = new GameObject();
+
+            var transfoer = label.AddComponent<UITransformer>();
+
+            transfoer.Size = new Vector2(100f);
+            var lbl = label.AddComponent(new BindableLabel(myTransfrom, "World"));
+            lbl.Font = new Font(AssetManager.Load<SpriteFont>("Fonts/System"));
+            lbl.BackgroundColor = Color.Green;
+
+            //AddGameObject(label);
 
             base.Awake();
         }
@@ -55,14 +83,19 @@ namespace ZZZ.KNI.GameProject
             else if (keyboardState.IsKeyDown(Keys.S))
                 speed.Y = 1f;
 
-            if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
-                rigidbody.Enabled = !rigidbody.Enabled;
+            //if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
+            //    rigidbody.Enabled = !rigidbody.Enabled;
+
+
+            if (keyboardState.IsKeyDown(Keys.RightShift))
+                if (keyboardState.IsKeyDown(Keys.Space))
+                    tilemap.Owner.RemoveComponent<TilemapRenderer>();
 
             if (keyboardState.IsKeyDown(Keys.LeftShift))
             {
 
                 if (keyboardState.IsKeyDown(Keys.Space))
-                    tilemapCollider.IsTrigger = !tilemapCollider.IsTrigger;
+                    tilemap.TileSize += Vector2.One;
 
                 if (keyboardState.IsKeyDown(Keys.Left))
                     scenePos.X -= 1f;
@@ -101,7 +134,7 @@ namespace ZZZ.KNI.GameProject
             rigidbody.Velocity += MaxSpeed * speed;
 
             var old = rigidbody.Owner.GetComponent<Transformer>().HasChanges;
-            MainGame.SetTitle(old.ToString());
+            MainGame.SetTitle((rigidbody.Velocity).ToString());
 
             oldState = keyboardState;
         }
@@ -110,12 +143,6 @@ namespace ZZZ.KNI.GameProject
 
         void IStartupComponent.Startup()
         {
-            scene = FindGameObject<Scene>();
-            camera = FindComponent<Camera>()?.Owner?.GetComponent<Transformer>();
-            rigidbody = GetComponent<Rigidbody>();
-
-            soundListener = GetComponent<SoundListener>();
-            tilemapCollider = FindComponent<TilemapCollider>();
         }
     }
 }

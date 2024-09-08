@@ -5,7 +5,7 @@ using ZZZ.Framework.Assets.Pipeline.Readers;
 namespace ZZZ.KNI.Content.Pipeline.Writers
 {
     public abstract class AssetTypeWriter<TAsset> : ContentTypeWriter<TAsset>
-        where TAsset : Asset
+        where TAsset : IAsset
     {
         private AssetCompilerWriter compilerWriter = new AssetCompilerWriter();
 
@@ -23,7 +23,7 @@ namespace ZZZ.KNI.Content.Pipeline.Writers
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            return typeof(AssetReader<TAsset>).AssemblyQualifiedName;
+            return typeof(AssetReader).AssemblyQualifiedName;
         }
 
         protected override void Initialize(ContentCompiler compiler)
@@ -40,6 +40,7 @@ namespace ZZZ.KNI.Content.Pipeline.Writers
             if(string.IsNullOrWhiteSpace(value.Name))
             {
                 isReflectiveReader = true;
+
                 output.WriteObject("");
 
                 compilerWriter.OnAddedToContentWriter(output);

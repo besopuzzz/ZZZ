@@ -1,5 +1,7 @@
-﻿using ZZZ.Framework.Components.Transforming;
+﻿using Microsoft.Xna.Framework.Graphics;
+using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering.Components;
+using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Core.Rendering
 {
@@ -8,7 +10,7 @@ namespace ZZZ.Framework.Core.Rendering
     /// </summary>
     /// <remarks>Для отображение хоть какого-то объекта на экране нужен как минимум один экземпляр компонент камеры. 
     /// Существование нескольких камер <see cref="ICamera"/> не будет вызывать конфликт, но рисование будет выполнено повторно
-    /// для каждой активной камеры. Используйте <see cref="RenderObject.Layer"/> для указания слоев, 
+    /// для каждой активной камеры. Используйте <see cref="RenderEntity.Layer"/> для указания слоев, 
     /// которые камера будет проецировать на экран.</remarks>
     [RequireComponent(typeof(Transformer))]
     public class Camera : Component, ICamera
@@ -54,21 +56,43 @@ namespace ZZZ.Framework.Core.Rendering
         {
             get
             {
-                return  (1 << 2) | (1 << 4);
+                return (1 << 2) | (1 << 4);
             }
         }
 
         Matrix ICamera.Projection => matrix;
 
+        public bool IsMain
+        {
+            get => isMain;
+            set
+            {
+                if (isMain == value) return;
+
+                isMain = value;
+
+                mainCamera = value ? this : null;
+            }
+        }
+
+        public static ICamera MainCamera => mainCamera;
+
+
+        private bool isMain = false;
         private Matrix matrix = Matrix.Identity;
         private bool ignoreZ = true;
         private Transformer transformer;
+        private SpriteBatch spriteBatch;
+        private static ICamera mainCamera;
 
         /// <summary>
         /// Представляет экземпляр компонента камеры.
         /// </summary>
         public Camera()
         {
+            if (mainCamera == null)
+                mainCamera = this;
+
             Anchor = new Vector2(400, 240);
         }
 
@@ -80,16 +104,15 @@ namespace ZZZ.Framework.Core.Rendering
             base.Awake();
         }
 
-        void ICamera.Render(RenderManager renderManager, IReadOnlyList<IRender> components)
+        protected override void Shutdown()
         {
-            renderManager.Begin(transformMatrix: matrix, samplerState: SamplerState.PointClamp, sortMode: SpriteSortMode.Immediate);
 
-            foreach (var item in components)
-            {
-                item.Render(renderManager);
-            }
+            base.Shutdown();
+        }
 
-            renderManager.End();
+        void ICamera.Render(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(transformMatrix: matrix, sortMode: SpriteSortMode.Immediate);
         }
 
         void ICamera.UpdateMatrix()

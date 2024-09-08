@@ -1,24 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using ZZZ.Framework.Core.Rendering;
+//using ZZZ.Framework.Core.Rendering.Components;
 
-namespace ZZZ.Framework.Components.Rendering
-{
-    internal class GroupRender : Component, IGroupRender
-    {
-        public int Order => throw new NotImplementedException();
+//namespace ZZZ.Framework.Components.Rendering
+//{
+//    public class GroupRender : Component, IRender
+//    {
+//        public int Order { get; set; }
 
-        public SortLayer Layer => throw new NotImplementedException();
+//        public SortLayer Layer
+//        {
+//            get => layer;
+//            set
+//            {
+//                if (layer == value)
+//                    return;
 
-        public event EventHandler<SortLayerArgs> LayerChanged;
+//                SortLayer oldValue = value;
 
-        public void Render(RenderManager renderManager)
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+//                layer = value;
+
+//                LayerChanged?.Invoke(this, new SortLayerArgs(oldValue, value));
+//            }
+//        }
+
+//        public event EventHandler<SortLayerArgs> LayerChanged;
+
+//        private UITransformer transformer;
+//        private SortLayer layer;
+
+//        protected override void Awake()
+//        {
+//            transformer = GetComponent<UITransformer>();
+
+//            base.Awake();
+//        }
+//    }
+//}

@@ -3,8 +3,7 @@ using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Assets.Pipeline.Readers
 {
-    public class AssetReader<TAsset> : ContentTypeReader<TAsset>
-        where TAsset : Asset
+    public class AssetReader : ContentTypeReader<IAsset>
     {
         private Reader serializer = new Reader();
 
@@ -21,10 +20,10 @@ namespace ZZZ.Framework.Assets.Pipeline.Readers
             get { return TargetType.IsClass; }
         }
 
-        protected override TAsset Read(ContentReader input, TAsset existingInstance)
+        protected override IAsset Read(ContentReader input, IAsset existingInstance)
         {
             if(existingInstance == null)
-                existingInstance = Activator.CreateInstance(TargetType, true) as TAsset;
+                existingInstance = (IAsset)Activator.CreateInstance(TargetType, true);
 
             string name = input.ReadObject<string>();
 
@@ -35,16 +34,16 @@ namespace ZZZ.Framework.Assets.Pipeline.Readers
                 return existingInstance;
             }
 
-            //input.ReadObject(name, new ReflectiveReader<TAsset>())
-
             if (TargetType == typeof(Sprite))
             {
-                return Read(name, input.ContentManager) as TAsset;
+                var sprite = Read(name, input.ContentManager);
+
+                return sprite as IAsset;
             }
-            else return input.ContentManager.Load<TAsset>(name);
+            else return input.ContentManager.Load<IAsset>(name);
         }
 
-        private  Sprite Read(string name, ContentManager contentManager)
+        private Sprite Read(string name, ContentManager contentManager)
         {
             string assetName = name;
 

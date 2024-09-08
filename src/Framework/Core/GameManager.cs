@@ -1,83 +1,63 @@
 ﻿using ZZZ.Framework.Assets;
+using ZZZ.Framework.Core.Rendering.Components;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ZZZ.Framework.Core
 {
-    public class GameManager : Disposable
+    public class GameManager : IGameComponent
     {
-        public Game Game { get; }
-        public bool Initialized => initialized;
-        public IReadOnlyList<IRegistrar> Registrars => registrars;
+        public IGameInstance Game { get;  }
+        public IReadOnlyList<IRegistrar> Registrars => settings.Registrars;
 
-        private readonly List<IRegistrar> registrars = new List<IRegistrar>();
-        private bool initialized = false;
+        internal bool Initialized => initialized;
 
-        protected GameManager(Game game)
+        private static GameManager intance;
+        private readonly GameManagerSettings settings;
+        private bool initialized;
+
+        private GameManager()
         {
+
+        }
+
+        public GameManager(IGameInstance game, GameManagerSettings managerSettings)
+        {
+            if (intance == null)
+                intance = this;
+            else throw new InvalidOperationException("GameManager already create instance!");
+
             Game = game;
+
+            settings = managerSettings.Clone();
+
+            _ = new AssetManager(this);
+            _ = new GameSettings(this);
+            _ = new SceneLoader(this);
+
+            Game.Components.Add(this);
+
+            foreach (var item in Registrars)
+            {
+                item.GameManager = this;
+
+                Game.Components.Add(item as IGameComponent);
+            }
         }
 
-        public static GameManagerBuilder StartBuild(Game game)
+        internal static void RegistrationComponent<T>(T component) where T : IComponent
         {
-            return new GameManagerBuilder(new GameManager(game));
-        }
-
-        public static GameManagerBuilder StartBuild(GameManager gameManager)
-        {
-            return new GameManagerBuilder(gameManager);
-        }
-
-        internal void UseRegistrar(IRegistrar registrar)
-        {
-            ArgumentNullException.ThrowIfNull(registrar);
-
-            if (initialized)
-                throw new Exception("GameManager not support new registrars after initialize.");
-
-            if (registrars.Contains(registrar))
-                throw new Exception("Registrar already exist!");
-
-            registrar.GameManager = this;
-
-            registrars.Add(registrar);
-
-            OnRegistrarAdded(registrar);
-        }
-
-        internal void RegistrationComponent<T>(T component) where T : IComponent
-        {
-            foreach (var item in registrars)
+            foreach (var item in intance.Registrars)
             {
                 item.RegistrationObject(component);
             }
         }
 
-        internal void UnregistrationComponent<T>(T component) where T : IComponent
+        internal static void UnregistrationComponent<T>(T component) where T : IComponent
         {
-            foreach (var item in registrars)
+            foreach (var item in intance.Registrars)
             {
                 item.DeregistrationObject(component);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                foreach (var item in registrars)
-                {
-                    if (item is IDisposable disposable)
-                        disposable.Dispose();
-                }
-            }
-
-            registrars.Clear();
-
-            base.Dispose(disposing);
-        }
-
-        protected virtual void OnRegistrarAdded(IRegistrar registrar)
-        {
-
         }
 
         protected virtual void Initialize()
@@ -85,22 +65,16 @@ namespace ZZZ.Framework.Core
 
         }
 
-        internal void InternalInitialize()
+        void IGameComponent.Initialize()
         {
-            if (initialized)
-                return;
-
-            foreach (var item in Registrars)
-            {
-                Game.Components.Add(item as IGameComponent);
-            }
-
-            Initialize();
+            settings.InternalInitialize(this);
 
             var scene = SceneLoader.CurrentScene;
 
             if (scene != null)
+            {
                 ((GameObject)scene).Awake();
+            }
 
             initialized = true;
         }

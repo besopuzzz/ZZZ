@@ -1,4 +1,7 @@
-﻿namespace ZZZ.Framework
+﻿using System.ComponentModel;
+using ZZZ.Framework.Serialization;
+
+namespace ZZZ.Framework
 {
     /// <summary>
     /// Представляет базовый компонент. Только для наследования.
@@ -24,11 +27,14 @@
             }
         }
 
+        [ContentSerializerIgnore]
         /// <inheritdoc cref="IComponent.Started"/>
         public bool Started => started;
 
+        [ContentSerializerIgnore]
         /// <inheritdoc cref="IComponent.Owner"/>
         public GameObject Owner => owner;
+
         GameObject IComponent.Owner
         {
             get => owner;
@@ -53,12 +59,19 @@
         /// <inheritdoc cref="IComponent.EnabledChanged"/>
         public event EventHandler<EventArgs> EnabledChanged;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private GameObject owner;
         private bool enabled = true;
         private bool started = false;
 
         public Component()
         {
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <inheritdoc cref="IComponent.Awake"/>

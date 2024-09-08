@@ -43,7 +43,6 @@ namespace ZZZ.KNI.Content.Pipeline.Writers
             if (typeVersion != null)
                 _typeVersion = typeVersion.TypeVersion;
 
-
             _properties.AddRange( GetAllProperties(assetType).Where(IsValidProperty).ToArray());
             _fields.AddRange(GetAllFields(assetType).Where(IsValidField).ToArray());
         }
@@ -175,7 +174,7 @@ namespace ZZZ.KNI.Content.Pipeline.Writers
             var property = member as PropertyInfo;
             var field = member as FieldInfo;
             Debug.Assert(field != null || property != null);
-
+            
             Type elementType;
             object memberObject;
 

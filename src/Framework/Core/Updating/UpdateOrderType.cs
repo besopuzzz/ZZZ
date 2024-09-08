@@ -1,8 +1,14 @@
 ﻿
 namespace ZZZ.Framework.Core.Updating
 {
+    /// <summary>
+    /// Представляет класс, позволяющий менять порядок обновления у указанного типа.
+    /// </summary>
     public sealed class UpdateOrderType
     {
+        /// <summary>
+        /// Получает или устанавливает порядок обновления, относительно остальных компонентов.
+        /// </summary>
         public int Order
         {
             get => order;
@@ -17,6 +23,9 @@ namespace ZZZ.Framework.Core.Updating
             }
         }
 
+        /// <summary>
+        /// Получает тип компонента.
+        /// </summary>
         [ContentSerializerIgnore]
         public Type ComponentType { get; }
 

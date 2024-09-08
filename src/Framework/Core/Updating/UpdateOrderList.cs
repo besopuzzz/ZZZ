@@ -2,6 +2,10 @@
 
 namespace ZZZ.Framework.Core.Updating
 {
+    /// <summary>
+    /// Представляет класс сортировщика обновляемых компонентов.
+    /// </summary>
+    /// <remarks>Используйте методы <see cref="Add(Type, int)"/> и <see cref="Remove(Type)"/> для указания порядка выполнения обновления компонентов.</remarks>
     public sealed class UpdateOrderList : IEnumerable<UpdateOrderType>
     {
         [ContentSerializer(ElementName = "Orders")]
@@ -44,6 +48,18 @@ namespace ZZZ.Framework.Core.Updating
             defaults.Clear();
         }
 
+        private void ThrowIfNotValid(Type type)
+        {
+            if (!type.IsAssignableFrom(typeof(IComponent)))
+                throw new ArgumentException($"Type {type} is not inherited from IComponent!");
+
+        }
+
+        /// <summary>
+        /// Получает экземпляр класса для указания порядка сортировки.
+        /// </summary>
+        /// <param name="type">Тип компонента.</param>
+        /// <returns>Экземпляр класса-сортировки.</returns>
         public UpdateOrderType this[Type type]
         {
             get
@@ -52,8 +68,16 @@ namespace ZZZ.Framework.Core.Updating
             }
         }
 
+        /// <summary>
+        /// Добавляет тип к сортировки.
+        /// </summary>
+        /// <param name="type">Тип компонента.</param>
+        /// <param name="order">Порядок обновления.</param>
+        /// <returns>Экземпляр класса-сортировки.</returns>
         public UpdateOrderType Add(Type type, int order)
         {
+            ThrowIfNotValid(type);
+
             var orderType = defaults.Find(x=> x.ComponentType == type);
 
             if(orderType != null)
@@ -80,8 +104,14 @@ namespace ZZZ.Framework.Core.Updating
             return orderType;
         }
 
+        /// <summary>
+        /// Удаляет тип компонента из сортировщика.
+        /// </summary>
+        /// <param name="type">Тип компонента.</param>
         public void Remove(Type type)
         {
+            ThrowIfNotValid(type);
+
             var orderType = this[type];
 
             if (orderType == null)
@@ -92,6 +122,9 @@ namespace ZZZ.Framework.Core.Updating
             orderType.Order = 0;
         }
 
+        /// <summary>
+        /// Очищает сортировщик от всех типов.
+        /// </summary>
         public void Clear()
         {
             foreach (var item in types.ToList())

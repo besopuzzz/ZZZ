@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
+using System.Linq;
 using ZZZ.Framework;
 using ZZZ.Framework.Assets;
 using ZZZ.Framework.Components.Rendering;
@@ -10,22 +10,25 @@ using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core;
 using ZZZ.Framework.Core.Registrars;
 using ZZZ.Framework.Core.Rendering;
+using ZZZ.Framework.Core.Rendering.Components;
+using ZZZ.Framework.Core.Rendering.Entities;
 using ZZZ.Framework.Core.Transforming;
 using ZZZ.Framework.Core.Updating;
 using ZZZ.Framework.Diagnostics.Components;
 using ZZZ.Framework.Physics.Components;
 using ZZZ.Framework.Rendering.Assets;
-using ZZZ.KNI.Content.Pipeline;
+using ZZZ.Framework.UserInterfacing;
+using ZZZ.KNI.Content.Pipeline.Serializers;
 
 namespace ZZZ.KNI.GameProject
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class MainGame : Game
+    public class MainGame : Game, IGameInstance
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch;
 
         private static MainGame game;
 
@@ -36,105 +39,122 @@ namespace ZZZ.KNI.GameProject
 
         public MainGame()
         {
+            ModuleInitializer.Initialize();
+            
             game = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Window.AllowUserResizing = true;
+            
+            GameManagerSettings gameSettings = new GameManagerSettings();
+            
+            gameSettings.Registrars.Add(new InitializeRegistrar());
+            //gameSettings.Registrars.Add(new UpdateRegistrar());
+            gameSettings.Registrars.Add(new PhysicRegistrar());
+            //gameSettings.Registrars.Add(new RenderRegistrar());
+            gameSettings.Registrars.Add(new WorldRenderer());
+            //gameSettings.Registrars.Add(new UIRegistrar());
+            gameSettings.Registrars.Add(new TransformerRegistrar());
 
-            _ = GameManager.StartBuild(this)
-                .UseStaticAssetManager()
-                .UseRegistrar(new InitializeRegistrar())
-                .UseRegistrar(new UpdateRegistrar())
-                .UseRegistrar(new WorldRegistrar())
-                .UseRegistrar(new RenderRegistrar())
-                .UseRegistrar(new WorldRenderer())
-                .UseRegistrar(new TransformerRegistrar())
-                .EndBuild();
+            var main = new GameManager(this, gameSettings);
+
+            //RenderSystem renderSystem = new RenderSystem();
+            //renderSystem.Game = this;
+
+
+
+
+            //Components.Add(renderSystem);
         }
 
         private Scene scene;
 
         protected override void Initialize()
         {
+            SceneLoader.Load(new Scene() {  Name = "Scene"});
 
-            SceneLoader.Load(new Scene());
-
-
+            //SceneLoader.CurrentScene.AddGameObject(label);
 
             var hero = new GameObject();
-            hero.AddGameObject(new GameObject()).AddComponent<Camera>();
-            hero.AddComponent<SpriteRenderer>().Sprite = AssetManager.Load<Sprite>("Sprites/main")[0];
-            hero.AddComponent<SpriteRenderer>().Order = -100;
-            hero.AddComponent<HeroController>();
-            hero.AddComponent<BoxCollider>().IsTrigger = false;
-            hero.AddComponent<TestComponent>();
-
-            SceneLoader.CurrentScene.AddGameObject(hero);
-
             hero = new GameObject();
-            hero.AddComponent<Transformer>().Local = Transform2D.CreateTranslation(-100f, -100f);
+            hero.AddComponent<Transformer>().Local = new Transform2D(100f, 100f, 100f, 2f);
             hero.AddComponent<SpriteRenderer>().Sprite = AssetManager.Load<Sprite>("Sprites/main")[0];
-            hero.AddComponent<BoxCollider>().Layer = ColliderLayer.Cat2;
 
             SceneLoader.CurrentScene.AddGameObject(hero);
 
-            SceneLoader.CurrentScene.AddGameObject(TestNewTilemap());
+            var x = SceneLoader.CurrentScene.AddGameObject(new GameObject());
+            //x.AddComponent<GroupRender>();
+            x.AddGameObject(TestNewTilemap());
 
+
+            RenderSystem renderSystem = new RenderSystem();
+            renderSystem.Game = this;
+
+            Components.Add(renderSystem);
+
+
+            UpdateSystem updateSystem  = new UpdateSystem();
+            updateSystem.Game = this;
+
+            Components.Add(updateSystem);
 
             base.Initialize();
+
         }
 
         private GameObject TestNewTilemap()
         {
 
+            Sprite main = Content.Load<Sprite>("Sprites/main");
+
             HeroTile heroTile = new HeroTile();
             heroTile.Color = Color.Red;
-            heroTile.Sprite = Content.Load<Framework.Rendering.Assets.Sprite>("Sprites/main")[0];
-            heroTile.Sprites = new Framework.Rendering.Assets.Sprite[3] { Content.Load<Sprite>("Sprites/main")[0]
-                , Content.Load<Sprite>("Sprites/main")[1], Content.Load<Sprite>("Sprites/main")[2] };
+            heroTile.Sprite = main[0];
+            heroTile.Sprites = [ main[0], main[1], main[2]];
 
 
-
-            var container = new GameObject();
+            var container = new GameObject() { Name = "Tilemap" };
             container.AddComponent(new TilemapCollider());
-            container.AddComponent(new TilemapRenderer());
-            container.AddComponent(new TilemapAnimator() { Speed = 10f});
-            var tilemap = container.AddComponent(new Tilemap());
+            container.AddComponent(new TilemapRenderer() { RenderMode = TileRenderMode.Stretch, Layer = SortLayer.Layer1 });
+            var tilemap = container.AddComponent(new Tilemap() {  TileSize = new Vector2(60)});
 
-            tilemap.Add(new Point(5, -1), heroTile);
+            tilemap.Add(new Point(5, -2), heroTile);
 
             //return container;
 
             Tile tile = new Tile();
-            tile.Sprite = Content.Load<Sprite>("Sprites/main")[0];
-            tile.Sprites = new Sprite[9] { Content.Load<Sprite>("Sprites/main")[0], Content.Load<Sprite>("Sprites/main")[1],
-                Content.Load<Sprite>("Sprites/main")[2], Content.Load<Sprite>("Sprites/main")[3], Content.Load<Sprite>("Sprites/main")[4]
-                , Content.Load<Sprite>("Sprites/main")[5], Content.Load<Sprite>("Sprites/main")[6], Content.Load<Sprite>("Sprites/main")[7]
-            , Content.Load<Sprite>("Sprites/main")[8]};
+            tile.Sprite = main[0];
+            tile.Sprites = [main[0],
+                main[1],
+                main[2],
+                main[3],
+                main[4],
+                main[5],
+                main[6],
+                main[7],
+                main[8]];
 
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 for (int y = 0; y < 10; y++)
                 {
                     tilemap.Add(new Point(i, y), tile);
-
                 }
-
-
             }
 
+            //container.AddComponent<GroupRender>();
 
             return container;
-
         }
 
         public class HeroTile : Tile
         {
             public override void Startup(Point position, Tilemap tilemap, GameObject container)
             {
-                //container.AddComponent<HeroController>();
-                //container.AddGameObject(new GameObject()).AddComponent<Camera>();
+                container.AddComponent<HeroController>();
+                container.AddGameObject(new GameObject()).AddComponent<Camera>();
 
                 base.Startup(position, tilemap, container);
             }
@@ -147,9 +167,7 @@ namespace ZZZ.KNI.GameProject
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-
+            spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(GraphicsDevice);
 
             // TODO: Use this.Content to load your game content here
         }
@@ -173,6 +191,8 @@ namespace ZZZ.KNI.GameProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+
             KeyboardState keyboardState = Keyboard.GetState();
 
 #if LINUX || WINDOWS
@@ -192,8 +212,9 @@ namespace ZZZ.KNI.GameProject
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-
             base.Draw(gameTime);
         }
     }
 }
+
+

@@ -21,7 +21,12 @@
         /// </summary>
         public AddingOrderType AddingOrder { get; }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type">Тип компонента, который необходимо добавить.</param>
+        /// <param name="order">Порядок добавления/удаления обязательного компонента, по сравнению с основным.</param>
+        /// <param name="remove">Если <see href="true"/>, то компонент будет удален вместе с основным.</param>
         public RequireComponentAttribute(Type type, AddingOrderType order = AddingOrderType.Before, bool remove = false)
         {
             Type = type;

@@ -31,7 +31,7 @@ namespace ZZZ.Framework.Extentions
         public VirtualType AddCustomAttribute( Type attribute, Type[] constructorTypes = null, object[] constructorParametres = null)
         {
             typeBuilder.SetCustomAttribute(new CustomAttributeBuilder(
-                attribute.GetConstructor(constructorTypes ?? new Type[0]), constructorParametres ?? new object[0]));
+                attribute.GetConstructor(constructorTypes ?? Array.Empty<Type>()), constructorParametres ?? Array.Empty<object>()));
 
             return this;
         }

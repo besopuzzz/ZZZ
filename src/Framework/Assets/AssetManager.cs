@@ -1,35 +1,33 @@
-﻿namespace ZZZ.Framework.Assets
+﻿using ZZZ.Framework.Core;
+
+namespace ZZZ.Framework.Assets
 {
     public sealed class AssetManager
     {
         private static AssetManager instance;
-        public IAssetProvider provider;
+        private static ContentManager contentManager;
 
-        internal AssetManager(IAssetProvider assetProvider)
+        internal AssetManager(GameManager gameManager)
         {
             instance ??= this;
 
-            instance.provider = assetProvider ?? throw new ArgumentNullException(nameof(assetProvider));
-        }
-
-        private static void CheckOrThrow()
-        {
-            if (instance == null)
-                throw new InvalidOperationException("AssetManager not initialized. Use GameManagerBuilder.UseStaticAssetManager for initialize.");
+            contentManager = new ContentManager(gameManager.Game.Services, "Content");
         }
 
         public static T Load<T>(string path)
         {
-            CheckOrThrow();
+            if (instance == null)
+                return default;
 
-            return instance.provider.Load<T>(path);
+            return contentManager.Load<T>(path);
         }
 
         public static T LoadPrefab<T>(string path) where T : GameObject
         {
-            CheckOrThrow();
+            if (instance == null)
+                return default;
 
-            return instance.provider.LoadPrefab<T>(path);
+            return contentManager.Load<T>(path);
         }
     }
 }

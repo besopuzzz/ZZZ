@@ -1,16 +1,17 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using nkast.Aether.Physics2D.Collision;
-using nkast.Aether.Physics2D.Dynamics;
-using ZZZ.Framework.Components.Rendering;
+﻿using nkast.Aether.Physics2D.Dynamics;
 using ZZZ.Framework.Core.Physics;
 using ZZZ.Framework.Core.Registrars;
 
 namespace ZZZ.Framework.Physics.Components
 {
-    public class WorldRegistrar : BaseRegistrar<IBody>, IAnyRegistrar<IBody>
+    /// <summary>
+    /// Представляет регистратор, который обрабатывает физические Aether компоненты.
+    /// </summary>
+    public class PhysicRegistrar : BaseRegistrar<IBody>, IAnyRegistrar<IBody>
     {
-        public bool Debug { get; set; }
-
+        /// <summary>
+        /// Получает экземпляр физического мира.
+        /// </summary>
         [ContentSerializerIgnore]
         public World World => world;
 
@@ -18,19 +19,36 @@ namespace ZZZ.Framework.Physics.Components
         private List<IBody> bodies;
         private static World instance;
 
-        public WorldRegistrar()
+        /// <summary>
+        /// Инициализирует новый экземпляр физического регистратора.
+        /// </summary>
+        public PhysicRegistrar()
         {
             world = new World(Vector2.Zero);
-            
+
             instance = world;
 
             bodies = new List<IBody>();
         }
 
+        /// <summary>
+        /// Выпускает луч от точки до точки и возвращает результат.
+        /// </summary>
+        /// <param name="start">Точка старта луча.</param>
+        /// <param name="end">Конечная точка луча.</param>
+        /// <returns>Результат выпуска луча.</returns>
         public static RaycastResult Raycast(Vector2 start, Vector2 end)
         {
             return Raycast(start, end, ColliderLayer.All);
         }
+
+        /// <summary>
+        /// Выпускает луч от точки до точки и возвращает результат.
+        /// </summary>
+        /// <param name="start">Точка старта луча.</param>
+        /// <param name="end">Конечная точка луча.</param>
+        /// <param name="layer">Маска слоя коллайдеров, на которые будут действовать луч.</param>
+        /// <returns>Результат выпуска луча.</returns>
         public static RaycastResult Raycast(Vector2 start, Vector2 end, ColliderLayer layer)
         {
             RaycastResult raycastResult = new RaycastResult();
@@ -54,14 +72,6 @@ namespace ZZZ.Framework.Physics.Components
             }, start / IRigidbody.PixelsPerMeter, end / IRigidbody.PixelsPerMeter);
 
             return raycastResult;
-        }
-
-        private static float RaycastDelegate(Fixture fixture, Vector2 point, Vector2 normal,float fraction)
-        {
-            if (fixture.Tag is Collider collider)
-                collider.Owner.GetComponent<SpriteRenderer>().Color = Color.Red;
-
-            return fraction;
         }
 
         protected override void Update(GameTime gameTime)

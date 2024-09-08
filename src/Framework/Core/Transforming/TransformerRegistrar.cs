@@ -9,7 +9,7 @@ namespace ZZZ.Framework.Core.Transforming
 
         public TransformerRegistrar()
         {
-
+            UpdateOrder = int.MaxValue;
         }
 
         protected override void OnReception(Transformer component)

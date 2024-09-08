@@ -33,10 +33,13 @@ namespace ZZZ.KNI.Content.Pipeline
                             Type[] types = assembly.GetTypes();
                             foreach (Type type in types)
                             {
+                                if (type == typeof(IAsset))
+                                    continue;
+
                                 if (type == typeof(Asset))
                                     continue;
 
-                                if (typeof(Asset).IsAssignableFrom(type))
+                                if (typeof(IAsset).IsAssignableFrom(type))
                                 {
                                     list.Add(type);
                                 }

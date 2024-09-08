@@ -2,13 +2,14 @@
 using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Core.Rendering.Components;
+using ZZZ.Framework.Core.Updating.Components;
 
 namespace ZZZ.Framework.Components.Rendering
 {
     /// <summary>
     /// Представляет компонент для подсчета кадров за секунду.
     /// </summary>
-    public sealed class FPSCounter : Component, IRender
+    public sealed class FPSCounter : Component, IUpdateComponent, IRender
     {
         /// <summary>
         /// Количество кадров за секунду.
@@ -36,7 +37,7 @@ namespace ZZZ.Framework.Components.Rendering
 
         public event EventHandler<SortLayerArgs> LayerChanged;
 
-        private SortLayer layer;
+        private SortLayer layer = SortLayer.Layer1;
 
         private int frameCount = 0;
         private float elapsedTime = 0.0f;
@@ -44,6 +45,7 @@ namespace ZZZ.Framework.Components.Rendering
         private SpriteFont font;
         private Transformer transformer;
         private int order = 10000;
+
 
         public FPSCounter()
         {
@@ -59,9 +61,8 @@ namespace ZZZ.Framework.Components.Rendering
             base.Awake();
         }
 
-        void IRender.Render(RenderManager renderManager)
+        void IRender.Render(SpriteBatch spriteBatch)
         {
-            elapsedTime += (float)renderManager.GameTime.ElapsedGameTime.TotalSeconds;
             frameCount++;
             if (elapsedTime >= 1.0f)
             {
@@ -71,7 +72,12 @@ namespace ZZZ.Framework.Components.Rendering
             }
 
 
-            renderManager.DrawText(font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None, false);
+            spriteBatch.DrawText(font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None, false);
+        }
+
+        void IUpdateComponent.Update(GameTime gameTime)
+        {
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }

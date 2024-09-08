@@ -8,10 +8,10 @@ namespace ZZZ.Framework.Diagnostics.Components
     public class WorldRenderer : BaseRegistrar<IComponent>
     {
         private DebugView debugView;
-        private WorldRegistrar worldController;
+        private PhysicRegistrar worldController;
         private Matrix projection;
         private GraphicsDevice device;
-        private RenderRegistrar renderRegistrar;
+        //private RenderRegistrar renderRegistrar;
         private Camera camera;
 
         public WorldRenderer()
@@ -20,19 +20,19 @@ namespace ZZZ.Framework.Diagnostics.Components
 
         protected override void Initialize()
         {
-            worldController = base.GameManager.Registrars.FirstOrDefault(x => x is WorldRegistrar) as WorldRegistrar;
+            worldController = base.GameManager.Registrars.FirstOrDefault(x => x is PhysicRegistrar) as PhysicRegistrar;
 
             if (worldController == null)
                 return;
 
             camera = SceneLoader.CurrentScene.FindComponent<Camera>();
 
-            device = GameManager.Game.GraphicsDevice;
+            device = GameSettings.Instance.Game.Services.GetService<IGraphicsDeviceService>().GraphicsDevice;
             device.DeviceResetting += Device_DeviceResetting;
 
             debugView = new DebugView(worldController.World);
             debugView.Flags = DebugViewFlags.CenterOfMass | DebugViewFlags.Joint | DebugViewFlags.Shape;
-            debugView.LoadContent(device, GameManager.Game.Content);
+            debugView.LoadContent(device, new ContentManager(GameManager.Game.Services, "Content"));
 
             SetProject(device.Viewport.Bounds.Size);
         }
