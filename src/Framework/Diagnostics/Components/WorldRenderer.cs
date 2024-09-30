@@ -1,82 +1,83 @@
-﻿using nkast.Aether.Physics2D.Diagnostics;
-using ZZZ.Framework.Core;
-using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Physics.Components;
+﻿//using nkast.Aether.Physics2D.Diagnostics;
+//using ZZZ.Framework.Core;
+//using ZZZ.Framework.Core.Rendering;
+//using ZZZ.Framework.Physics.Components;
 
-namespace ZZZ.Framework.Diagnostics.Components
-{
-    public class WorldRenderer : BaseRegistrar<IComponent>
-    {
-        private DebugView debugView;
-        private PhysicRegistrar worldController;
-        private Matrix projection;
-        private GraphicsDevice device;
-        //private RenderRegistrar renderRegistrar;
-        private Camera camera;
+//namespace ZZZ.Framework.Diagnostics.Components
+//{
+//    public class WorldRenderer :  BaseRegistrar<IComponent>
+//    {
+//        private DebugView debugView;
+//        private PhysicRegistrar worldController;
+//        private Matrix projection;
+//        private GraphicsDevice device;
+//        //private RenderRegistrar renderRegistrar;
+//        private Camera camera;
 
-        public WorldRenderer()
-        {
-        }
+//        public WorldRenderer()
+//        {
+//            DrawOrder = 500;
+//        }
 
-        protected override void Initialize()
-        {
-            worldController = base.GameManager.Registrars.FirstOrDefault(x => x is PhysicRegistrar) as PhysicRegistrar;
+//        protected override void Initialize()
+//        {
+//            worldController = base.GameManager.Registrars.FirstOrDefault(x => x is PhysicRegistrar) as PhysicRegistrar;
 
-            if (worldController == null)
-                return;
+//            if (worldController == null)
+//                return;
 
-            camera = SceneLoader.CurrentScene.FindComponent<Camera>();
+//            camera = SceneLoader.CurrentScene.FindComponent<Camera>();
 
-            device = GameSettings.Instance.Game.Services.GetService<IGraphicsDeviceService>().GraphicsDevice;
-            device.DeviceResetting += Device_DeviceResetting;
+//            device = GameSettings.Instance.Game.Services.GetService<IGraphicsDeviceService>().GraphicsDevice;
+//            device.DeviceResetting += Device_DeviceResetting;
 
-            debugView = new DebugView(worldController.World);
-            debugView.Flags = DebugViewFlags.CenterOfMass | DebugViewFlags.Joint | DebugViewFlags.Shape;
-            debugView.LoadContent(device, new ContentManager(GameManager.Game.Services, "Content"));
+//            debugView = new DebugView(worldController.World);
+//            debugView.Flags = DebugViewFlags.CenterOfMass | DebugViewFlags.Joint | DebugViewFlags.Shape;
+//            debugView.LoadContent(device, new ContentManager(GameManager.Game.Services, "Content"));
 
-            SetProject(device.Viewport.Bounds.Size);
-        }
+//            SetProject(device.Viewport.Bounds.Size);
+//        }
 
-        private void Device_DeviceResetting(object sender, EventArgs e)
-        {
-            SetProject(device.Viewport.Bounds.Size);
-        }
+//        private void Device_DeviceResetting(object sender, EventArgs e)
+//        {
+//            SetProject(device.Viewport.Bounds.Size);
+//        }
 
-        public void Shoutdown()
-        {
-            device.DeviceResetting -= Device_DeviceResetting;
-        }
+//        public void Shoutdown()
+//        {
+//            device.DeviceResetting -= Device_DeviceResetting;
+//        }
 
-        private void SetProject(Point size)
-        {
-            projection = Matrix.CreateOrthographicOffCenter(0, size.X, size.Y, 0, 0, 1);
-        }
+//        private void SetProject(Point size)
+//        {
+//            projection = Matrix.CreateOrthographicOffCenter(0, size.X, size.Y, 0, 0, 1);
+//        }
 
-        protected override void Draw(GameTime gameTime)
-        {
-            if (worldController == null)
-                return;
+//        protected override void Draw(GameTime gameTime)
+//        {
+//            if (worldController == null)
+//                return;
 
-            var trans = Matrix.CreateScale(new Vector3(Vector2.One * IRigidbody.PixelsPerMeter, 1f));
+//            var trans = Matrix.CreateScale(new Vector3(Vector2.One * IRigidbody.PixelsPerMeter, 1f));
 
-            debugView.RenderDebugData(projection, trans * (camera == null ? Matrix.Identity : camera.Projection));
+//            debugView.RenderDebugData(Camera.MainCamera.Projection, Camera.MainCamera.View, trans * Camera.MainCamera.World);
 
-            base.Draw(gameTime);
-        }
+//            base.Draw(gameTime);
+//        }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                debugView?.Dispose();
-            }
+//        protected override void Dispose(bool disposing)
+//        {
+//            if (disposing)
+//            {
+//                debugView?.Dispose();
+//            }
 
-            debugView = null;
-            worldController = null;
-            device = null;
+//            debugView = null;
+//            worldController = null;
+//            device = null;
 
-            base.Dispose(disposing);
-        }
+//            base.Dispose(disposing);
+//        }
 
-    }
-}
+//    }
+//}

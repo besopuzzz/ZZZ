@@ -1,24 +1,22 @@
-﻿using nkast.Aether.Physics2D.Common;
-using nkast.Aether.Physics2D.Dynamics;
-using ZZZ.Framework.Assets.Tiling;
+﻿using ZZZ.Framework.Assets.Tiling;
 using ZZZ.Framework.Assets.Tiling.Physics;
-using ZZZ.Framework.Physics.Components;
+using ZZZ.Framework.Components.Physics;
 
 namespace ZZZ.Framework.Components.Tiling
 {
     public sealed class TilemapColliderArgs : EventArgs
     {
-        public Collider TileCollider { get; }
+        public ICollider TileCollider { get; }
         public Point Position { get; }
 
-        public TilemapColliderArgs(Collider collider) 
+        public TilemapColliderArgs(ICollider collider) 
         {
             TileCollider = collider;
             Position = collider.Owner.GetComponent<TileComponent>().Position;
         }
     }
 
-    public delegate void TilemapColliderEvent(TilemapColliderArgs args, Collider other);
+    public delegate void TilemapColliderEvent(TilemapColliderArgs args, ICollider other);
 
     public sealed class TilemapCollider : Component, ITilemap
     {
@@ -26,16 +24,14 @@ namespace ZZZ.Framework.Components.Tiling
         {
             get
             {
-                return (ColliderLayer)Enum.ToObject(typeof(ColliderLayer), (int)category);
+                return category;
             }
             set
             {
-                var newValue = (Category)Enum.ToObject(typeof(Category), (int)value);
-
-                if (newValue == category)
+                if (value == category)
                     return;
 
-                category = newValue;
+                category = value;
 
                 foreach (var item in cache.Values)
                 {
@@ -44,15 +40,30 @@ namespace ZZZ.Framework.Components.Tiling
             }
         }
 
+        public override bool Enabled 
+        {
+            get => base.Enabled;
+            set
+            {
+                base.Enabled = value;
+
+                foreach (var item in cache.Values)
+                {
+                    item.Enabled = value;
+                }
+            }
+        }
+
         public event TilemapColliderEvent ColliderEnter;
         public event TilemapColliderEvent ColliderExit;
 
         private Dictionary<Point, PolygonCollider> cache = new Dictionary<Point, PolygonCollider>();
-        private Category category = Category.Cat1;
+        private ColliderLayer category = ColliderLayer.Cat1;
 
-        private Vertices CreateDefaultVertices(Tilemap tilemap)
+        private List<Vector2> CreateDefaultVertices(Vector2 size)
         {
-            Vertices vertices = new Vertices() { new Vector2(-0.5f, -0.5f), new Vector2(0.5f, -0.5f), new Vector2(0.5f, 0.5f), new Vector2(-0.5f, 0.5f) };
+            List<Vector2> vertices = new List<Vector2>() { new Vector2(-0.5f, -0.5f) * size, new Vector2(0.5f, -0.5f) * size,
+                new Vector2(0.5f, 0.5f) * size, new Vector2(-0.5f, 0.5f) * size };
 
             return vertices;
         }
@@ -64,7 +75,7 @@ namespace ZZZ.Framework.Components.Tiling
 
             var collider = container.AddComponent(new PolygonCollider());
 
-            collider.Vertices = PolygonTools.CreateRectangle(tilemap.TileSize.X / 2f, tilemap.TileSize.Y / 2f);
+            collider.Vertices = CreateDefaultVertices(tilemap.TileSize);
             collider.Layer = Layer;
             collider.ColliderEnter += Collider_ColliderEnter;
             collider.ColliderExit += Collider_ColliderExit;
@@ -72,12 +83,12 @@ namespace ZZZ.Framework.Components.Tiling
             cache.Add(position, collider);
         }
 
-        private void Collider_ColliderExit(Collider sender, Collider other)
+        private void Collider_ColliderExit(ICollider sender, ICollider other)
         {
             ColliderExit?.Invoke(new TilemapColliderArgs(sender), other);
         }
 
-        private void Collider_ColliderEnter(Collider sender, Collider other)
+        private void Collider_ColliderEnter(ICollider sender, ICollider other)
         {
             ColliderEnter?.Invoke(new TilemapColliderArgs(sender), other);
         }
@@ -108,17 +119,16 @@ namespace ZZZ.Framework.Components.Tiling
 
             colliderTile.GetColliderData(position, tilemap, ref tileRenderData);
 
-            Vertices vertices = new Vertices();
+            List<Vector2> vertices = new List<Vector2>();
 
             if (tileRenderData.Vertices.Count >= 3) // Triangle or polygon
                 vertices.AddRange(tileRenderData.Vertices);
-            else vertices.AddRange(PolygonTools.CreateRectangle(tilemap.TileSize.X / 2f, tilemap.TileSize.Y / 2f));
+            else vertices.AddRange(CreateDefaultVertices(tilemap.TileSize));
 
             collider.Vertices = vertices;
             collider.Offset = tileRenderData.Offset;
-            collider.Friction = tileRenderData.Friction;
             collider.Restitution = tileRenderData.Restitution;
-            collider.Density = tileRenderData.Density;
+            collider.Friction = tileRenderData.Friction;
             collider.IsTrigger = tileRenderData.IsTrigger;
         }
 

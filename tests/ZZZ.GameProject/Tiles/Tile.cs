@@ -5,6 +5,7 @@ using ZZZ.Framework;
 using ZZZ.Framework.Assets;
 using ZZZ.Framework.Assets.Tiling;
 using ZZZ.Framework.Assets.Tiling.Physics;
+using ZZZ.Framework.Components.Physics;
 using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Rendering.Assets;
 
@@ -34,8 +35,7 @@ namespace ZZZ.KNI.GameProject
 
         public virtual void GetColliderData(Point position, Tilemap tilemap, ref TileColliderData renderedTile)
         {
-            renderedTile.Friction = 20f;
-            renderedTile.Density = 10f;
+
             //renderedTile.Offset = new Vector2(-16);
             //renderedTile.Vertices = new List<Vector2>() { new Vector2(0, 0), new Vector2(0, 32), new Vector2(32), new Vector2(32,0) };
         }
@@ -64,7 +64,7 @@ namespace ZZZ.KNI.GameProject
 
         public virtual void Startup(Point position, Tilemap tilemap, GameObject container)
         {
-
+            //container.AddComponent<Rigidbody>();
         }
     }
 }

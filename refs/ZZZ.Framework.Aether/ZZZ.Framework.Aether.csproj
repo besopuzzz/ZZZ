@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<LangVersion>12</LangVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Aether.Physics2D.Diagnostics.KNI" Version="2.1.0" />
+		<PackageReference Include="Aether.Physics2D.KNI" Version="2.1.0" />
+		<PackageReference Include="nkast.Xna.Framework" Version="3.12.9001" />
+		<PackageReference Include="nkast.Xna.Framework.Ref" Version="3.12.9001" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Framework\ZZZ.Framework.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Content\DiagnosticsFont.xnb">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

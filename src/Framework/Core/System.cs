@@ -1,9 +1,8 @@
-﻿using ZZZ.Framework.Core.Rendering;
-
-namespace ZZZ.Framework.Core
+﻿namespace ZZZ.Framework.Core
 {
-    public abstract class System<TComponent, TEntity> : Disposable, IGameComponent, IDrawable, IUpdateable, ISystem<TComponent, TEntity>
-        where TEntity : BaseEntity<TComponent, TEntity>
+    public abstract class System<TEntity, TEntityComponent, TComponent> : Disposable, IGameComponent, IDrawable, IUpdateable, ISystem<TEntity, TEntityComponent, TComponent>
+        where TEntity : Entity<TEntity, TEntityComponent, TComponent>
+        where TEntityComponent : EntityComponent<TEntity, TEntityComponent, TComponent>
         where TComponent : IComponent
     {
         /// <summary>
@@ -107,9 +106,11 @@ namespace ZZZ.Framework.Core
         /// </summary>
         public event EventHandler<EventArgs> VisibleChanged;
 
-        public IGameInstance Game { get;  set; }
 
-        private SceneEntity<TComponent, TEntity> root;
+
+        public IGameInstance Game { get; set; }
+
+        private Entity<TEntity, TEntityComponent, TComponent> root;
         private bool initialized = false;
         private bool _visible = true;
         private bool _enabled = true;
@@ -119,7 +120,10 @@ namespace ZZZ.Framework.Core
         /// <summary>
         /// Инициализирует новый экземпляр регистратора.
         /// </summary>
-        protected System() { }
+        protected System()
+        {
+
+        }
 
         /// <summary>
         /// Инициализирует регистратор. Инициализация вызывается во время или после загрузки основного класса <see cref="Game"/>.
@@ -128,7 +132,7 @@ namespace ZZZ.Framework.Core
         {
 
         }
-        
+
 
         /// <summary>
         /// Вызывает метод обновления регистратора. Метод не будет обрабатываться, если значение <see cref="Enabled"/> будет false.
@@ -154,24 +158,10 @@ namespace ZZZ.Framework.Core
         {
             Initialize();
 
-            root = new SceneEntity<TComponent, TEntity>();
+            root = CreateEntity(default);/* new Entity<TEntity, TEntityComponent, TComponent>();*/
             root.Initialize(SceneLoader.CurrentScene, this);
 
             initialized = true;
-        }
-
-        protected abstract TEntity OnProcess(TComponent component);
-
-        protected IEnumerable<TEntity> Entities => root.GetEntitiesInternal() as IEnumerable<TEntity>;
-
-        protected BaseEntity<TComponent, TEntity> BaseEntity => root;
-
-        BaseEntity<TComponent, TEntity> ISystem<TComponent, TEntity>.Process(TComponent component)
-        {
-            if (component is not TComponent component1)
-                return null;
-
-            return OnProcess(component1);
         }
 
         void IDrawable.Draw(GameTime gameTime)
@@ -182,6 +172,21 @@ namespace ZZZ.Framework.Core
         void IUpdateable.Update(GameTime gameTime)
         {
             Update(gameTime);
+        }
+
+        protected abstract TEntity CreateEntity(TEntity owner);
+        protected abstract TEntityComponent CreateEntityComponent(TEntity owner, TComponent component);
+        protected void ForEveryComponent(Action<TEntityComponent> action) => root.ForEveryComponent(action);
+        protected void ForEveryChild(Action<TEntity> action) => root.ForEveryChild(action);
+
+        TEntity ISystem<TEntity, TEntityComponent, TComponent>.CreateEntity(Entity<TEntity, TEntityComponent, TComponent> owner)
+        {
+            return CreateEntity(owner as TEntity);
+        }
+
+        TEntityComponent ISystem<TEntity, TEntityComponent, TComponent>.CreateEntityComponent(Entity<TEntity, TEntityComponent, TComponent> owner, TComponent component)
+        {
+            return CreateEntityComponent(owner as TEntity, component);
         }
     }
 }

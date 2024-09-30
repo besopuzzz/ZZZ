@@ -1,36 +1,34 @@
 ﻿using ZZZ.Framework.Core.Rendering.Components;
-using static ZZZ.Framework.Core.Rendering.Entities.EntityRenderer;
 
 namespace ZZZ.Framework.Core.Rendering.Entities
 {
     public sealed class RenderQueue
     {
-        private readonly Dictionary<SortLayer, List<RenderEntity>> entities = new Dictionary<SortLayer, List<RenderEntity>>();
-        private static Comparer<int> comparer = Comparer<int>.Default;
+        public enum RenderMode
+        {
+            ToOneLayer,
+            ToEveryLayer
+        }
+
+        private readonly Dictionary<SortLayer, List<RenderEntityComponent>> entities = new Dictionary<SortLayer, List<RenderEntityComponent>>();
 
         internal RenderQueue()
         {
             foreach (var sortLayer in Enum.GetValues<SortLayer>())
-                entities.Add(sortLayer, new List<RenderEntity>());
+                entities.Add(sortLayer, new List<RenderEntityComponent>());
         }
 
-        public void Add(RenderEntity entity)
+        public void Add(RenderEntityComponent entity)
         {
             entities[entity.SortLayer].Add(entity);
         }
 
-        public void Add(IEnumerable<RenderEntity> entities)
+        private void SortAndRender(ICamera camera, List<RenderEntityComponent> entitiesToRender, SpriteBatch spriteBatch)
         {
-            foreach (RenderEntity child in entities)
-                child.RegisterToRender(this);
-        }
-
-        private void SortAndRender(ICamera camera, List<RenderEntity> entitiesToRender, SpriteBatch spriteBatch)
-        {
-            entitiesToRender.Sort((x, y) => comparer.Compare(x.Order, y.Order));
+            entitiesToRender.Sort();
 
             foreach (var entity in entitiesToRender)
-                entity.InternalRender(spriteBatch, camera);
+                entity.Render(camera, spriteBatch);
         }
 
         internal void Reset()
@@ -39,20 +37,17 @@ namespace ZZZ.Framework.Core.Rendering.Entities
                 entity.Value.Clear();
         }
 
-        internal void Clear()
-        {
-            entities.Clear();
-        }
-
         internal void Render(ICamera camera, SpriteBatch spriteBatch, RenderMode renderMode)
         {
             if (renderMode == RenderMode.ToOneLayer)
             {
                 camera.Render(spriteBatch);
 
-                foreach (var layer in entities.Values)
+                foreach (var entity in entities)
                 {
-                    SortAndRender(camera, layer, spriteBatch);
+                    SortAndRender(camera, entity.Value, spriteBatch);
+
+                    entity.Value.Clear();
                 }
 
                 spriteBatch.End();
@@ -69,10 +64,10 @@ namespace ZZZ.Framework.Core.Rendering.Entities
                     SortAndRender(camera, entities[entity.Key], spriteBatch);
 
                     spriteBatch.End();
+
+                    entity.Value.Clear();
                 }
             }
-
-            Reset();
         }
 
     }

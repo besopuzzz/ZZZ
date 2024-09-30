@@ -1,4 +1,4 @@
-﻿namespace ZZZ.Framework.Physics.Components
+﻿namespace ZZZ.Framework.Components.Physics
 {
     public enum ColliderLayer
     {

@@ -37,6 +37,8 @@ namespace ZZZ.Framework.Components.Tiling
         {
             if(Renderers.Count == 0) return;
 
+            if (Sprites == null) return;
+
             currentTime += dt;
 
             if (currentTime >= Duration)

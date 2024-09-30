@@ -188,18 +188,6 @@ namespace ZZZ.Framework.Components.Transforming
             base.Shutdown();
         }
 
-        /// <inheritdoc/>
-        public void SetWorld(Transform2D world)
-        {
-            this.world = world;
-        }
-
-        /// <inheritdoc/>
-        public void SetLocal(Transform2D local)
-        {
-            this.local = local;
-        }
-
         private void Parent_WorldChanged(Transformer sender, Transform2D args)
         {
             world = local * parent.World;

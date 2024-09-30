@@ -1,14 +1,16 @@
 ﻿using ZZZ.Framework.Assets;
 using ZZZ.Framework.Components.Transforming;
+using ZZZ.Framework.Components.Updating;
 using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Updating.Components;
+using ZZZ.Framework.Core.Rendering.Entities;
 
 namespace ZZZ.Framework.Components.Rendering
 {
     /// <summary>
     /// Представляет компонент для подсчета кадров за секунду.
     /// </summary>
+    [RequireComponent(typeof(Transformer))]
     public sealed class FPSCounter : Component, IUpdateComponent, IRender
     {
         /// <summary>
@@ -20,22 +22,10 @@ namespace ZZZ.Framework.Components.Rendering
         public SortLayer Layer
         {
             get => layer;
-            set
-            {
-                if (layer == value)
-                    return;
-
-                SortLayer oldValue = value;
-
-                layer = value;
-
-                LayerChanged?.Invoke(this, new SortLayerArgs(oldValue, value));
-            }
+            set => layer = value;
         }
 
         public int Order { get => order; set => order = value; }
-
-        public event EventHandler<SortLayerArgs> LayerChanged;
 
         private SortLayer layer = SortLayer.Layer1;
 

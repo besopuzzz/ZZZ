@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using ZZZ.Framework.Core.Rendering.Components;
-
-namespace ZZZ.Framework.Core
+﻿namespace ZZZ.Framework.Core
 {
-    public interface ISystem<TComponent, TEntity>
+    public interface ISystem<TEntity, TEntityComponent, TComponent>
+        where TEntity : Entity<TEntity, TEntityComponent, TComponent>
+        where TEntityComponent : EntityComponent<TEntity, TEntityComponent, TComponent>
         where TComponent : IComponent
-        where TEntity : BaseEntity<TComponent, TEntity>
     {
-        BaseEntity<TComponent, TEntity> Process(TComponent component);
+        TEntity CreateEntity(Entity<TEntity, TEntityComponent, TComponent> owner);
+        TEntityComponent CreateEntityComponent(Entity<TEntity, TEntityComponent, TComponent> owner, TComponent component);
     }
 }

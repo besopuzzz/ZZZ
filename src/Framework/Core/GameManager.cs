@@ -1,6 +1,4 @@
 ﻿using ZZZ.Framework.Assets;
-using ZZZ.Framework.Core.Rendering.Components;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace ZZZ.Framework.Core
 {
@@ -8,6 +6,8 @@ namespace ZZZ.Framework.Core
     {
         public IGameInstance Game { get;  }
         public IReadOnlyList<IRegistrar> Registrars => settings.Registrars;
+
+        public static GameManager Instance => intance;
 
         internal bool Initialized => initialized;
 

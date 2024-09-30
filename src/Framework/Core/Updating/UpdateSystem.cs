@@ -1,56 +1,41 @@
-﻿using ZZZ.Framework.Core.Updating.Components;
+﻿using ZZZ.Framework.Components.Updating;
 
 namespace ZZZ.Framework.Core.Updating
 {
-    public class UpdateSystem : System<IUpdateComponent, UpdateEntity>
+    public class UpdateSystem : System<UpdateEntity, UpdateEntityComponent, IUpdateComponent>
     {
+        [ContentSerializer]
         public UpdateOrderList OrderTypes => orderTypes;
 
-        private static Comparer<int> comparer = Comparer<int>.Default;
         private UpdateOrderList orderTypes = new UpdateOrderList();
+        private readonly List<UpdateEntityComponent> components = new List<UpdateEntityComponent>();
 
-        protected override UpdateEntity OnProcess(IUpdateComponent component)
+        protected override UpdateEntity CreateEntity(UpdateEntity owner)
         {
-            return new UpdateEntity(orderTypes, component);
+            return new UpdateEntity();
+        }
+
+        protected override UpdateEntityComponent CreateEntityComponent(UpdateEntity owner, IUpdateComponent component)
+        {
+            return new UpdateEntityComponent(orderTypes, component);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            List<UpdateEntity> entities = new List<UpdateEntity>();
+            components.Clear();
 
-            foreach (var item in Entities)
+            ForEveryComponent(component =>
             {
-                if (item.Enabled)
-                    entities.Add(item);
-            }
+                if (component.Enabled)
+                    components.Add(component);
+            });
 
-            entities.Sort((x, y) => comparer.Compare(x.Order, y.Order));
+            components.Sort();
 
-            foreach (var item in entities)
-            {
-                item.Update(gameTime);
-            }
+            foreach (var component in components)
+                component.Update(gameTime);
 
             base.Update(gameTime);
         }
-    }
-
-    public class UpdateEntity : Entity<IUpdateComponent, UpdateEntity>
-    {
-        public int Order => orderTypes[Component.GetType()]?.Order ?? 0;
-
-        private UpdateOrderList orderTypes;
-
-        public UpdateEntity(UpdateOrderList orderTypes, IUpdateComponent component) : base(component)
-        {
-            this.orderTypes = orderTypes;
-        }
-
-        public virtual void Update(GameTime gameTime)
-        {
-            Component.Update(gameTime);
-        }
-
-
     }
 }

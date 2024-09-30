@@ -1,8 +1,6 @@
 ﻿using ZZZ.Framework.Assets.Tiling;
-using ZZZ.Framework.Components.Rendering;
+using ZZZ.Framework.Components.Updating;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Entities;
-using ZZZ.Framework.Core.Updating.Components;
 
 namespace ZZZ.Framework.Components.Tiling
 {
@@ -34,8 +32,6 @@ namespace ZZZ.Framework.Components.Tiling
         private float paused = 1f;
         private Dictionary<Point, TileRenderer> cache = new Dictionary<Point, TileRenderer>();
         private List<TileAnimator> animators = new List<TileAnimator>();
-
-        public event EventHandler<SortLayerArgs> LayerChanged;
 
         protected override void OnEnabledChanged()
         {
@@ -150,11 +146,6 @@ namespace ZZZ.Framework.Components.Tiling
             {
                 GetAnimator(animated).SetData(position, tilemap);
             }
-        }
-
-        public void Render(EntityRenderer renderContext)
-        {
-
         }
 
     }

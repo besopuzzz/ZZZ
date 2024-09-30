@@ -1,153 +1,98 @@
-﻿using nkast.Aether.Physics2D.Dynamics;
-using ZZZ.Framework.Components.Physics;
+﻿using ZZZ.Framework.Components.Physics.Providers;
+using ZZZ.Framework.Core;
 
-namespace ZZZ.Framework.Physics.Components
+namespace ZZZ.Framework.Components.Physics
 {
-    [RequireComponent(typeof(BodyController))]
     public class Rigidbody : Component, IRigidbody
     {
         public Vector2 Velocity
         {
-            get => body.LinearVelocity;
-            set
-            {
-                if (value == body.LinearVelocity)
-                    return;
-
-                body.LinearVelocity = value;
-            }
-        }
-        public float AngularVelocity
-        {
-            get => body.AngularVelocity;
-            set
-            {
-                if (value == body.AngularVelocity)
-                    return;
-
-                body.AngularVelocity = value;
-            }
+            get => provider.Velocity;
+            set => provider.Velocity = value;
         }
         public bool IsKinematic
         {
-            get => body.BodyType == BodyType.Kinematic;
-            set 
-            {
-                if (value)
-                    body.BodyType = BodyType.Kinematic;
-                else body.BodyType = BodyType.Dynamic;
-            }
+            get => provider.IsKinematic;
+            set => provider.IsKinematic = value;
+        }
+        public float AngularVelocity
+        {
+            get => provider.AngularVelocity;
+            set => provider.AngularVelocity = value;
         }
         public float Mass
         {
-            get => body.Mass;
-            set
-            {
-                if (value == body.Mass)
-                    return;
-
-                body.Mass = value;
-            }
+            get => provider.Mass;
+            set => provider.Mass = value;
         }
         public float LinearDamping
         {
-            get => body.LinearDamping;
-            set => body.LinearDamping = value;
+            get => provider.LinearDamping;
+            set => provider.LinearDamping = value;
         }
         public float AngularDamping
         {
-            get => body.AngularDamping;
-            set => body.AngularDamping = value;
+            get => provider.AngularDamping;
+            set => provider.AngularDamping = value;
         }
         public float Inertia
         {
-            get => body.Inertia;
-            set
-            {
-                if (value == body.Inertia)
-                    return;
-
-                body.Inertia = value;
-            }
+            get => provider.Inertia;
+            set => provider.Inertia = value;
         }
         public bool IsBullet
         {
-            get => body.IsBullet;
-            set => body.IsBullet = value;
+            get => provider.IsBullet;
+            set => provider.IsBullet = value;
         }
         public bool FixedRotation
         {
-            get => body.FixedRotation;
-            set => body.FixedRotation = value;
+            get => provider.FixedRotation;
+            set => provider.FixedRotation = value;
         }
-        public Vector2 Gravity { get; set; }
+        public Vector2 Gravity
+        {
+            get => provider.Gravity;
+            set => provider.Gravity = value;
+        }
 
+        IRigidbodyProvider IRigidbody.RigidbodyProvider => provider;
 
-        private Body body;
-        private Body spoof;
+        private IRigidbodyProvider provider;
 
         public Rigidbody()
-        { 
-            body = new Body();
-            body.BodyType = BodyType.Dynamic;
-            body.Mass = 1f;
-            body.LinearDamping = 1f;
-            body.AngularDamping = 1f;
-            body.IgnoreGravity = false;
-            body.LocalCenter = Vector2.Zero;
-            body.Enabled = Enabled;
+        {
+            provider = GameManager.Instance.Game.Services.GetService<IPhysicsProvider>()?.CreateRigidbodyProvider(this);
+
+            if (provider == null)
+                provider = new RigidbodyProvider();
         }
 
         protected override void OnEnabledChanged()
         {
-            body.Enabled = Enabled;
+            provider.Enabled = Enabled;
 
             base.OnEnabledChanged();
         }
 
         public void ApplyForce(Vector2 vector)
         {
-            body.ApplyForce(vector / IRigidbody.PixelsPerMeter);
+            provider.ApplyForce(vector);
         }
+
         public void ApplyAngularImpulse(float impulse)
         {
-            body.ApplyAngularImpulse(impulse);
+            provider.ApplyAngularImpulse(impulse);
         }
+
         public void ApplyLinearImpulse(Vector2 vector)
         {
-            body.ApplyLinearImpulse(vector / IRigidbody.PixelsPerMeter);
+            provider.ApplyLinearImpulse(vector);
         }
+
         public void ApplyTorque(float torque)
         {
-            body.ApplyTorque(torque);
-        }
-
-        void IPhysicBody.Attach(Body spoof)
-        {
-            spoof.BodyType = body.BodyType;
-            spoof.Mass = body.Mass;
-            spoof.LinearDamping = body.LinearDamping;
-            spoof.AngularDamping = body.AngularDamping;
-            spoof.IgnoreGravity = body.IgnoreGravity;
-            spoof.LocalCenter = body.LocalCenter;
-            spoof.Enabled = body.Enabled;
-
-            this.spoof = body;
-            body = spoof;
-        }
-
-        void IPhysicBody.Detach()
-        {
-            spoof.BodyType = body.BodyType;
-            spoof.Mass = body.Mass;
-            spoof.LinearDamping = body.LinearDamping;
-            spoof.AngularDamping = body.AngularDamping;
-            spoof.IgnoreGravity = body.IgnoreGravity;
-            spoof.LocalCenter = body.LocalCenter;
-            spoof.Enabled = body.Enabled;
-
-            this.spoof = null;
-            body = spoof;
+            provider.ApplyTorque(torque);
         }
     }
 }

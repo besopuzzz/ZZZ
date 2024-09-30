@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ZZZ.Framework.Components.Updating;
 
 namespace ZZZ.Framework.Core.Updating
 {
@@ -8,50 +9,13 @@ namespace ZZZ.Framework.Core.Updating
     /// <remarks>Используйте методы <see cref="Add(Type, int)"/> и <see cref="Remove(Type)"/> для указания порядка выполнения обновления компонентов.</remarks>
     public sealed class UpdateOrderList : IEnumerable<UpdateOrderType>
     {
-        [ContentSerializer(ElementName = "Orders")]
+        //[ContentSerializer(ElementName = "Types")]
         private List<UpdateOrderType> types = new List<UpdateOrderType>();
 
-        private List<UpdateOrderType> defaults = new List<UpdateOrderType>();
-
-        private readonly Comparer<int> comparer = Comparer<int>.Default;
+        private List<UpdateOrderType> notAdded = new List<UpdateOrderType>();
 
         internal UpdateOrderList()
         {
-
-        }
-
-        internal UpdateOrderType Get(Type type)
-        {
-            var orderType = this[type];
-
-            if (orderType == null)
-            {
-                orderType = defaults.Find(x => x.ComponentType == type);
-
-                if (orderType == null)
-                {
-                    orderType = new UpdateOrderType(type, 0);
-                    defaults.Add(orderType);
-                }
-            }
-
-            return orderType;
-        }
-
-        internal void AddDefault(Type type, int order)
-        {
-            defaults.Add(new UpdateOrderType(type, order));
-        }
-
-        internal void ClearDefaults()
-        {
-            defaults.Clear();
-        }
-
-        private void ThrowIfNotValid(Type type)
-        {
-            if (!type.IsAssignableFrom(typeof(IComponent)))
-                throw new ArgumentException($"Type {type} is not inherited from IComponent!");
 
         }
 
@@ -60,59 +24,71 @@ namespace ZZZ.Framework.Core.Updating
         /// </summary>
         /// <param name="type">Тип компонента.</param>
         /// <returns>Экземпляр класса-сортировки.</returns>
-        public UpdateOrderType this[Type type]
-        {
-            get
-            {
-                return types.Find(x => x.ComponentType == type);
-            }
-        }
+        public UpdateOrderType Get<T>()
+            where T : IUpdateComponent => Get(typeof(T));
 
         /// <summary>
-        /// Добавляет тип к сортировки.
+        /// Получает экземпляр класса для указания порядка сортировки.
         /// </summary>
         /// <param name="type">Тип компонента.</param>
-        /// <param name="order">Порядок обновления.</param>
         /// <returns>Экземпляр класса-сортировки.</returns>
-        public UpdateOrderType Add(Type type, int order)
+        public UpdateOrderType Get(Type componentType)
         {
-            ThrowIfNotValid(type);
+            ArgumentNullException.ThrowIfNull(componentType);
 
-            var orderType = defaults.Find(x=> x.ComponentType == type);
+            if (!componentType.IsAssignableTo(typeof(IUpdateComponent)))
+                throw new ArgumentException($"Type {componentType} is not inherited from IComponent!");
 
-            if(orderType != null)
+            var orderType = types.Find(x => x.ComponentType == componentType);
+
+            if (orderType == null)
             {
-                types.Add(orderType);
+                orderType = new UpdateOrderType(componentType, 0);
+                notAdded.Add(orderType);
             }
-            else
-            {
-                orderType = this[type];
-
-                if (orderType == null)
-                {
-                    orderType = new UpdateOrderType(type, order);
-
-                    defaults.Add(orderType);
-                    types.Add(orderType);
-                }
-            }
-
-            orderType.Order = order;
-
-            types.Sort((x, y) => comparer.Compare(x.Order, y.Order));
 
             return orderType;
         }
 
         /// <summary>
-        /// Удаляет тип компонента из сортировщика.
+        /// Добавляет тип сортировки.
         /// </summary>
-        /// <param name="type">Тип компонента.</param>
-        public void Remove(Type type)
+        /// <typeparam name="T">Тип компонента.</typeparam>
+        /// <param name="order">Порядок обновления.</param>
+        public void Add<T>(int order)
+            where T : IUpdateComponent
         {
-            ThrowIfNotValid(type);
+            var type = typeof(T);
+            var orderType = types.Find(x=>x.ComponentType == type);
 
-            var orderType = this[type];
+            if (orderType == null)
+            {
+                orderType = notAdded.Find(x => x.ComponentType == type);
+
+                if(orderType == null)
+                    orderType = new UpdateOrderType(type, order);
+                else
+                {
+                    notAdded.Remove(orderType);
+                }
+
+                types.Add(orderType);
+            }
+
+            orderType.Order = order;
+
+            types.Sort();
+        }
+
+        /// <summary>
+        /// Удаляет тип сортировки.
+        /// </summary>
+        /// <typeparam name="T">Тип компонента.</typeparam>
+        public void Remove<T>()
+            where T : IUpdateComponent
+        {
+            var type = typeof(T);
+            var orderType = types.Find(x => x.ComponentType == type);
 
             if (orderType == null)
                 return;
@@ -123,26 +99,21 @@ namespace ZZZ.Framework.Core.Updating
         }
 
         /// <summary>
-        /// Очищает сортировщик от всех типов.
+        /// Очищает все сортировщики.
         /// </summary>
         public void Clear()
         {
-            foreach (var item in types.ToList())
-            {
-                types.Remove(item);
-
-                item.Order = 0;
-            }
+            types.Clear();
         }
 
         public IEnumerator<UpdateOrderType> GetEnumerator()
         {
-            return types.GetEnumerator();
+            return ((IEnumerable<UpdateOrderType>)types).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return types.GetEnumerator();
+            return ((IEnumerable)types).GetEnumerator();
         }
     }
 }

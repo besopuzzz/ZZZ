@@ -1,10 +1,9 @@
-﻿
-namespace ZZZ.Framework.Core.Updating
+﻿namespace ZZZ.Framework.Core.Updating
 {
     /// <summary>
     /// Представляет класс, позволяющий менять порядок обновления у указанного типа.
     /// </summary>
-    public sealed class UpdateOrderType
+    public sealed class UpdateOrderType : IComparable<UpdateOrderType>
     {
         /// <summary>
         /// Получает или устанавливает порядок обновления, относительно остальных компонентов.
@@ -12,26 +11,30 @@ namespace ZZZ.Framework.Core.Updating
         public int Order
         {
             get => order;
+            set => order = value;
+        }
+
+        //[ContentSerializer]
+        internal string TypeName
+        {
+            get => type.FullName;
             set
             {
-                if (order == value)
-                    return;
+                ArgumentNullException.ThrowIfNullOrWhiteSpace(value);
 
-                order = value;
-
-                OrderChanged?.Invoke(this, EventArgs.Empty);
+                type = Type.GetType(value, true);
             }
         }
 
         /// <summary>
         /// Получает тип компонента.
         /// </summary>
-        [ContentSerializerIgnore]
-        public Type ComponentType { get; }
-
-        internal event EventHandler<EventArgs> OrderChanged;
+        //[ContentSerializerIgnore]
+        public Type ComponentType => type;
 
         private int order = 0;
+        private Type type;
+        private readonly Comparer<int> comparer = Comparer<int>.Default;
 
         internal UpdateOrderType()
         {
@@ -40,13 +43,18 @@ namespace ZZZ.Framework.Core.Updating
 
         internal UpdateOrderType(Type componentType, int order)
         {
-            ComponentType = componentType ?? throw new ArgumentNullException(nameof(componentType));
+            type = componentType;
             Order = order;
         }
 
         public override string ToString()
         {
-            return $"Order: {order}, type: {ComponentType.Name}";
+            return $"Order: {order}, Type: {ComponentType.Name}";
+        }
+
+        public int CompareTo(UpdateOrderType other)
+        {
+            return comparer.Compare(Order, other.Order);
         }
     }
 }

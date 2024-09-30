@@ -1,25 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using ZZZ.Framework;
-using ZZZ.Framework.Assets;
-using ZZZ.Framework.Assets.Rendering;
 using ZZZ.Framework.Auding.Components;
-using ZZZ.Framework.Components;
+using ZZZ.Framework.Components.Physics;
 using ZZZ.Framework.Components.Rendering;
 using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Components.Transforming;
+using ZZZ.Framework.Components.Updating;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Updating;
-using ZZZ.Framework.Core.Updating.Components;
-using ZZZ.Framework.Physics.Components;
-using ZZZ.Framework.UserInterfacing.Components;
 
 namespace ZZZ.KNI.GameProject
 {
+    [RequireComponent(typeof(CircleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SoundListener))]
     [RequireComponent(typeof(FPSCounter))]
@@ -27,40 +20,31 @@ namespace ZZZ.KNI.GameProject
     {
         public Vector2 MaxSpeed { get; set; } = new Vector2(0.5f);
 
+        private PolygonCollider boxCollider;
         private Tilemap tilemap;
         private Rigidbody rigidbody;
         private SoundListener soundListener;
         private Transformer camera;
         private Scene scene;
-        private UpdateRegistrar updateRegistrar;
         private KeyboardState oldState;
         private Transformer myTransfrom;
         private FPSCounter fPSCounter;
+        private CircleCollider circleCollider;
 
         protected override void Awake()
         {
             tilemap = FindComponent<Tilemap>();
             scene = FindGameObject<Scene>();
             rigidbody = GetComponent<Rigidbody>();
+            rigidbody.Mass = 0.02f;
 
             soundListener = GetComponent<SoundListener>();
             tilemapCollider = FindComponent<TilemapCollider>();
 
-            camera = FindComponent<Camera>()?.Owner?.GetComponent<Transformer>();
+
+            camera = ((Camera)Camera.MainCamera).Owner.GetComponent<Transformer>();
             myTransfrom = GetComponent<Transformer>();
             fPSCounter = GetComponent<FPSCounter>();
-
-
-            GameObject label = new GameObject();
-
-            var transfoer = label.AddComponent<UITransformer>();
-
-            transfoer.Size = new Vector2(100f);
-            var lbl = label.AddComponent(new BindableLabel(myTransfrom, "World"));
-            lbl.Font = new Font(AssetManager.Load<SpriteFont>("Fonts/System"));
-            lbl.BackgroundColor = Color.Green;
-
-            //AddGameObject(label);
 
             base.Awake();
         }
@@ -74,28 +58,34 @@ namespace ZZZ.KNI.GameProject
             var sceneScale = Vector2.One;
 
             if (keyboardState.IsKeyDown(Keys.A))
-                speed.X = -1f;
+                speed.X = -64f;
             else if (keyboardState.IsKeyDown(Keys.D))
-                speed.X = 1f;
+                speed.X = 64f;
 
             if (keyboardState.IsKeyDown(Keys.W))
-                speed.Y = -1f;
+                speed.Y = -64f;
             else if (keyboardState.IsKeyDown(Keys.S))
-                speed.Y = 1f;
+                speed.Y = 64f;
 
             //if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
             //    rigidbody.Enabled = !rigidbody.Enabled;
 
+            //if (keyboardState.IsKeyDown(Keys.Space))
+            //    tilemap.TileSize += Vector2.One;
+
+            if (keyboardState.IsKeyDown(Keys.LeftShift))
+                if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
+                boxCollider.Enabled = !boxCollider.Enabled;
+
 
             if (keyboardState.IsKeyDown(Keys.RightShift))
                 if (keyboardState.IsKeyDown(Keys.Space))
-                    tilemap.Owner.RemoveComponent<TilemapRenderer>();
+                    tilemap.Owner.GetComponent<TilemapCollider>().Enabled = !tilemap.Owner.GetComponent<TilemapCollider>().Enabled;
 
             if (keyboardState.IsKeyDown(Keys.LeftShift))
             {
+                Transform2D local = camera.Local;
 
-                if (keyboardState.IsKeyDown(Keys.Space))
-                    tilemap.TileSize += Vector2.One;
 
                 if (keyboardState.IsKeyDown(Keys.Left))
                     scenePos.X -= 1f;
@@ -119,11 +109,12 @@ namespace ZZZ.KNI.GameProject
                 else if (keyboardState.IsKeyDown(Keys.X))
                     sceneScale *= 1.1f;
 
-                var local = new Transform2D(scenePos, sceneScale, sceneRotate);
+                local *= new Transform2D(scenePos, sceneScale, sceneRotate);
+
+                camera.Local = local;
                 //scene.GetComponent<Transformer>().Local *= local;
 
             }
-
 
             //if (keyboardState.IsKeyDown(Keys.OemPlus))
             //    updateRegistrar.UpdateOrders[typeof(Camera)].Order += 1;
@@ -131,7 +122,18 @@ namespace ZZZ.KNI.GameProject
             //    updateRegistrar.UpdateOrders[typeof(Camera)].Order -= 1;
 
             //myTransfrom.Local = new Transform2D(myTransfrom.Local.Position + MaxSpeed * speed);
+
             rigidbody.Velocity += MaxSpeed * speed;
+
+            //myTransfrom.Local = new Transform2D( Mouse.GetState().Position.ToVector2());
+
+            List<Vector2> vertices = new List<Vector2>(boxCollider.Vertices.Count);
+            vertices.Add(boxCollider.Vertices[0] + new Vector2(-0.005f, -0.005f));
+            vertices.Add(boxCollider.Vertices[1] + new Vector2(0.005f, -0.005f));
+            vertices.Add(boxCollider.Vertices[2] + new Vector2(0.005f, 0.005f));
+            vertices.Add(boxCollider.Vertices[3] + new Vector2(-0.005f, 0.005f));
+
+            boxCollider.Vertices = vertices;
 
             var old = rigidbody.Owner.GetComponent<Transformer>().HasChanges;
             MainGame.SetTitle((rigidbody.Velocity).ToString());
@@ -143,6 +145,10 @@ namespace ZZZ.KNI.GameProject
 
         void IStartupComponent.Startup()
         {
+            boxCollider = GetComponent<PolygonCollider>();
+            circleCollider = GetComponent<CircleCollider>();
+
+            circleCollider.Offset = new Vector2(64f);
         }
     }
 }

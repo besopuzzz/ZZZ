@@ -294,7 +294,7 @@ namespace ZZZ.Framework
         {
             return GetMatrixRotation()
                 * GetMatrixScale()
-                * GetMatrixTranslation();
+                * Matrix.CreateWorld(new Vector3(Position.X, Position.Y, 0f), new Vector3(0, 0, -1), Vector3.Up);
         }
 
         public Rectangle CreateBounds(Vector2 size)

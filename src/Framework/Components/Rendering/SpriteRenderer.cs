@@ -1,4 +1,5 @@
-﻿using ZZZ.Framework.Components.Transforming;
+﻿using Microsoft.Xna.Framework.Graphics;
+using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Core.Rendering.Components;
 using ZZZ.Framework.Core.Rendering.Entities;
@@ -20,23 +21,11 @@ namespace ZZZ.Framework.Components.Rendering
         public SortLayer Layer
         {
             get => layer;
-            set
-            {
-                if (layer == value)
-                    return;
-
-                SortLayer oldValue = value;
-
-                layer = value;
-
-                LayerChanged?.Invoke(this, new SortLayerArgs(oldValue, value));
-            }
+            set => layer = value;
         }
 
-        public event EventHandler<SortLayerArgs> LayerChanged;
-
         private SortLayer layer = SortLayer.Layer1;
-        private Transformer transformer;
+        public Transformer transformer;
 
         protected override void Awake()
         {

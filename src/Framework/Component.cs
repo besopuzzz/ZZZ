@@ -1,15 +1,16 @@
 ﻿using System.ComponentModel;
-using ZZZ.Framework.Serialization;
+using ZZZ.Framework.Components.Transforming;
 
 namespace ZZZ.Framework
 {
     /// <summary>
     /// Представляет базовый компонент. Только для наследования.
     /// </summary>
+    [RequireComponent(typeof(Transformer))]
     public abstract class Component : Disposable, IComponent
     {
         /// <inheritdoc cref="IComponent.Enabled"/>
-        public bool Enabled
+        public virtual bool Enabled
         {
             get
             {
@@ -82,11 +83,6 @@ namespace ZZZ.Framework
 
         /// <inheritdoc cref="IComponent.Shutdown"/>
         protected virtual void Shutdown()
-        {
-
-        }
-
-        protected void Destroy()
         {
 
         }

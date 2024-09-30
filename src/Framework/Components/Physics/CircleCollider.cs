@@ -1,24 +1,22 @@
-﻿using nkast.Aether.Physics2D.Collision.Shapes;
-using ZZZ.Framework.Physics.Components;
+﻿using ZZZ.Framework.Components.Physics.Providers;
 
 namespace ZZZ.Framework.Components.Physics
 {
-    public class CircleCollider : Collider<CircleShape>
+    public partial class CircleCollider : Collider<ICircleColliderProvider>
     {
         public float Radius
         {
-            get=>Shape.Radius * IRigidbody.PixelsPerMeter;
-            set=>Shape.Radius = value / IRigidbody.PixelsPerMeter;
+            get => Provider.Radius;
+            set => Provider.Radius = value;
         }
 
-        public CircleCollider() : base(new CircleShape(32f / IRigidbody.PixelsPerMeter, 1f))
+        public CircleCollider()
         {
         }
 
-        protected override void OnOffsetChanged(Vector2 oldOffset, Vector2 offset)
+        protected override ICircleColliderProvider CreateEmptyProvider()
         {
-            Shape.Position -= oldOffset;
-            Shape.Position += offset;
+            return new CircleColliderProvider();
         }
     }
 }

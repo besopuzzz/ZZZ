@@ -4,15 +4,6 @@ namespace ZZZ.Framework.Rendering.Assets
 {
     public sealed class Sprite : Asset
     {
-        public override string Name 
-        { 
-            get => base.Name;
-            set
-            {
-                base.Name = value;
-            }
-        }
-
         public int Index => index;
 
         [ContentSerializer]
@@ -46,14 +37,14 @@ namespace ZZZ.Framework.Rendering.Assets
 
         }
 
-        internal Sprite(Texture2D texture, Rectangle? source, Vector2 origin)
+        internal Sprite(Texture2D texture, Rectangle? source, Vector2 origin) : this()
         {
             this.texture = texture;
             Origin = origin;
-            Source = source;
+
+            if (source.HasValue)
+                Source = Rectangle.Intersect(texture.Bounds, source.Value);
         }
-
-
 
         public Sprite CreateSub(Rectangle source, Vector2 origin)
         {

@@ -1,7 +1,4 @@
-﻿using nkast.Aether.Physics2D.Collision;
-using ZZZ.Framework.Serialization;
-
-namespace ZZZ.Framework
+﻿namespace ZZZ.Framework
 {
     /// <summary>
     /// Представляет базовый контейнер.
