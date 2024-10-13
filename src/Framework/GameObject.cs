@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework
+﻿using ZZZ.Framework.Components.Transforming;
+
+namespace ZZZ.Framework
 {
     /// <summary>
     /// Представляет базовый контейнер.

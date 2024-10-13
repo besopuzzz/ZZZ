@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\Package.props" />
+  <PropertyGroup>
+    <PackageId>Aether.Physics2D.Diagnostics.MG</PackageId>
+    <Version>2.1.1.0</Version>
+    <AssemblyVersion>2.1.1.0</AssemblyVersion>
+    <Description>Aether.Physics2D is a 2D collision detection system.</Description>
+    <PackageTags>C# Physics 2D game box2d farseerPhysics farseer MonoGame</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <RootNamespace>nkast.Aether.Physics2D.Diagnostics</RootNamespace>
+    <AssemblyName>Aether.Physics2D.Diagnostics</AssemblyName>
+
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>..\..\bin\$(Configuration)\MG\</OutputPath>
+    <BaseIntermediateOutputPath>obj\$(Configuration)\MG\</BaseIntermediateOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="DebugView.cs" />
+    <Compile Include="DebugViewBase.cs" />
+    <Compile Include="DebugViewFlags.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="IPrimitiveBatch.cs" />
+    <Compile Include="PrimitiveBatch.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.MG.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Content\DiagnosticsFont.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.Portable" Version="3.2.99.1-Beta" PrivateAssets="All">
+      <ExcludeAssets>*</ExcludeAssets>
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Physics2D\Aether.Physics2D.MG.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,8 +1,10 @@
 ﻿using ZZZ.Framework.Components.Physics.Providers;
+using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core;
 
 namespace ZZZ.Framework.Components.Physics
 {
+    [RequireComponent(typeof(Transformer))]
     public class Rigidbody : Component, IRigidbody
     {
         public Vector2 Velocity

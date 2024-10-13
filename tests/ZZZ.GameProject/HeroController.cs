@@ -12,7 +12,6 @@ using ZZZ.Framework.Core.Rendering;
 
 namespace ZZZ.KNI.GameProject
 {
-    [RequireComponent(typeof(CircleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SoundListener))]
     [RequireComponent(typeof(FPSCounter))]
@@ -29,13 +28,13 @@ namespace ZZZ.KNI.GameProject
         private KeyboardState oldState;
         private Transformer myTransfrom;
         private FPSCounter fPSCounter;
-        private CircleCollider circleCollider;
 
         protected override void Awake()
         {
             tilemap = FindComponent<Tilemap>();
             scene = FindGameObject<Scene>();
             rigidbody = GetComponent<Rigidbody>();
+
             rigidbody.Mass = 0.02f;
 
             soundListener = GetComponent<SoundListener>();
@@ -127,14 +126,6 @@ namespace ZZZ.KNI.GameProject
 
             //myTransfrom.Local = new Transform2D( Mouse.GetState().Position.ToVector2());
 
-            List<Vector2> vertices = new List<Vector2>(boxCollider.Vertices.Count);
-            vertices.Add(boxCollider.Vertices[0] + new Vector2(-0.005f, -0.005f));
-            vertices.Add(boxCollider.Vertices[1] + new Vector2(0.005f, -0.005f));
-            vertices.Add(boxCollider.Vertices[2] + new Vector2(0.005f, 0.005f));
-            vertices.Add(boxCollider.Vertices[3] + new Vector2(-0.005f, 0.005f));
-
-            boxCollider.Vertices = vertices;
-
             var old = rigidbody.Owner.GetComponent<Transformer>().HasChanges;
             MainGame.SetTitle((rigidbody.Velocity).ToString());
 
@@ -146,9 +137,6 @@ namespace ZZZ.KNI.GameProject
         void IStartupComponent.Startup()
         {
             boxCollider = GetComponent<PolygonCollider>();
-            circleCollider = GetComponent<CircleCollider>();
-
-            circleCollider.Offset = new Vector2(64f);
         }
     }
 }

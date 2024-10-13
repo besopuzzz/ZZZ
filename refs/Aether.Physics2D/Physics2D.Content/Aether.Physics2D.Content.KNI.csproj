@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\Package.props" />
+  <PropertyGroup>
+    <PackageId>Aether.Physics2D.Content.KNI</PackageId>
+    <Version>2.1.0.0</Version>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <Description>Aether.Physics2D is a 2D collision detection system.</Description>
+    <PackageTags>C# Physics 2D game box2d farseerPhysics farseer KNI</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>net4.0;netstandard2.0;net8.0</TargetFrameworks>
+	<IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsTrimmable>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <RootNamespace>nkast.Aether.Physics2D.Content</RootNamespace>
+    <AssemblyName>Aether.Physics2D.Content</AssemblyName>
+
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>..\bin\$(Configuration)\KNI\</OutputPath>
+    <BaseIntermediateOutputPath>obj\$(Configuration)\KNI\</BaseIntermediateOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DefineConstants>KNI</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ILLink.Descriptors.xml">
+      <LogicalName>ILLink.Descriptors.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+	
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Content\ContentReaders\BodyContainerReader.cs" />
+    <Compile Include="Content\ContentReaders\PolygonContainerReader.cs" />
+    <Compile Include="Content\BodyContainer.cs" />
+    <Compile Include="Content\BodyTemplate.cs" />
+    <Compile Include="Content\FixtureTemplate.cs" />
+    <Compile Include="Content\Polygon.cs" />
+    <Compile Include="Content\PolygonContainer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.KNI.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nkast.Xna.Framework" Version="3.11.9002" />
+    <PackageReference Include="nkast.Xna.Framework.Content" Version="3.11.9002" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Physics2D\Aether.Physics2D.KNI.csproj" />
+  </ItemGroup>
+
+</Project>

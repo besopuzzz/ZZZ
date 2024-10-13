@@ -58,7 +58,7 @@ namespace ZZZ.Framework.Components.Transforming
             }
         }
 
-        private event EventHandler<Transformer, Transform2D> WorldChanged;
+        public event EventHandler<Transformer, Transform2D> WorldChanged;
 
         private Transformer parent;
         private Transform2D local = new Transform2D();

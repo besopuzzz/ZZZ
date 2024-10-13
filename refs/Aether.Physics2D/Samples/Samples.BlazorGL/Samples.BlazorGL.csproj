@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Samples</RootNamespace>
+    <AssemblyName>Samples</AssemblyName>
+    <KniPlatform>BlazorGL</KniPlatform>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants);BLAZORGL</DefineConstants>
+    <RunAOTCompilation>False</RunAOTCompilation>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants);BLAZORGL</DefineConstants>
+    <RunAOTCompilation>True</RunAOTCompilation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nkast.Xna.Framework.Content" Version="3.13.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Graphics" Version="3.13.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Audio" Version="3.13.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Media" Version="3.13.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Input" Version="3.13.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Game" Version="3.13.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Blazor" Version="3.13.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Content.Pipeline.Builder" Version="3.13.9001" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.32" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.32" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.7" PrivateAssets="all" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\..\Physics2D.Diagnostics\Diagnostics\Aether.Physics2D.Diagnostics.KNI.csproj" />
+    <ProjectReference Include="..\..\Physics2D\Aether.Physics2D.KNI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <KniContentReference Include="..\SamplesContent\SamplesContent.mgcb">
+      <Link>Content\SamplesContent.mgcb</Link>
+    </KniContentReference>
+  </ItemGroup>
+
+  <Import Project="..\Samples\Samples.projitems" Label="Shared" />
+</Project>

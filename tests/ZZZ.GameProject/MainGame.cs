@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.ComponentModel;
+using System.Xml.Linq;
 using ZZZ.Framework;
 using ZZZ.Framework.Aether.Core;
 using ZZZ.Framework.Assets;
@@ -48,8 +50,9 @@ namespace ZZZ.KNI.GameProject
             //graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.ApplyChanges();
 
+
             GameManagerSettings gameSettings = new GameManagerSettings();
-            
+
             gameSettings.Registrars.Add(new InitializeRegistrar());
             //gameSettings.Registrars.Add(new UpdateRegistrar());
             //gameSettings.Registrars.Add(new PhysicRegistrar());
@@ -60,11 +63,25 @@ namespace ZZZ.KNI.GameProject
 
             var main = new GameManager(this, gameSettings);
 
+            UpdateSystem updateSystem = new UpdateSystem();
+            updateSystem.Game = this;
+
+            Components.Add(updateSystem);
+
+            PhysicalSystem physicalSystem = new PhysicalSystem();
+            physicalSystem.Game = this;
+            Services.AddService<IPhysicsProvider>(physicalSystem);
+
+            Components.Add(physicalSystem);
+
+
+            RenderSystem renderSystem = new RenderSystem();
+            renderSystem.Game = this;
+
+            Components.Add(renderSystem);
+
             //RenderSystem renderSystem = new RenderSystem();
             //renderSystem.Game = this;
-
-
-
 
             //Components.Add(renderSystem);
         }
@@ -73,35 +90,29 @@ namespace ZZZ.KNI.GameProject
 
         protected override void Initialize()
         {
-            PhysicalSystem physicalSystem = new PhysicalSystem();
-            physicalSystem.Game = this;
-            Services.AddService<IPhysicsProvider>(physicalSystem);
-
-            Components.Add(physicalSystem);
-
-            UpdateSystem updateSystem = new UpdateSystem();
-            updateSystem.Game = this;
-
-            Components.Add(updateSystem);
-
-            RenderSystem renderSystem = new RenderSystem();
-            renderSystem.Game = this;
-
-            Components.Add(renderSystem);
-
 
             SceneLoader.Load(new Scene() {  Name = "Scene"});
 
-            //SceneLoader.CurrentScene.AddGameObject(label);
-
-            var hero = new GameObject();
-            hero = new GameObject();
-            hero.AddComponent<Transformer>().Local = new Transform2D(100f, 100f, 100f, 2f);
-            hero.AddComponent<SpriteRenderer>().Sprite = AssetManager.Load<Sprite>("Sprites/main")[0];
-
-            SceneLoader.CurrentScene.AddGameObject(hero);
-
             var x = SceneLoader.CurrentScene.AddGameObject(new GameObject());
+
+            GameObject gameObject = new GameObject();
+            gameObject.AddGameObject(new GameObject()).AddComponent<Camera>();
+            gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -100f);
+            gameObject.AddComponent<Rigidbody>();
+            gameObject.AddComponent<HeroController>();
+            gameObject.AddComponent<BoxCollider>().Size = new Vector2(32f);
+            gameObject.AddComponent<CircleCollider>().Offset = new Vector2(-32f);
+
+            SceneLoader.CurrentScene.AddGameObject(gameObject);
+
+            GameObject gameObject2 = new GameObject();
+            gameObject2.AddComponent<BoxCollider>().Offset = new Vector2(40f);
+            gameObject2.AddComponent<Rigidbody>();
+
+            gameObject.AddGameObject(gameObject2);
+
+
+
 
             x.AddGameObject(TestNewTilemap());
             //x.AddComponent<GroupRender>();
@@ -110,9 +121,11 @@ namespace ZZZ.KNI.GameProject
 
         }
 
+        Texture2D quad;
+
         private GameObject TestNewTilemap()
         {
-
+            quad = Content.Load<Texture2D>("square");
             Sprite main = Content.Load<Sprite>("Sprites/main");
 
             HeroTile heroTile = new HeroTile();
@@ -127,7 +140,7 @@ namespace ZZZ.KNI.GameProject
             container.AddComponent(new TilemapRenderer() { RenderMode = TileRenderMode.Stretch, Layer = SortLayer.Layer1 });
             var tilemap = container.AddComponent(new Tilemap() {  TileSize = new Vector2(32)});
 
-            tilemap.Add(new Point(5, -2), heroTile);
+            //tilemap.Add(new Point(5, -2), heroTile);
 
             //return container;
 
@@ -165,12 +178,19 @@ namespace ZZZ.KNI.GameProject
             public override void Startup(Point position, Tilemap tilemap, GameObject container)
             {
                 container.AddGameObject(new GameObject()).AddComponent<Camera>();
+                container.AddComponent<CircleCollider>().Offset = new Vector2(64f);
                 container.AddComponent<HeroController>();
 
                 container.AddGameObject(new GameObject())
-                    .AddComponent(new Transformer(new Transform2D(100f, 0f)))
+                    .AddComponent(new Transformer(new Transform2D(200f, 0f)))
                     .Owner.AddComponent<CircleCollider>()
                     .Owner.AddComponent<Rigidbody>()
+                    ;
+                container.AddGameObject(new GameObject())
+                    .AddComponent(new Transformer(new Transform2D(100f, 0f)))
+                    .Owner.AddComponent(new SpriteRenderer() { Sprite = this.Sprite})
+                    .Owner.AddComponent<CircleCollider>()
+                    //.Owner.AddComponent<Rigidbody>()
                     ;
 
                 base.Startup(position, tilemap, container);
