@@ -51,7 +51,7 @@
     <None Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\refs\ZZZ.Framework.Aether\ZZZ.Framework.Aether.csproj" />
+    <ProjectReference Include="..\..\refs\ZZZ.Framework.Aether\ZZZ.Framework.Components.Physics.Aether.csproj" />
     <ProjectReference Include="..\..\src\Framework.Pipeline\ZZZ.Framework.Pipeline.csproj" />
     <ProjectReference Include="..\..\src\Framework\ZZZ.Framework.csproj" />
   </ItemGroup>

@@ -1,11 +1,13 @@
-﻿using ZZZ.Framework.Core.Rendering.Entities;
+﻿using ZZZ.Framework.Components;
+using ZZZ.Framework.Core.Rendering.Entities;
+using ZZZ.Framework.Rendering;
 
 namespace ZZZ.Framework.Core.Rendering.Components
 {
     /// <summary>
     /// Представляет интерфейс, описывающий компонент камеры.
     /// </summary>
-    public interface ICamera : IGraphics
+    public interface ICamera : IComponent
     {
         /// <summary>
         /// Матрица проекции.
@@ -13,8 +15,9 @@ namespace ZZZ.Framework.Core.Rendering.Components
         Matrix Projection { get; }
         Matrix View { get; }
         Matrix World { get; }
+        SortLayer LayerMask { get; }
         bool IsMain { get; }
         void UpdateMatrix();
-        void Render(SpriteBatch spriteBatch);
+        void Apply(RenderContext renderContext);
     }
 }

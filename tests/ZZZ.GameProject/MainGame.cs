@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.ComponentModel;
-using System.Xml.Linq;
 using ZZZ.Framework;
 using ZZZ.Framework.Aether.Core;
-using ZZZ.Framework.Assets;
 using ZZZ.Framework.Assets.Tiling.Physics;
-using ZZZ.Framework.Components.Physics;
-using ZZZ.Framework.Components.Physics.Providers;
+using ZZZ.Framework.Attributes;
+using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Components.Rendering;
 using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Components.Transforming;
@@ -70,7 +67,6 @@ namespace ZZZ.KNI.GameProject
 
             PhysicalSystem physicalSystem = new PhysicalSystem();
             physicalSystem.Game = this;
-            Services.AddService<IPhysicsProvider>(physicalSystem);
 
             Components.Add(physicalSystem);
 
@@ -90,29 +86,37 @@ namespace ZZZ.KNI.GameProject
 
         protected override void Initialize()
         {
-
             SceneLoader.Load(new Scene() {  Name = "Scene"});
 
             var x = SceneLoader.CurrentScene.AddGameObject(new GameObject());
 
             GameObject gameObject = new GameObject();
             gameObject.AddGameObject(new GameObject()).AddComponent<Camera>();
-            gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -100f);
-            gameObject.AddComponent<Rigidbody>();
+            gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -400f);
+            gameObject.AddComponent<Rigidbody>().Mass = 1f;
             gameObject.AddComponent<HeroController>();
-            gameObject.AddComponent<BoxCollider>().Size = new Vector2(32f);
-            gameObject.AddComponent<CircleCollider>().Offset = new Vector2(-32f);
+            //gameObject.AddComponent<CircleCollider>();
+            gameObject.AddComponent<BoxCollider>();
+            gameObject.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[0];
 
             SceneLoader.CurrentScene.AddGameObject(gameObject);
 
             GameObject gameObject2 = new GameObject();
-            gameObject2.AddComponent<BoxCollider>().Offset = new Vector2(40f);
-            gameObject2.AddComponent<Rigidbody>();
+            gameObject2.AddComponent<Transformer>().Local = new Transform2D(100f, 100f);
+            gameObject2.AddComponent<BoxCollider>();
+            gameObject2.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[1];
+            //gameObject2.AddComponent<Rigidbody>();
 
             gameObject.AddGameObject(gameObject2);
 
 
+            GameObject gameObject3 = new GameObject();
+            gameObject3.AddComponent<Transformer>().Local = new Transform2D(-100f, -100f);
+            gameObject3.AddComponent<BoxCollider>();
+            gameObject3.AddComponent<Rigidbody>();
+            gameObject3.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[2];
 
+            gameObject2.AddGameObject(gameObject3);
 
             x.AddGameObject(TestNewTilemap());
             //x.AddComponent<GroupRender>();
@@ -136,9 +140,14 @@ namespace ZZZ.KNI.GameProject
 
             var container = new GameObject() { Name = "Tilemap" };
             container.AddComponent<FPSCounter>();
-            container.AddComponent(new TilemapCollider());
-            container.AddComponent(new TilemapRenderer() { RenderMode = TileRenderMode.Stretch, Layer = SortLayer.Layer1 });
-            var tilemap = container.AddComponent(new Tilemap() {  TileSize = new Vector2(32)});
+            container.AddComponent<TilemapCollider>();
+
+            var renderer = container.AddComponent<TilemapRenderer>();
+            renderer.RenderMode = TileRenderMode.Stretch;
+            renderer.Layer = SortLayer.Layer1;
+
+            var tilemap = container.AddComponent<Tilemap>();
+            tilemap.TileSize = new Vector2(32);
 
             //tilemap.Add(new Point(5, -2), heroTile);
 
@@ -181,17 +190,15 @@ namespace ZZZ.KNI.GameProject
                 container.AddComponent<CircleCollider>().Offset = new Vector2(64f);
                 container.AddComponent<HeroController>();
 
-                container.AddGameObject(new GameObject())
-                    .AddComponent(new Transformer(new Transform2D(200f, 0f)))
-                    .Owner.AddComponent<CircleCollider>()
-                    .Owner.AddComponent<Rigidbody>()
-                    ;
-                container.AddGameObject(new GameObject())
-                    .AddComponent(new Transformer(new Transform2D(100f, 0f)))
-                    .Owner.AddComponent(new SpriteRenderer() { Sprite = this.Sprite})
-                    .Owner.AddComponent<CircleCollider>()
-                    //.Owner.AddComponent<Rigidbody>()
-                    ;
+
+
+                var gameObj = container.AddGameObject(new Transform2D(200f, 0f));
+                gameObj.AddComponent<CircleCollider>();
+                gameObj.AddComponent<Rigidbody>();
+
+                gameObj = container.AddGameObject(new Transform2D(100f, 0f));
+                gameObj.AddComponent<SpriteRenderer>().Sprite = this.Sprite;
+                gameObj.AddComponent<CircleCollider>();
 
                 base.Startup(position, tilemap, container);
             }

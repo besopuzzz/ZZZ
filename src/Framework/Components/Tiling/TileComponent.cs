@@ -3,8 +3,8 @@ using ZZZ.Framework.Components.Transforming;
 
 namespace ZZZ.Framework.Components.Tiling
 {
-    [RequireComponent(typeof(Transformer))]
-    internal class TileComponent : Component
+    [RequiredComponent(typeof(Transformer))]
+    public class TileComponent : Component
     {
         public Point Position { get; set; }
 

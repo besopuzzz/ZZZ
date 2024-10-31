@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework.Core
+﻿using ZZZ.Framework.Components;
+
+namespace ZZZ.Framework.Core
 {
     public interface ISystem<TEntity, TEntityComponent, TComponent>
         where TEntity : Entity<TEntity, TEntityComponent, TComponent>

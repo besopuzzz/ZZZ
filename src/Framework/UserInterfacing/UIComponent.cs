@@ -6,7 +6,7 @@ using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.UserInterfacing
 {
-    [RequireComponent(typeof(UITransformer))]
+    [RequiredComponent(typeof(UITransformer))]
     public abstract class UIComponent : Component, IRender
     {
         public int Order { get; set; }

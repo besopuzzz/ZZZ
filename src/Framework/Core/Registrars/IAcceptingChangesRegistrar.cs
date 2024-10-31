@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework.Core.Registrars
+﻿using ZZZ.Framework.Components;
+
+namespace ZZZ.Framework.Core.Registrars
 {
     /// <summary>
     /// Представляет интерфейс регистратора, который отслеживает состояние компонентов и вызывает метод <see cref="IAcceptingChangesRegistrar{T}"/> для каждого из них.

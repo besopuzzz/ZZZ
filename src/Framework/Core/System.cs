@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework.Core
+﻿using ZZZ.Framework.Components;
+
+namespace ZZZ.Framework.Core
 {
     public abstract class System<TEntity, TEntityComponent, TComponent> : Disposable, IGameComponent, IDrawable, IUpdateable, ISystem<TEntity, TEntityComponent, TComponent>
         where TEntity : Entity<TEntity, TEntityComponent, TComponent>

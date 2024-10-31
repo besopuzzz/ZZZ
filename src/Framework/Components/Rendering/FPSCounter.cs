@@ -10,7 +10,7 @@ namespace ZZZ.Framework.Components.Rendering
     /// <summary>
     /// Представляет компонент для подсчета кадров за секунду.
     /// </summary>
-    [RequireComponent(typeof(Transformer))]
+    [RequiredComponent(typeof(Transformer))]
     public sealed class FPSCounter : Component, IUpdateComponent, IRender
     {
         /// <summary>

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.AttributeAnalyzer", "ZZZ.AttributeAnalizer\ZZZ.AttributeAnalizer\ZZZ.AttributeAnalyzer.csproj", "{C5E81025-C59F-4D5E-979A-D08F3847A198}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.AttributeAnalyzer.CodeFixes", "ZZZ.AttributeAnalizer\ZZZ.AttributeAnalizer.CodeFixes\ZZZ.AttributeAnalyzer.CodeFixes.csproj", "{9C92C7DE-5B7C-41FF-AAB9-41DEA0F0D46D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.AttributeAnalyzer.Package", "ZZZ.AttributeAnalizer\ZZZ.AttributeAnalizer.Package\ZZZ.AttributeAnalyzer.Package.csproj", "{4C91D10E-78AD-4B0A-839F-F1E724783988}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.AttributeAnalyzer.Test", "ZZZ.AttributeAnalizer\ZZZ.AttributeAnalizer.Test\ZZZ.AttributeAnalyzer.Test.csproj", "{33E4354B-BE59-46DC-84CD-358D58635707}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.AttributeAnalyzer.Vsix", "ZZZ.AttributeAnalizer\ZZZ.AttributeAnalizer.Vsix\ZZZ.AttributeAnalyzer.Vsix.csproj", "{8299F461-70D9-475B-942E-FFC96AB510F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZ.AttributeIntegrations", "..\ZZZ.AttributeIntegrations\ZZZ.AttributeIntegrations.csproj", "{340CD856-C49F-419B-8001-9C86FE47EA3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5E81025-C59F-4D5E-979A-D08F3847A198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E81025-C59F-4D5E-979A-D08F3847A198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E81025-C59F-4D5E-979A-D08F3847A198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E81025-C59F-4D5E-979A-D08F3847A198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C92C7DE-5B7C-41FF-AAB9-41DEA0F0D46D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C92C7DE-5B7C-41FF-AAB9-41DEA0F0D46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C92C7DE-5B7C-41FF-AAB9-41DEA0F0D46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C92C7DE-5B7C-41FF-AAB9-41DEA0F0D46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C91D10E-78AD-4B0A-839F-F1E724783988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C91D10E-78AD-4B0A-839F-F1E724783988}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C91D10E-78AD-4B0A-839F-F1E724783988}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C91D10E-78AD-4B0A-839F-F1E724783988}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33E4354B-BE59-46DC-84CD-358D58635707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33E4354B-BE59-46DC-84CD-358D58635707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33E4354B-BE59-46DC-84CD-358D58635707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33E4354B-BE59-46DC-84CD-358D58635707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8299F461-70D9-475B-942E-FFC96AB510F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8299F461-70D9-475B-942E-FFC96AB510F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8299F461-70D9-475B-942E-FFC96AB510F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8299F461-70D9-475B-942E-FFC96AB510F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{340CD856-C49F-419B-8001-9C86FE47EA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{340CD856-C49F-419B-8001-9C86FE47EA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{340CD856-C49F-419B-8001-9C86FE47EA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{340CD856-C49F-419B-8001-9C86FE47EA3F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A0FCA57-0989-4FC7-A2F0-D0EF0BD5C16D}
+	EndGlobalSection
+EndGlobal

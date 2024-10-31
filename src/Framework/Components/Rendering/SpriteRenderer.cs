@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using ZZZ.Framework.Components.Transforming;
+﻿using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Rendering.Entities;
+using ZZZ.Framework.Rendering;
 using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Components.Rendering
 {
-    [RequireComponent(typeof(Transformer))]
-    public class SpriteRenderer : Component, IRender
+    [RequiredComponent(typeof(Transformer))]
+    public class SpriteRenderer : RenderComponent
     {
         public Sprite Sprite { get; set; }
 
@@ -16,16 +14,7 @@ namespace ZZZ.Framework.Components.Rendering
 
         public SpriteEffects SpriteEffect { get; set; }
 
-        public int Order { get; set; }
-
-        public SortLayer Layer
-        {
-            get => layer;
-            set => layer = value;
-        }
-
-        private SortLayer layer = SortLayer.Layer1;
-        public Transformer transformer;
+        private Transformer transformer;
 
         protected override void Awake()
         {
@@ -34,11 +23,11 @@ namespace ZZZ.Framework.Components.Rendering
             base.Awake();
         }
 
-        void IRender.Render(SpriteBatch spriteBatch)
+        protected override void Render(RenderContext renderContext)
         {
             Transform2D transform = transformer.World;
 
-            spriteBatch.DrawSprite(Sprite, transform, Color, SpriteEffect);
+            renderContext.RenderSprite(transform, Sprite, Color, SpriteEffect);
         }
     }
 }

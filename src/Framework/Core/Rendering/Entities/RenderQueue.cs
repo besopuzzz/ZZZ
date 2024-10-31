@@ -41,7 +41,7 @@ namespace ZZZ.Framework.Core.Rendering.Entities
         {
             if (renderMode == RenderMode.ToOneLayer)
             {
-                camera.Render(spriteBatch);
+                //camera.Apply(spriteBatch);
 
                 foreach (var entity in entities)
                 {
@@ -56,10 +56,10 @@ namespace ZZZ.Framework.Core.Rendering.Entities
             {
                 foreach (var entity in entities)
                 {
-                    if (!camera.Layer.HasFlag(entity.Key))
+                    if (!camera.LayerMask.HasFlag(entity.Key))
                         continue;
 
-                    camera.Render(spriteBatch);
+                    //camera.Apply(spriteBatch);
 
                     SortAndRender(camera, entities[entity.Key], spriteBatch);
 

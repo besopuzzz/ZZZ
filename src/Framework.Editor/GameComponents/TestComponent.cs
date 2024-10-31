@@ -20,10 +20,10 @@
 
 //namespace ZZZ.Framework.Editor.GameComponents
 //{
-//    [RequireComponent(typeof(FPSCounter))]
-//    [RequireComponent(typeof(Transformer))]
-//    [RequireComponent(typeof(SpriteRenderer))]
-//    [RequireComponent(typeof(Label))]
+//    [RequiredComponent(typeof(FPSCounter))]
+//    [RequiredComponent(typeof(Transformer))]
+//    [RequiredComponent(typeof(SpriteRenderer))]
+//    [RequiredComponent(typeof(Label))]
 //    internal class TestComponent : Component, IUpdateComponent
 //    {
 //        private SpriteRenderer spriteRenderer;

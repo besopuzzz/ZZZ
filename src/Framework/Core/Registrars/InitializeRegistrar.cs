@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework.Core.Registrars
+﻿using ZZZ.Framework.Components;
+
+namespace ZZZ.Framework.Core.Registrars
 {
     /// <summary>
     /// Представляет регистратор, который запускает <see cref="IStartupComponent.Startup"/> и/или останавливает <see cref="IStopComponent.Stop"/>

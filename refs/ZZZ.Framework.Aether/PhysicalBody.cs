@@ -108,9 +108,6 @@ namespace ZZZ.Framework.Aether
                 LinearVelocity += gravity;
             }
 
-            if (!transformer.HasChanges)
-                return;
-
             Position = transformer.World.Position / transformer.World.Scale / PixelsPerMeter;
             Rotation = transformer.World.Rotation;
         }
@@ -126,7 +123,7 @@ namespace ZZZ.Framework.Aether
             world.Scale = transformer.World.Scale;
             world.Rotation = Rotation;
 
-            transformer.Local = world / transformer.World * transformer.Local;
+            transformer.World = world;
         }
 
         public new void ApplyAngularImpulse(float impulse)

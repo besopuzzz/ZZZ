@@ -1,4 +1,6 @@
 ﻿using ZZZ.Framework.Animations.Assets;
+using ZZZ.Framework.Components;
+using ZZZ.Framework.Components.Attributes;
 using ZZZ.Framework.Components.Rendering;
 using ZZZ.Framework.Components.Updating;
 using ZZZ.Framework.Rendering.Assets;
@@ -8,7 +10,7 @@ namespace ZZZ.Framework.Animations.Components
     /// <summary>
     /// Предоставляет класс покадровой анимации. Является игровым компонентом.
     /// </summary>
-    [RequireComponent(typeof(SpriteRenderer))]
+    [RequiredComponent(typeof(SpriteRenderer))]
     public class Animator : Component, IUpdateComponent
     {
         /// <summary>

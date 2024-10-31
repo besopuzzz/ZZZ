@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ZZZ.Framework.Components;
 using ZZZ.Framework.Components.Transforming;
 
 namespace ZZZ.Framework.Auding.Components

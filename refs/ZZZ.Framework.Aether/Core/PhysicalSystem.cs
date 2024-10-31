@@ -1,13 +1,12 @@
 ﻿using nkast.Aether.Physics2D.Diagnostics;
 using nkast.Aether.Physics2D.Dynamics;
-using ZZZ.Framework.Components.Physics;
-using ZZZ.Framework.Components.Physics.Providers;
+using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Core;
 using ZZZ.Framework.Core.Rendering;
 
 namespace ZZZ.Framework.Aether.Core
 {
-    public sealed class PhysicalSystem : System<PhysicalEntity, PhysicalEntityComponent, IPhysicBody>, IPhysicsProvider
+    public sealed class PhysicalSystem : System<PhysicalEntity, PhysicalEntityComponent, IRigidbody>
     {
         public World World { get; } = new World(Vector2.Zero);
 
@@ -24,27 +23,19 @@ namespace ZZZ.Framework.Aether.Core
         {
             return new PhysicalEntity(World);
         }
-
-        protected override PhysicalEntityComponent CreateEntityComponent(PhysicalEntity owner, IPhysicBody component)
+        
+        protected override PhysicalEntityComponent CreateEntityComponent(PhysicalEntity owner, IRigidbody component)
         {
-            switch (component)
-            {
-                case ICollider collider:
-                    return new ColliderEntityComponent(collider);
-                case IRigidbody rigidbody:
-                    return new RigidbodyEntityComponent(rigidbody);
-                default:
-                    return default;
-            }
+            return new PhysicalEntityComponent(component);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            ForEveryChild(x => x.UpdateBody());
+            //ForEveryChild(x => x.UpdateBody());
 
             World.Step(gameTime.ElapsedGameTime);
 
-            ForEveryChild(x => x.UpdateTransformer());
+            //ForEveryChild(x => x.UpdateTransformer());
 
             base.Update(gameTime);
         }
@@ -93,24 +84,6 @@ namespace ZZZ.Framework.Aether.Core
             device = null;
 
             base.Dispose(disposing);
-        }
-
-        IRigidbodyProvider IPhysicsProvider.CreateRigidbodyProvider(IRigidbody rigidbody)
-        {
-            return new AetherRigidbodyProvider(rigidbody);
-        }
-
-        TProvider IPhysicsProvider.CreateColliderProvider<TProvider>(ICollider collider)
-        {
-            var type = typeof(TProvider);
-
-            if (type.Equals(typeof(ICircleColliderProvider)))
-                return new AetherCircleColliderProvider(collider) as TProvider;
-
-            if (type.Equals(typeof(IPolygonColliderProvider)))
-                return new AetherPolygonColliderProvider(collider) as TProvider;
-
-            return default;
         }
     }
 }

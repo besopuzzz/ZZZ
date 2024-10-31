@@ -5,36 +5,7 @@ namespace ZZZ.Framework
 {
     public class Scene : GameObject
     {
-        internal GameManager GameManager { get; set; }
-
-        protected internal override void RegistrationComponent<T>(T component)
-        {
-            GameManager.RegistrationComponent(component);
-        }
-
-        protected internal override void DeregistrationComponent<T>(T component)
-        {
-            GameManager.UnregistrationComponent(component);
-        }
-
-        protected internal override Scene GetCurrentScene()
-        {
-            return this;
-        }
-
-        internal void Run()
-        {
-            Awake();
-        }
-
-        public static class ModuleInitializer
-        {
-            public static void Initialize()
-            {
-
-            }
-        }
-
+        public override GameObject Owner { get => null; internal set { } }
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Scene"/>.

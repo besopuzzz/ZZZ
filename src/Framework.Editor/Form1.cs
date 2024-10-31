@@ -4,10 +4,6 @@ using ZZZ.Framework.Core;
 using ZZZ.Framework.Core.Registrars;
 using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Core.Transforming;
-using ZZZ.Framework.Core.Updating;
-using ZZZ.Framework.Diagnostics.Components;
-using ZZZ.Framework.Physics.Components;
-using ZZZ.Framework.UserInterfacing;
 
 namespace Framework.Editor
 {

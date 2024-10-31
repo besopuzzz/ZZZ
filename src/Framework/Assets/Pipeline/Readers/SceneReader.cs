@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework.Assets.Pipeline.Readers
+﻿using ZZZ.Framework.Components;
+
+namespace ZZZ.Framework.Assets.Pipeline.Readers
 {
     public class SceneReader : ContentTypeReader<Scene>
     {

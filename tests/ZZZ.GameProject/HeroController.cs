@@ -2,8 +2,12 @@
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using ZZZ.Framework;
+using ZZZ.Framework.Attributes;
 using ZZZ.Framework.Auding.Components;
+using ZZZ.Framework.Components;
+using ZZZ.Framework.Components.Attributes;
 using ZZZ.Framework.Components.Physics;
+using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Components.Rendering;
 using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Components.Transforming;
@@ -12,12 +16,12 @@ using ZZZ.Framework.Core.Rendering;
 
 namespace ZZZ.KNI.GameProject
 {
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(SoundListener))]
-    [RequireComponent(typeof(FPSCounter))]
-    internal class HeroController : Framework.Component, IUpdateComponent, IStartupComponent
+    [RequiredComponent(typeof(Rigidbody))]
+    [RequiredComponent(typeof(SoundListener))]
+    [RequiredComponent(typeof(FPSCounter))]
+    internal class HeroController : Component, IUpdateComponent, IStartupComponent
     {
-        public Vector2 MaxSpeed { get; set; } = new Vector2(0.5f);
+        public Vector2 MaxSpeed { get; set; } = new Vector2(1f);
 
         private PolygonCollider boxCollider;
         private Tilemap tilemap;
@@ -35,7 +39,6 @@ namespace ZZZ.KNI.GameProject
             scene = FindGameObject<Scene>();
             rigidbody = GetComponent<Rigidbody>();
 
-            rigidbody.Mass = 0.02f;
 
             soundListener = GetComponent<SoundListener>();
             tilemapCollider = FindComponent<TilemapCollider>();
@@ -57,14 +60,14 @@ namespace ZZZ.KNI.GameProject
             var sceneScale = Vector2.One;
 
             if (keyboardState.IsKeyDown(Keys.A))
-                speed.X = -64f;
+                speed.X = -1f;
             else if (keyboardState.IsKeyDown(Keys.D))
-                speed.X = 64f;
+                speed.X = 1f;
 
             if (keyboardState.IsKeyDown(Keys.W))
-                speed.Y = -64f;
+                speed.Y = -1f;
             else if (keyboardState.IsKeyDown(Keys.S))
-                speed.Y = 64f;
+                speed.Y = 1f;
 
             //if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
             //    rigidbody.Enabled = !rigidbody.Enabled;
@@ -137,6 +140,12 @@ namespace ZZZ.KNI.GameProject
         void IStartupComponent.Startup()
         {
             boxCollider = GetComponent<PolygonCollider>();
+        }
+
+        [WaitComponent(typeof(SpriteRenderer), true)]
+        void WaitComponent(SpriteRenderer component, WaitComponentAttribute.WaitComponentOperation componentOperation)
+        {
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ZZZ.Framework.Components.Physics;
+﻿using ZZZ.Framework.Components.Physics.Aether;
+using ZZZ.Framework.Components.Physics.Aether.Components;
 
 namespace ZZZ.Framework.Aether.Core
 {

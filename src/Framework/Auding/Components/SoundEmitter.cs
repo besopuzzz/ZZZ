@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using ZZZ.Framework.Auding.Assets;
+using ZZZ.Framework.Components;
 using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Components.Updating;
 

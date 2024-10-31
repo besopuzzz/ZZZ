@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZZZ.Framework.Pipeline", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZZZ.Framework.Editor", "src\Framework.Editor\ZZZ.Framework.Editor.csproj", "{57DF0391-6BDD-4A5D-879D-FF942E1CC8CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZZZ.Framework.Aether", "refs\ZZZ.Framework.Aether\ZZZ.Framework.Aether.csproj", "{48A714FE-8852-46E1-B826-A0F5EE6D9579}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZZZ.Framework.Components.Physics.Aether", "refs\ZZZ.Framework.Aether\ZZZ.Framework.Components.Physics.Aether.csproj", "{48A714FE-8852-46E1-B826-A0F5EE6D9579}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{171157E3-3B6A-41CD-98EB-E6D58547DBF2}"
 EndProject

@@ -4,7 +4,7 @@ using ZZZ.Framework.Core.Rendering;
 
 namespace ZZZ.Framework.Components.Tiling
 {
-    public sealed class TilemapRenderer : GroupRender, ITilemap, IUpdateComponent, IGroupRender
+    public sealed class TilemapRenderer : GroupRender, ITilemap, IUpdateComponent
     {
         public float Speed { get; set; } = 10f;
         public new SortLayer Layer

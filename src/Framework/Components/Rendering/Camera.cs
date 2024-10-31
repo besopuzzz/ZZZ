@@ -1,8 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using ZZZ.Framework.Components;
 using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering.Components;
 using ZZZ.Framework.Core.Rendering.Entities;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Components.Attributes;
+using ZZZ.Framework.Components.Rendering;
+using ZZZ.Framework.Rendering;
 
 namespace ZZZ.Framework.Core.Rendering
 {
@@ -13,24 +17,14 @@ namespace ZZZ.Framework.Core.Rendering
     /// Существование нескольких камер <see cref="ICamera"/> не будет вызывать конфликт, но рисование будет выполнено повторно
     /// для каждой активной камеры. Используйте <see cref="RenderEntity.Layer"/> для указания слоев, 
     /// которые камера будет проецировать на экран.</remarks>
-    [RequireComponent(typeof(Transformer))]
+
+    [RequiredComponent(typeof(Transformer))]
     public class Camera : Component, ICamera
     {
         public bool FocusToCenter
         {
             get => focusToCenter;
             set => focusToCenter = value;
-        }
-
-        public SortLayer Layer
-        {
-            get => layer;
-            set
-            {
-                if (layer == value) return;
-
-                layer = value;
-            }
         }
 
         /// <summary>
@@ -56,12 +50,12 @@ namespace ZZZ.Framework.Core.Rendering
 
         public Matrix World => world;
 
+
+
         /// <summary>
         /// Точка фокуса камеры. 
         /// </summary>
         public Vector2 PointOfFocus { get; set; }
-
-        Matrix ICamera.Projection => projection;
 
         public bool IsMain
         {
@@ -80,15 +74,23 @@ namespace ZZZ.Framework.Core.Rendering
 
         public static ICamera MainCamera => mainCamera;
 
-        private SortLayer layer = SortLayer.All;
+        public SortLayer LayerMask
+        {
+            get => layerMask;
+            set
+            {
+                layerMask = value;
+            }
+        }
+
         private bool focusToCenter = true;
         private bool isMain = false;
         private bool fixedRotation = true;
         private Matrix projection = Matrix.Identity;
         private Matrix view = Matrix.Identity;
         private Matrix world = Matrix.Identity;
+        private SortLayer layerMask = SortLayer.All;
         private Transformer transformer;
-        private SpriteBatch spriteBatch;
         private BasicEffect basicEffect;
         private GraphicsDevice graphicsDevice;
 
@@ -100,7 +102,10 @@ namespace ZZZ.Framework.Core.Rendering
         public Camera()
         {
             if (mainCamera == null)
+            {
+                isMain = true;
                 mainCamera = this;
+            }
         }
 
         protected override void Awake()
@@ -120,18 +125,6 @@ namespace ZZZ.Framework.Core.Rendering
 
             base.Shutdown();
         }
-
-        void ICamera.Render(SpriteBatch spriteBatch)
-        {
-            basicEffect.View = view;
-            basicEffect.Projection = projection;
-            basicEffect.World = world;
-            basicEffect.TextureEnabled = true;
-
-            spriteBatch.Begin(/*transformMatrix: projection * world,*/ sortMode: SpriteSortMode.Texture, effect: basicEffect, samplerState: SamplerState.PointClamp);
-        }
-
-
 
         void ICamera.UpdateMatrix()
         {
@@ -161,6 +154,16 @@ namespace ZZZ.Framework.Core.Rendering
                 * Matrix.CreateTranslation(new Vector3(-local.Position, 0f));
 
             view = Matrix.CreateLookAt(new Vector3(0, 0, 1f), Vector3.Zero, Vector3.Up);
+        }
+
+        public void Apply(RenderContext renderContext)
+        {
+            basicEffect.View = view;
+            basicEffect.Projection = projection;
+            basicEffect.World = world;
+            basicEffect.TextureEnabled = true;
+
+            renderContext.Start(/*transformMatrix: projection * world,*/sortMode: SpriteSortMode.Texture, effect: basicEffect, samplerState: SamplerState.PointClamp);
         }
     }
 }

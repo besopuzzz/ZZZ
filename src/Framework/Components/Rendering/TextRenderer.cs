@@ -6,7 +6,7 @@ using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Components.Rendering
 {
-    [RequireComponent(typeof(Transformer))]
+    [RequiredComponent(typeof(Transformer))]
     public class TextRenderer : Component, IRender
     {
         [ContentSerializerIgnore]

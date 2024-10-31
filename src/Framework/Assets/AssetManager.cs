@@ -1,17 +1,15 @@
-﻿using ZZZ.Framework.Core;
-
-namespace ZZZ.Framework.Assets
+﻿namespace ZZZ.Framework.Assets
 {
     public sealed class AssetManager
     {
         private static AssetManager instance;
-        private static ContentManager contentManager;
+        private static IAssetProvider provider;
 
-        internal AssetManager(GameManager gameManager)
+        internal AssetManager(IAssetProvider assetProvider)
         {
             instance ??= this;
 
-            contentManager = new ContentManager(gameManager.Game.Services, "Content");
+            provider = assetProvider;
         }
 
         public static T Load<T>(string path)
@@ -19,7 +17,7 @@ namespace ZZZ.Framework.Assets
             if (instance == null)
                 return default;
 
-            return contentManager.Load<T>(path);
+            return provider.Load<T>(path);
         }
 
         public static T LoadPrefab<T>(string path) where T : GameObject
@@ -27,7 +25,7 @@ namespace ZZZ.Framework.Assets
             if (instance == null)
                 return default;
 
-            return contentManager.Load<T>(path);
+            return provider.Load<T>(path);
         }
     }
 }

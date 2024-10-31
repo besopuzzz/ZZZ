@@ -8,14 +8,14 @@ namespace ZZZ.Framework
 
         private static SceneLoader instance;
         private Scene scene;
-        private GameManager manager;
+        private Root manager;
 
-        internal SceneLoader(GameManager gameManager)
+        internal SceneLoader(Root root)
         {
             if (instance == null)
                 instance = this;
 
-            manager = gameManager;
+            manager = root;
         }
 
         public static void Load(string name)

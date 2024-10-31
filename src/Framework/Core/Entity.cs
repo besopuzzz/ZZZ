@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework.Core
+﻿using ZZZ.Framework.Components;
+
+namespace ZZZ.Framework.Core
 {
     public class Entity<TEntity, TEntityComponent, TComponent> : Disposable
         where TEntity : Entity<TEntity, TEntityComponent, TComponent>

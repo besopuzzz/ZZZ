@@ -51,7 +51,7 @@ namespace ZZZ.Framework.Core.Rendering
 
             ForEveryComponent(component =>
             {
-                if (camera.Layer.HasFlag(component.SortLayer) && component.Enabled)
+                if (camera.LayerMask.HasFlag(component.SortLayer) && component.Enabled)
                     localQueue.Add(component);
             });
 

@@ -1,43 +1,33 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using ZZZ.Framework.Core.Rendering;
-//using ZZZ.Framework.Core.Rendering.Components;
+﻿using ZZZ.Framework.Components.Rendering;
+using ZZZ.Framework.Core.Rendering;
+using ZZZ.Framework.Rendering;
 
-//namespace ZZZ.Framework.Components.Rendering
-//{
-//    public class GroupRender : Component, IRender
-//    {
-//        public int Order { get; set; }
+public class GroupRender : RenderComponent
+{
+    public SortLayer LayerMask => SortLayer.All;
 
-//        public SortLayer Layer
-//        {
-//            get => layer;
-//            set
-//            {
-//                if (layer == value)
-//                    return;
+    internal override IList<RenderComponent> DownNeighbors => empty;
 
-//                SortLayer oldValue = value;
+    private RenderContext localContext;
+    private static IList<RenderComponent> empty = Enumerable.Empty<RenderComponent>().ToList();
 
-//                layer = value;
+    protected override void Render(RenderContext renderContext)
+    {
+        if (localContext == null)
+            localContext = new RenderContext(renderContext);
 
-//                LayerChanged?.Invoke(this, new SortLayerArgs(oldValue, value));
-//            }
-//        }
+        foreach (var child in base.DownNeighbors)
+            CheckAndAddToQueue(child);
 
-//        public event EventHandler<SortLayerArgs> LayerChanged;
+        localContext.RenderQueue(RenderContext.RenderMode.ToOneLayer);
+    }
 
-//        private UITransformer transformer;
-//        private SortLayer layer;
+    void CheckAndAddToQueue(RenderComponent component)
+    {
+        if (LayerMask.HasFlag(component.Layer) && component.Enabled)
+            localContext.AddToQueue(component);
 
-//        protected override void Awake()
-//        {
-//            transformer = GetComponent<UITransformer>();
-
-//            base.Awake();
-//        }
-//    }
-//}
+        foreach (var child in component.DownNeighbors)
+            CheckAndAddToQueue(child);
+    }
+}

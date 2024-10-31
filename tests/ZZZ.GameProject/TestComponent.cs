@@ -13,7 +13,7 @@
 
 //namespace ZZZ.KNI.GameProject
 //{
-//    [RequireComponent(typeof(Transformer))]
+//    [RequiredComponent(typeof(Transformer))]
 //    internal class TestComponent : Framework.Component, IStartupComponent, IUpdateComponent, IRender, IStopComponent
 //    {
 //        public int Order { get => order; set => order = value; }

@@ -88,7 +88,7 @@ namespace nkast.Aether.Physics2D.Dynamics
         /// <summary>
         /// Get the parent World of this body. This is null if the body is not attached.
         /// </summary>
-        public World World { get {return _world; } }
+        public World World { get { return _world; } }
 
         /// <remarks>Deprecated in version 1.6</remarks>
         [Obsolete]
@@ -153,7 +153,7 @@ namespace nkast.Aether.Physics2D.Dynamics
                     World.ContactManager.Destroy(ce0.Contact);
                 }
                 ContactList = null;
-                
+
                 if (World != null)
                 {
                     // Touch the proxies so that new contacts will be created (when appropriate)
@@ -273,7 +273,7 @@ namespace nkast.Aether.Physics2D.Dynamics
                     if (!_awake)
                     {
                         _sleepTime = 0.0f;
-                        
+
 #if USE_ACTIVE_CONTACT_SET
                         World.ContactManager.UpdateActiveContacts(ContactList, true);
 #endif
@@ -294,7 +294,7 @@ namespace nkast.Aether.Physics2D.Dynamics
 #endif
                     ResetDynamics();
                     _sleepTime = 0.0f;
-                    
+
 #if USE_ACTIVE_CONTACT_SET
                     World.ContactManager.UpdateActiveContacts(ContactList, false);
 #endif
@@ -358,7 +358,7 @@ namespace nkast.Aether.Physics2D.Dynamics
         /// Create all proxies.
         /// </summary>
         internal void CreateProxies()
-        {   
+        {
             IBroadPhase broadPhase = World.ContactManager.BroadPhase;
             for (int i = 0; i < FixtureList._list.Count; i++)
                 FixtureList._list[i].CreateProxies(broadPhase, ref _xf);
@@ -378,7 +378,7 @@ namespace nkast.Aether.Physics2D.Dynamics
         /// Destroy the attached contacts.
         /// </summary>
         private void DestroyContacts()
-        {            
+        {
             ContactEdge ce = ContactList;
             while (ce != null)
             {
@@ -442,7 +442,10 @@ namespace nkast.Aether.Physics2D.Dynamics
                 Debug.Assert(!float.IsNaN(value.X) && !float.IsNaN(value.Y));
 
                 if (World == null)
+                {
                     _xf.p = value;
+                    ChangeTransformer();
+                }
                 else
                     SetTransform(ref value, Rotation);
             }
@@ -460,7 +463,10 @@ namespace nkast.Aether.Physics2D.Dynamics
                 Debug.Assert(!float.IsNaN(value));
 
                 if (World == null)
+                {
                     _sweep.A = value;
+                    ChangeTransformer();
+                }
                 else
                     SetTransform(ref _xf.p, value);
             }
@@ -1127,6 +1133,7 @@ namespace nkast.Aether.Physics2D.Dynamics
         {
             Transform xf1 = new Transform(Vector2.Zero, _sweep.A0);
             xf1.p = _sweep.C0 - Complex.Multiply(ref _sweep.LocalCenter, ref xf1.q);
+            ChangeTransformer();
 
             IBroadPhase broadPhase = World.ContactManager.BroadPhase;
             for (int i = 0; i < FixtureList._list.Count; i++)
@@ -1139,6 +1146,8 @@ namespace nkast.Aether.Physics2D.Dynamics
         {
             _xf.q.Phase = _sweep.A;
             _xf.p = _sweep.C - Complex.Multiply(ref _sweep.LocalCenter, ref _xf.q);
+
+            ChangeTransformer();
         }
 
         /// <summary>

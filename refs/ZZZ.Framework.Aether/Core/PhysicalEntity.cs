@@ -1,66 +1,132 @@
 ﻿using nkast.Aether.Physics2D.Dynamics;
-using ZZZ.Framework.Components.Physics;
+using System;
+using ZZZ.Framework.Components.Physics.Aether;
+using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core;
 
 namespace ZZZ.Framework.Aether.Core
 {
-    public class PhysicalEntity : Entity<PhysicalEntity, PhysicalEntityComponent, IPhysicBody>
+    public class PhysicalEntity : Entity<PhysicalEntity, PhysicalEntityComponent, IRigidbody>
     {
-        internal PhysicalBody Body => body;
+        public Body Body => body;
+        public bool IsComposite
+        {
+            get { return rigidbody == null ? false : false; }
+        }
 
-        public PhysicalEntity Main => main;
-
-        private World world;
-        private PhysicalBody body;
+        private Body body;
         private Transformer transformer;
-        private PhysicalEntity main;
+        private List<PhysicalEntityComponent> colliders;
+        private PhysicalEntityComponent rigidbody;
+        private World world;
 
         public PhysicalEntity(World world)
         {
             this.world = world;
 
-            body = new PhysicalBody();
+            //body = new Body();
+            //body.BodyType = BodyType.Static;
+            colliders = new List<PhysicalEntityComponent>();
         }
 
         protected override void Initialize()
         {
-            transformer = Owner.GetComponent<Transformer>();
+
 
             base.Initialize();
         }
 
-        protected override void EntityAdded(PhysicalEntity entity)
+        protected override void Dispose(bool disposing)
         {
-            base.EntityAdded(entity);
-        }
+            if(disposing)
+            {
+                colliders.Clear();
+            }
 
-        protected override void EntityRemoved(PhysicalEntity entity)
-        {
-            base.EntityRemoved(entity);
+            base.Dispose(disposing);
         }
 
         protected override void ComponentEntityAdded(PhysicalEntityComponent entityComponent)
         {
-            
+            if (body?.World == null)
+            {
+                transformer = Owner.GetComponent<Transformer>();
+                body = new Body(transformer);
+                //body.Position = (transformer.World.Position / transformer.World.Scale) / IRigidbody.PixelsPerMeter;
+                //body.Rotation = transformer.World.Rotation;
+
+                world.Add(body);
+            }
+
+            entityComponent.Attach(body);
+
+            if (entityComponent.Component is ICollider collider)
+            {
+                colliders.Add(entityComponent);
+            }
+            else
+            {
+                rigidbody = entityComponent;
+            }
         }
+
+
 
         protected override void ComponentEntityRemoved(PhysicalEntityComponent entityComponent)
         {
-            if (EntityComponents.Count == 0)
+            entityComponent.Detach(body);
+
+            if (entityComponent.Component is ICollider collider)
+            {
+                colliders.Remove(entityComponent);
+            }
+            else
+            {
+                rigidbody = null;
+                body.BodyType = BodyType.Static;
+            }
+
+            if (colliders.Count == 0 & rigidbody == null)
+            {
                 world.Remove(body);
+                transformer = null;
+            }
         }
-
         
-
         public void UpdateBody()
         {
-            body.UpdatePosition(transformer);
+            if (transformer == null)
+                return;
+
+            body.Position = (transformer.World.Position / transformer.World.Scale) / IRigidbody.PixelsPerMeter;
+            body.Rotation = transformer.World.Rotation;
+
+            if (IsComposite)
+            {
+                Childs.ForEach(x=>x.UpdateBody());
+            }
+        }
+
+        public override void ForEveryChild(Action<PhysicalEntity> action)
+        {
+            if(IsComposite)
+                action.Invoke(this);
+            else base.ForEveryChild(action);
         }
 
         public void UpdateTransformer()
         {
-            body.UpdateTransformer(transformer);
+            if (transformer == null)
+                return;
+
+            Transform2D world = new(body.Position * IRigidbody.PixelsPerMeter * transformer.World.Scale, transformer.World.Scale, body.Rotation);
+
+            if (world == transformer.World)
+                return;
+
+            body.LocalCenter = Vector2.Zero;
+            transformer.World = world;
         }
     }
 }

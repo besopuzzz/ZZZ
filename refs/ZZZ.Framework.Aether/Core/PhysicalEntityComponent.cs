@@ -1,10 +1,12 @@
-﻿using ZZZ.Framework.Components.Physics;
+﻿using nkast.Aether.Physics2D.Dynamics;
+using ZZZ.Framework.Components.Physics.Aether;
+using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Core;
 
 namespace ZZZ.Framework.Aether.Core
 {
-    public abstract class PhysicalEntityComponent<TBody> : PhysicalEntityComponent
-        where TBody : IPhysicBody
+    public class PhysicalEntityComponent<TBody> : PhysicalEntityComponent
+        where TBody : IRigidbody
     {
         public new TBody Component
         {
@@ -16,9 +18,9 @@ namespace ZZZ.Framework.Aether.Core
         }
     }
 
-    public abstract class PhysicalEntityComponent : EntityComponent<PhysicalEntity, PhysicalEntityComponent, IPhysicBody>
+    public class PhysicalEntityComponent : EntityComponent<PhysicalEntity, PhysicalEntityComponent, IRigidbody>
     {
-        public PhysicalEntityComponent(IPhysicBody component) : base(component)
+        public PhysicalEntityComponent(IRigidbody component) : base(component)
         {
 
         }
@@ -28,7 +30,13 @@ namespace ZZZ.Framework.Aether.Core
 
         }
 
-        internal abstract void Attach(PhysicalBody body);
-        internal abstract void Detach(PhysicalBody body);
+        public virtual void Attach(Body body)
+        {
+            Component.Attach(body);
+        }
+        public virtual void Detach(Body body)
+        {
+            Component.Detach();
+        }
     }
 }

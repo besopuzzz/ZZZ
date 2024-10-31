@@ -6,7 +6,7 @@ using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Components.Tiling
 {
-    [RequireComponent(typeof(Transformer))]
+    [RequiredComponent(typeof(Transformer))]
     internal sealed class TileRenderer : Component, IRender
     {
         public Sprite Sprite { get; set; }
