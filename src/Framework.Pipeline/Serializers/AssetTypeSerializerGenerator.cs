@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 using System.Reflection;
-using ZZZ.Framework.Extentions;
+using ZZZ.Framework.Extensions;
 using ZZZ.KNI.Content.Pipeline.Writers;
 
 namespace ZZZ.KNI.Content.Pipeline.Serializers
@@ -10,7 +10,7 @@ namespace ZZZ.KNI.Content.Pipeline.Serializers
     {
         public static void Initialize()
         {
-            VirtualAssemblyGenerator virtualAssembly = new VirtualAssemblyGenerator("AssetExtentionAssembly");
+            VirtualAssemblyGenerator virtualAssembly = new VirtualAssemblyGenerator("AssetExtensionAssembly");
 
 
             foreach (var item in AssetTypes.Assets)

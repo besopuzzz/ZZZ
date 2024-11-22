@@ -1,7 +1,4 @@
 ﻿using System;
-using ZZZ.Framework;
-using ZZZ.Framework.Extentions;
-using ZZZ.KNI.GameProject.Services;
 
 namespace ZZZ.KNI.GameProject
 {

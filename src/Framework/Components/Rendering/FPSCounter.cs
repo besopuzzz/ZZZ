@@ -1,17 +1,16 @@
 ﻿using ZZZ.Framework.Assets;
 using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Components.Updating;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Rendering.Entities;
+using ZZZ.Framework.Rendering;
+using ZZZ.Framework.Updating;
 
 namespace ZZZ.Framework.Components.Rendering
 {
     /// <summary>
     /// Представляет компонент для подсчета кадров за секунду.
     /// </summary>
-    [RequiredComponent(typeof(Transformer))]
-    public sealed class FPSCounter : Component, IUpdateComponent, IRender
+    [RequiredComponent<Transformer>]
+    public sealed class FPSCounter : Component, IUpdater, IRenderer
     {
         /// <summary>
         /// Количество кадров за секунду.
@@ -51,7 +50,7 @@ namespace ZZZ.Framework.Components.Rendering
             base.Awake();
         }
 
-        void IRender.Render(SpriteBatch spriteBatch)
+        void IRenderer.Render(IRenderProvider provider)
         {
             frameCount++;
             if (elapsedTime >= 1.0f)
@@ -61,13 +60,12 @@ namespace ZZZ.Framework.Components.Rendering
                 elapsedTime = 0.0f;
             }
 
-
-            spriteBatch.DrawText(font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None, false);
+            provider.RenderText(font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None);
         }
 
-        void IUpdateComponent.Update(GameTime gameTime)
+        void IUpdater.Update(TimeSpan time)
         {
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            elapsedTime += (float)time.TotalSeconds;
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿namespace ZZZ.Framework
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZZZ.Framework
 {
-    /// <summary>
-    /// Представляет базовый контейнер.
-    /// </summary>
-    public partial class GameObject : Container
+    public class GameObject : GameContainer
     {
-        
     }
 }

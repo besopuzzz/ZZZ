@@ -120,12 +120,12 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 
         protected override void Awake()
         {
-            if(useComposite)
-            {
-                compositeRigidbody = Owner.FindComponentOnTree<CompositeRigidbody>(true);
+            //if(useComposite)
+            //{
+            //    compositeRigidbody = Owner.FindComponentOnTree<CompositeRigidbody>(true);
 
 
-            }
+            //}
 
             base.Awake();
         }

@@ -1,12 +1,10 @@
 ﻿using ZZZ.Framework.Components;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Rendering.Entities;
-using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Rendering;
 
 namespace ZZZ.Framework.UserInterfacing.Components
 {
-    public class Canvas : Component, IRender
+    public class Canvas : Component, IRenderer
     {
         public int Order { get; set; }
         public SortLayer Layer
@@ -27,7 +25,7 @@ namespace ZZZ.Framework.UserInterfacing.Components
             base.Awake();
         }
 
-        void IRender.Render(SpriteBatch  spriteBatch)
+        void IRenderer.Render(IRenderProvider provider)
         {
 
         }

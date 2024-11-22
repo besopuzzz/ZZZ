@@ -1,11 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using ZZZ.Framework.Components;
-using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Rendering.Entities;
-using ZZZ.Framework.Rendering.Assets;
-using ZZZ.Framework.Components.Attributes;
+﻿using ZZZ.Framework.Components;
 using ZZZ.Framework.Components.Rendering;
+using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Rendering;
 
 namespace ZZZ.Framework.Core.Rendering
@@ -18,8 +13,8 @@ namespace ZZZ.Framework.Core.Rendering
     /// для каждой активной камеры. Используйте <see cref="RenderEntity.Layer"/> для указания слоев, 
     /// которые камера будет проецировать на экран.</remarks>
 
-    [RequiredComponent(typeof(Transformer))]
-    public class Camera : Component, ICamera
+    [RequiredComponent<Transformer>]
+    public class Camera : Component
     {
         public bool FocusToCenter
         {
@@ -72,7 +67,7 @@ namespace ZZZ.Framework.Core.Rendering
             }
         }
 
-        public static ICamera MainCamera => mainCamera;
+        public static Camera MainCamera => mainCamera;
 
         public SortLayer LayerMask
         {
@@ -91,10 +86,9 @@ namespace ZZZ.Framework.Core.Rendering
         private Matrix world = Matrix.Identity;
         private SortLayer layerMask = SortLayer.All;
         private Transformer transformer;
-        private BasicEffect basicEffect;
-        private GraphicsDevice graphicsDevice;
+        private IRenderManager renderManager;
 
-        private static ICamera mainCamera;
+        private static Camera mainCamera;
 
         /// <summary>
         /// Представляет экземпляр компонента камеры.
@@ -111,10 +105,9 @@ namespace ZZZ.Framework.Core.Rendering
         protected override void Awake()
         {
             transformer = GetComponent<Transformer>();
-            graphicsDevice = GameSettings.Instance.Game.Services.GetService<IGraphicsDeviceService>().GraphicsDevice;
-            basicEffect = new BasicEffect(graphicsDevice);
+            renderManager = Services.Get<IRenderManager>();
 
-            PointOfFocus = focusToCenter ? graphicsDevice.Viewport.Bounds.Size.ToVector2() / 2 : PointOfFocus / 2;
+            PointOfFocus = focusToCenter ? renderManager.ScreenSize.ToVector2() / 2 : PointOfFocus / 2;
 
 
             base.Awake();
@@ -126,7 +119,7 @@ namespace ZZZ.Framework.Core.Rendering
             base.Shutdown();
         }
 
-        void ICamera.UpdateMatrix()
+        public void UpdateMatrix()
         {
             if (!transformer.HasChanges)
                 return;
@@ -136,12 +129,12 @@ namespace ZZZ.Framework.Core.Rendering
 
             float rotation = FixedRotation ? local.Rotation : local.Rotation - worldTransform.Rotation;
 
-            PointOfFocus = focusToCenter ? graphicsDevice.Viewport.Bounds.Size.ToVector2() / 2 : PointOfFocus / 2;
+            PointOfFocus = focusToCenter ? renderManager.ScreenSize.ToVector2() / 2 : PointOfFocus / 2;
 
             projection = Matrix.CreateOrthographicOffCenter(-PointOfFocus.X, PointOfFocus.X,
                 PointOfFocus.Y, -PointOfFocus.Y, 0f, 1000);
 
-            if (graphicsDevice.UseHalfPixelOffset)
+            if (renderManager.UseHalfPixelOffset)
             {
                 projection.M41 += -0.5f * projection.M11;
                 projection.M42 += -0.5f * projection.M22;
@@ -154,16 +147,6 @@ namespace ZZZ.Framework.Core.Rendering
                 * Matrix.CreateTranslation(new Vector3(-local.Position, 0f));
 
             view = Matrix.CreateLookAt(new Vector3(0, 0, 1f), Vector3.Zero, Vector3.Up);
-        }
-
-        public void Apply(RenderContext renderContext)
-        {
-            basicEffect.View = view;
-            basicEffect.Projection = projection;
-            basicEffect.World = world;
-            basicEffect.TextureEnabled = true;
-
-            renderContext.Start(/*transformMatrix: projection * world,*/sortMode: SpriteSortMode.Texture, effect: basicEffect, samplerState: SamplerState.PointClamp);
         }
     }
 }

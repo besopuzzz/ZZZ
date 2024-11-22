@@ -16,8 +16,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Updating\Components\" />
-    <Folder Include="Core\Physics\" />
-    <Folder Include="Core\Rendering\Components\" />
+    <Folder Include="Components\Tiling\" />
   </ItemGroup>
 </Project>

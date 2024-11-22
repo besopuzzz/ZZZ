@@ -1,4 +1,4 @@
-﻿using ZZZ.Framework.Components.Tiling;
+﻿using ZZZ.Framework.Tiling.Components;
 
 namespace ZZZ.Framework.Assets.Tiling.Physics
 {

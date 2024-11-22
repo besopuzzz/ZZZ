@@ -2,42 +2,46 @@
 
 namespace ZZZ.Framework
 {
-    public sealed class SceneLoader
+    public sealed class SceneLoader : Disposable
     {
-        public static Scene CurrentScene => instance?.scene;
-
-        private static SceneLoader instance;
-        private Scene scene;
-        private Root manager;
-
-        internal SceneLoader(Root root)
+        internal static SceneLoader Instance
         {
-            if (instance == null)
-                instance = this;
+            get
+            {
+                if (instance == null)
+                    throw new InvalidOperationException("SceneLoader not initialized!");
 
-            manager = root;
+                return instance;
+            }
         }
 
-        public static void Load(string name)
-        {
+        private static SceneLoader instance;
+        private Engine root;
 
+        internal SceneLoader(Engine root)
+        {
+            if (instance != null)
+                throw new InvalidOperationException("SceneLoader already initialize!");
+
+            instance = this;
+
+            this.root = root;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            root = null;
+            instance = null;
+
+            base.Dispose(disposing);
         }
 
         public static void Load(Scene scene)
         {
-            ArgumentNullException.ThrowIfNull(scene);
+            if(scene == null)
+                throw new ArgumentNullException(nameof(scene));
 
-            instance.scene = scene;
-
-            if (scene?.GameManager == null)
-                return;
-
-            scene.GameManager = instance.manager;
-
-            if (!scene.GameManager.Initialized)
-                return;
-
-            ((GameObject)scene).Awake();
+            Instance.root.AddGameObject(scene);
         }
     }
 }

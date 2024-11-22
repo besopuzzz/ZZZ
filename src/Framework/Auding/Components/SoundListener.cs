@@ -46,13 +46,6 @@ namespace ZZZ.Framework.Auding.Components
             base.Awake();
         }
 
-        protected override void OnEnabledChanged()
-        {
-            enabledValue = Enabled ? 1f : 0f;
-
-            base.OnEnabledChanged();
-        }
-
         protected override void Shutdown()
         {
             if (Instance == this)

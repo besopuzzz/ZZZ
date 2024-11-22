@@ -1,80 +1,109 @@
-﻿using ZZZ.Framework.Components.Rendering;
+﻿using ZZZ.Framework.Components;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Rendering
 {
-    public class RenderContext : IRenderContext
+    public abstract class RenderContext : Disposable
     {
         public enum RenderMode
         {
             ToOneLayer,
             ToEveryLayer
         }
-        public ICamera MainCamera => Camera.MainCamera;
 
-        private readonly SpriteBatch spriteBatch;
-        private readonly Dictionary<SortLayer, List<RenderComponent>> entities = new Dictionary<SortLayer, List<RenderComponent>>();
+        protected abstract IRenderProvider RenderProvider { get; }
 
-        public RenderContext(GraphicsDevice graphicsDevice) 
+        protected IReadOnlyList<IRenderer> Queue => renderers;
+
+        private readonly Dictionary<SortLayer, List<IRenderer>> entities;
+        private readonly List<IRenderer> renderers;
+        private readonly Comparer<int> comparer;
+
+        public RenderContext() 
         {
-            spriteBatch = new SpriteBatch(graphicsDevice);
+            entities = new Dictionary<SortLayer, List<IRenderer>>();
 
             foreach (var sortLayer in Enum.GetValues<SortLayer>())
-                entities.Add(sortLayer, new List<RenderComponent>());
+                entities.Add(sortLayer, new List<IRenderer>());
+
+            renderers = new List<IRenderer>();
+            comparer = Comparer<int>.Default;
         }
 
-        public RenderContext(RenderContext renderContext) : this(renderContext.spriteBatch.GraphicsDevice)
-        {
+        protected abstract void Begin(Camera camera);
 
+        protected abstract void End();
+
+        protected override void Dispose(bool disposing)
+        {
+            renderers.Clear();
+
+            foreach (var item in entities)
+            {
+                item.Value.Clear();
+            }
+
+            entities.Clear();
+
+            base.Dispose(disposing);
         }
 
-        public void AddToQueue(RenderComponent entity)
+        public void AddToQueue(IRenderer renderer)
         {
-            entities[entity.Layer].Add(entity);
+            renderers.Add(renderer);
+
+            if (renderer is not IGroupRenderer group)
+                return;
+
+            Component original = renderer as Component;
+
+            foreach (var child in renderers.ToList())
+            {
+                Component childComponent = child as Component;
+
+                if (childComponent.Owner.IsParent(original.Owner))
+                {
+                    renderers.Remove(child);
+
+                    group.Context.renderers.Add(child);
+                }
+            }
         }
 
-        public void Start(SpriteSortMode sortMode, BasicEffect effect, SamplerState samplerState)
+        public void RemoveFromQueue(IRenderer renderer)
         {
-            spriteBatch.Begin(sortMode: sortMode, effect: effect, samplerState: samplerState);
+            renderers.Remove(renderer);
+
+            if (renderer is IGroupRenderer group)
+                renderers.AddRange(group.Context.renderers);
         }
 
-        public void End()
+        private void SortAndRender(List<IRenderer> entitiesToRender)
         {
-            spriteBatch.End();
-        }
-
-        public void RenderSprite(Transform2D transform, Sprite sprite, Color color, SpriteEffects spriteEffect)
-        {
-            spriteBatch.DrawSprite(sprite, transform, color, spriteEffect);
-        }
-
-        private void SortAndRender(List<RenderComponent> entitiesToRender)
-        {
-            entitiesToRender.Sort();
+            entitiesToRender.Sort((x, y) => comparer.Compare(x.Order, y.Order));
 
             foreach (var entity in entitiesToRender)
-                entity.InternalRender(this);
+                entity.Render(RenderProvider);
+
+            entitiesToRender.Clear();
         }
 
-        internal void Reset()
+        public virtual void Render(RenderMode renderMode, Camera camera)
         {
-            foreach (var entity in entities)
-                entity.Value.Clear();
-        }
+            if (camera == null || !camera.Enabled)
+                return;
 
-        internal void RenderQueue(RenderMode renderMode)
-        {
+            foreach (var component in renderers)
+                //if (component.Enabled)
+                    entities[component.Layer].Add(component);
+
             if (renderMode == RenderMode.ToOneLayer)
             {
-                MainCamera.Apply(this);
+                Begin(camera);
 
                 foreach (var entity in entities)
                 {
                     SortAndRender(entity.Value);
-
-                    entity.Value.Clear();
                 }
 
                 End();
@@ -83,19 +112,16 @@ namespace ZZZ.Framework.Rendering
             {
                 foreach (var entity in entities)
                 {
-                    if (!MainCamera.LayerMask.HasFlag(entity.Key))
+                    if (!camera.LayerMask.HasFlag(entity.Key))
                         continue;
 
-                    MainCamera.Apply(this);
+                    Begin(camera); 
 
-                    SortAndRender(entities[entity.Key]);
-
-                    entity.Value.Clear();
+                    SortAndRender(entity.Value);
 
                     End();
                 }
             }
         }
-
     }
 }

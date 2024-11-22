@@ -6,8 +6,8 @@ using ZZZ.Framework.Assets;
 using ZZZ.Framework.Assets.Tiling;
 using ZZZ.Framework.Assets.Tiling.Physics;
 using ZZZ.Framework.Components.Physics;
-using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Tiling.Components;
 
 namespace ZZZ.KNI.GameProject
 {

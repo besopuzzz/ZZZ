@@ -6,4 +6,3 @@ global using System.Threading.Tasks;
 global using Microsoft.Xna.Framework;
 global using Microsoft.Xna.Framework.Graphics;
 global using Microsoft.Xna.Framework.Content;
-global using ZZZ.Framework.Components.Attributes;

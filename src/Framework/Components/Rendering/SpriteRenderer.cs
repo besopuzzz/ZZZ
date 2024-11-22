@@ -5,14 +5,18 @@ using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Components.Rendering
 {
-    [RequiredComponent(typeof(Transformer))]
-    public class SpriteRenderer : RenderComponent
+    [RequiredComponent<Transformer>]
+    public class SpriteRenderer : Component, IRenderer
     {
         public Sprite Sprite { get; set; }
 
         public Color Color { get; set; } = Color.White;
 
         public SpriteEffects SpriteEffect { get; set; }
+
+        public int Order { get; set; }
+
+        public SortLayer Layer { get; set; }
 
         private Transformer transformer;
 
@@ -23,11 +27,11 @@ namespace ZZZ.Framework.Components.Rendering
             base.Awake();
         }
 
-        protected override void Render(RenderContext renderContext)
+        void IRenderer.Render(IRenderProvider provider)
         {
             Transform2D transform = transformer.World;
 
-            renderContext.RenderSprite(transform, Sprite, Color, SpriteEffect);
+            provider.RenderSprite(transform, Sprite, Color, SpriteEffect);
         }
     }
 }

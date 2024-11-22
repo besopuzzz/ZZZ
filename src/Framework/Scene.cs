@@ -1,18 +1,23 @@
-﻿using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core;
-
-namespace ZZZ.Framework
+﻿namespace ZZZ.Framework
 {
-    public class Scene : GameObject
+    public sealed class Scene : GameContainer
     {
-        public override GameObject Owner { get => null; internal set { } }
+        [ContentSerializerIgnore]
+        internal Engine Root => root;
 
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="Scene"/>.
-        /// </summary>
-        public Scene()
+        private Engine root;
+
+        internal void Initialize(Engine root)
         {
-
+            this.root = root;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            root = null;
+
+            base.Dispose(disposing);
+        }
+
     }
 }

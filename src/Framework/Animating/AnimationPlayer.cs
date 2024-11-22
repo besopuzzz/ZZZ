@@ -120,9 +120,9 @@ namespace ZZZ.Framework.Animations
         /// Обновляет внутренний счетчик плеера и увеличивает его текущее значение.
         /// </summary>
         /// <param name="delta">Зачение, на которое увеличится счетчик.</param>
-        public void Update(float delta)
+        public void Update(TimeSpan time)
         {
-            timer.Update(delta);
+            timer.Update((float)time.TotalMilliseconds);
         }
 
         private void Timer_AnchorIvoked(object sender, float e)

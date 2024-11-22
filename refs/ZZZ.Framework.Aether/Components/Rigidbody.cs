@@ -3,7 +3,7 @@ using ZZZ.Framework.Components.Transforming;
 
 namespace ZZZ.Framework.Components.Physics.Aether.Components
 {
-    [RequiredComponent(typeof(Transformer))]
+    [RequiredComponent<Transformer>]
     public class Rigidbody : Component, IRigidbody
     {
         public Vector2 Velocity
@@ -105,13 +105,6 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             body.AngularDamping = 1f;
             body.IgnoreGravity = false;
             body.Enabled = Enabled;
-        }
-
-        protected override void OnEnabledChanged()
-        {
-            body.Enabled = body.Enabled;
-
-            base.OnEnabledChanged();
         }
 
         void IRigidbody.Attach(Body spoof)

@@ -1,13 +1,11 @@
 ﻿using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Rendering.Entities;
-using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Rendering;
 
 namespace ZZZ.Framework.Components.Rendering
 {
-    [RequiredComponent(typeof(Transformer))]
-    public class TextRenderer : Component, IRender
+    [RequiredComponent<Transformer>]
+    public class TextRenderer : Component, IRenderer
     {
         [ContentSerializerIgnore]
         public SpriteFont Font { get; set; }
@@ -38,11 +36,11 @@ namespace ZZZ.Framework.Components.Rendering
             base.Awake();
         }
 
-        void IRender.Render(SpriteBatch spriteBatch)
+        void IRenderer.Render(IRenderProvider renderProvider)
         {
             Transform2D transform = transformer.World;
 
-            spriteBatch.DrawText(Font, Text, transform, Color, Origin, SpriteEffect, false);
+            renderProvider.RenderText(Font, Text, transform, Color, Origin, SpriteEffect);
         }
     }
 }

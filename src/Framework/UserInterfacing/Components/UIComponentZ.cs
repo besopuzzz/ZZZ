@@ -8,7 +8,7 @@ using ZZZ.Framework.Components.Transforming;
 
 namespace ZZZ.Framework.UserInterfacing.Components
 {
-    [RequiredComponent(typeof(Transformer))]
+    [RequiredComponent<Transformer>]
     public class UIComponentZ : Component
     {
 

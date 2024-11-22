@@ -1,13 +1,11 @@
 ﻿using ZZZ.Framework.Components;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Rendering.Components;
-using ZZZ.Framework.Core.Rendering.Entities;
-using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Rendering;
 
 namespace ZZZ.Framework.UserInterfacing
 {
-    [RequiredComponent(typeof(UITransformer))]
-    public abstract class UIComponent : Component, IRender
+    [RequiredComponent<UITransformer>]
+    public abstract class UIComponent : Component, IRenderer
     {
         public int Order { get; set; }
         public SortLayer Layer
@@ -27,11 +25,11 @@ namespace ZZZ.Framework.UserInterfacing
             base.Awake();
         }
 
-        protected abstract void Render(SpriteBatch spriteBatch, UITransformer transformer);
+        protected abstract void Render(IRenderProvider provider, UITransformer transformer);
 
-        void IRender.Render(SpriteBatch spriteBatch)
+        void IRenderer.Render(IRenderProvider provider)
         {
-            Render(spriteBatch, transformer);
+            Render(provider, transformer);
         }
     }
 }

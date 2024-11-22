@@ -1,17 +1,16 @@
 ﻿using ZZZ.Framework.Animations.Assets;
 using ZZZ.Framework.Components;
-using ZZZ.Framework.Components.Attributes;
 using ZZZ.Framework.Components.Rendering;
-using ZZZ.Framework.Components.Updating;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Updating;
 
 namespace ZZZ.Framework.Animations.Components
 {
     /// <summary>
     /// Предоставляет класс покадровой анимации. Является игровым компонентом.
     /// </summary>
-    [RequiredComponent(typeof(SpriteRenderer))]
-    public class Animator : Component, IUpdateComponent
+    [RequiredComponent<SpriteRenderer>]
+    public class Animator : Component, IUpdater
     {
         /// <summary>
         /// Контроллер анимаций.
@@ -109,9 +108,9 @@ namespace ZZZ.Framework.Animations.Components
                 spriteRenderer.Sprite = player.CurrentSprite;
         }
 
-        void IUpdateComponent.Update(GameTime gameTime)
+        void IUpdater.Update(TimeSpan time)
         {
-            player?.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            player?.Update(time);
         }
 
         /// <summary>

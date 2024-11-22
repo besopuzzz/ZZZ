@@ -2,11 +2,11 @@
 using ZZZ.Framework.Auding.Assets;
 using ZZZ.Framework.Components;
 using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Components.Updating;
+using ZZZ.Framework.Updating;
 
 namespace ZZZ.Framework.Auding.Components
 {
-    public class SoundEmitter : Component, ISoundEmitter, IUpdateComponent
+    public class SoundEmitter : Component, ISoundEmitter, IUpdater
     {
         public Sound Sound
         {
@@ -20,7 +20,7 @@ namespace ZZZ.Framework.Auding.Components
 
                 sound = value;
 
-                if (sound == null & !Started)
+                if (sound == null)
                     return;
 
                 effectInstance = sound.SoundEffect?.CreateInstance();
@@ -161,24 +161,8 @@ namespace ZZZ.Framework.Auding.Components
 
             base.Dispose(disposing);
         }
-        protected override void OnEnabledChanged()
-        {
-            if (effectInstance == null)
-                return;
 
-            if (Enabled & lastState == PlayState.Playing)
-            {
-                Play();
-            }
-            else
-            {
-                lastState = State;
-                Pause();
-            }
-
-            base.OnEnabledChanged();
-        }
-        void IUpdateComponent.Update(GameTime gameTime)
+        void IUpdater.Update(TimeSpan time)
         {
             if (!UseDistanceScaling)
                 return;

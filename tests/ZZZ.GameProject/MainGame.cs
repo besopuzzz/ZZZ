@@ -1,20 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Threading.Tasks;
 using ZZZ.Framework;
-using ZZZ.Framework.Aether.Core;
 using ZZZ.Framework.Assets.Tiling.Physics;
-using ZZZ.Framework.Attributes;
 using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Components.Rendering;
-using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core;
-using ZZZ.Framework.Core.Registrars;
 using ZZZ.Framework.Core.Rendering;
-using ZZZ.Framework.Core.Transforming;
-using ZZZ.Framework.Core.Updating;
+using ZZZ.Framework.Extensions;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Tiling.Components;
 using ZZZ.KNI.Content.Pipeline.Serializers;
 
 namespace ZZZ.KNI.GameProject
@@ -22,12 +18,14 @@ namespace ZZZ.KNI.GameProject
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class MainGame : Game, IGameInstance
+    public class MainGame : Game
     {
         GraphicsDeviceManager graphics;
         Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch;
 
         private static MainGame game;
+        private Scene scene;
+        private Framework.IEngine root;
 
         public static void SetTitle(string titile)
         {
@@ -47,76 +45,32 @@ namespace ZZZ.KNI.GameProject
             //graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.ApplyChanges();
 
+            // Доделать использование сервисов в пределах одного Root
 
-            GameManagerSettings gameSettings = new GameManagerSettings();
-
-            gameSettings.Registrars.Add(new InitializeRegistrar());
-            //gameSettings.Registrars.Add(new UpdateRegistrar());
-            //gameSettings.Registrars.Add(new PhysicRegistrar());
-            //gameSettings.Registrars.Add(new RenderRegistrar());
-            //gameSettings.Registrars.Add(new WorldRenderer());
-            //gameSettings.Registrars.Add(new UIRegistrar());
-            gameSettings.Registrars.Add(new TransformerRegistrar());
-
-            var main = new GameManager(this, gameSettings);
-
-            UpdateSystem updateSystem = new UpdateSystem();
-            updateSystem.Game = this;
-
-            Components.Add(updateSystem);
-
-            PhysicalSystem physicalSystem = new PhysicalSystem();
-            physicalSystem.Game = this;
-
-            Components.Add(physicalSystem);
-
-
-            RenderSystem renderSystem = new RenderSystem();
-            renderSystem.Game = this;
-
-            Components.Add(renderSystem);
-
-            //RenderSystem renderSystem = new RenderSystem();
-            //renderSystem.Game = this;
-
-            //Components.Add(renderSystem);
         }
 
-        private Scene scene;
 
         protected override void Initialize()
         {
-            SceneLoader.Load(new Scene() {  Name = "Scene"});
+            root = new EngineBuilder()
+                .UseKNIUnityStyle(this)
+                .Build();
 
-            var x = SceneLoader.CurrentScene.AddGameObject(new GameObject());
+            scene = new Scene() { Name = "Scene" };
+
+            SceneLoader.Load(scene);
+
+            var x = scene.AddGameObject(new GameObject());
 
             GameObject gameObject = new GameObject();
-            gameObject.AddGameObject(new GameObject()).AddComponent<Camera>();
+            var cameraGB = gameObject.AddGameObject(new GameObject());
+            cameraGB.AddComponent<Camera>();
             gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -400f);
-            gameObject.AddComponent<Rigidbody>().Mass = 1f;
+            //gameObject.AddComponent<Rigidbody>().Mass = 1f;
             gameObject.AddComponent<HeroController>();
-            //gameObject.AddComponent<CircleCollider>();
-            gameObject.AddComponent<BoxCollider>();
             gameObject.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[0];
 
-            SceneLoader.CurrentScene.AddGameObject(gameObject);
-
-            GameObject gameObject2 = new GameObject();
-            gameObject2.AddComponent<Transformer>().Local = new Transform2D(100f, 100f);
-            gameObject2.AddComponent<BoxCollider>();
-            gameObject2.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[1];
-            //gameObject2.AddComponent<Rigidbody>();
-
-            gameObject.AddGameObject(gameObject2);
-
-
-            GameObject gameObject3 = new GameObject();
-            gameObject3.AddComponent<Transformer>().Local = new Transform2D(-100f, -100f);
-            gameObject3.AddComponent<BoxCollider>();
-            gameObject3.AddComponent<Rigidbody>();
-            gameObject3.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[2];
-
-            gameObject2.AddGameObject(gameObject3);
+            scene.AddGameObject(gameObject);
 
             x.AddGameObject(TestNewTilemap());
             //x.AddComponent<GroupRender>();
@@ -139,8 +93,8 @@ namespace ZZZ.KNI.GameProject
 
 
             var container = new GameObject() { Name = "Tilemap" };
-            container.AddComponent<FPSCounter>();
-            container.AddComponent<TilemapCollider>();
+            FPSCounter comp = container.AddComponent<FPSCounter>();
+            //container.AddComponent<TilemapCollider>();
 
             var renderer = container.AddComponent<TilemapRenderer>();
             renderer.RenderMode = TileRenderMode.Stretch;
@@ -173,6 +127,7 @@ namespace ZZZ.KNI.GameProject
                 main[1],
                 main[0]];
 
+
             for (int i = 0; i < 100; i++)
                 for (int y = 0; y < 10; y++)
                     tilemap.Add(new Point(i, y), tile);
@@ -187,18 +142,20 @@ namespace ZZZ.KNI.GameProject
             public override void Startup(Point position, Tilemap tilemap, GameObject container)
             {
                 container.AddGameObject(new GameObject()).AddComponent<Camera>();
-                container.AddComponent<CircleCollider>().Offset = new Vector2(64f);
+                //container.AddComponent<CircleCollider>().Offset = new Vector2(64f);
                 container.AddComponent<HeroController>();
 
 
 
-                var gameObj = container.AddGameObject(new Transform2D(200f, 0f));
-                gameObj.AddComponent<CircleCollider>();
+                var gameObj = container.AddGameObject(new GameObject());
+                gameObj.AddComponent<Transformer>().Local = new Transform2D(200f, 0f);
+                //gameObj.AddComponent<CircleCollider>();
                 gameObj.AddComponent<Rigidbody>();
 
-                gameObj = container.AddGameObject(new Transform2D(100f, 0f));
+                gameObj = container.AddGameObject(new GameObject());
+                gameObj.AddComponent<Transformer>().Local = new Transform2D(100f, 0f);
                 gameObj.AddComponent<SpriteRenderer>().Sprite = this.Sprite;
-                gameObj.AddComponent<CircleCollider>();
+                //gameObj.AddComponent<CircleCollider>();
 
                 base.Startup(position, tilemap, container);
             }

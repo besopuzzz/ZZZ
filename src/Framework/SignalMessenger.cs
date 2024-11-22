@@ -16,13 +16,6 @@ namespace ZZZ.Framework
         /// <returns>Если <c>true</c>, то выполнение прервется. Если необходимо продолжить, то <c>false</c>.</returns>
         public delegate bool SignalFunction<T>(T target, object data);
 
-        private static Root rootScene;
-
-        internal SignalMessenger(Root root)
-        {
-            rootScene = root;
-        }
-
         /// <summary>
         /// Отправляет сигнал всем компонентам указанного игрового объекта.
         /// </summary>
@@ -32,13 +25,9 @@ namespace ZZZ.Framework
         /// <param name="action">Функция отправки сигнала.</param>
         /// <returns>Если <c>true</c>, то выполнение прервано. Иначе - выполнение закончено.</returns>
         public static bool Send<T>(GameObject target, object data, SignalFunction<T> action)
-            where T : IComponent
         {
-            foreach (var component in target.GetComponents<T>())
-            {
-                if (action.Invoke(component, data))
-                    return true;
-            }
+            if (target != null)
+                return target.SendSignal<T>(data, action);
 
             return false;
         }
@@ -52,13 +41,9 @@ namespace ZZZ.Framework
         /// <param name="data">Пользовательский параметр.</param>
         /// <param name="action">Функция отправки сигнала.</param>
         public static void SendToChilds<T>(GameObject target, object data, SignalFunction<T> action)
-            where T : IComponent
         {
-            foreach (var child in target.GetGameObjects())
-            {
-                if (!Send(child, data, action))
-                    SendToChilds(child, data, action);
-            }
+            if (target != null)
+                target.SendSignalToChilds<T>(data, action);
         }
 
         /// <summary>
@@ -70,17 +55,9 @@ namespace ZZZ.Framework
         /// <param name="data">Пользовательский параметр.</param>
         /// <param name="action">Функция отправки сигнала.</param>
         public static void SendToParents<T>(GameObject target, object data, SignalFunction<T> action)
-            where T : IComponent
         {
-            target = target.Owner;
-
-            while(target != null)
-            {
-                if (Send(target, data, action))
-                    return;
-
-                target = target.Owner;
-            }
+            if (target != null)
+                target.SendSignalToParents<T>(data, action);
         }
     }
 }

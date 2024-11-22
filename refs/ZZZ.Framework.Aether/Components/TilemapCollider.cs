@@ -2,7 +2,8 @@
 using ZZZ.Framework.Assets.Tiling;
 using ZZZ.Framework.Assets.Tiling.Physics;
 using ZZZ.Framework.Components.Physics;
-using ZZZ.Framework.Components.Tiling;
+using ZZZ.Framework.Tiling;
+using ZZZ.Framework.Tiling.Components;
 
 namespace ZZZ.Framework.Components.Physics.Aether.Components
 {
@@ -14,7 +15,7 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
         public TilemapColliderArgs(ICollider collider) 
         {
             TileCollider = collider;
-            Position = collider.Owner.GetComponent<TileComponent>().Position;
+            Position = ((Component)collider).Owner.GetComponent<TileComponent>().Position;
         }
     }
 
@@ -67,9 +68,9 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             if (tile is not IColliderTile colliderTile)
                 return;
 
-            var collider = container.AddComponent(new PolygonCollider(PolygonTools.CreateRectangle(tilemap.TileSize.X / 2, tilemap.TileSize.Y / 2).ToArray()));
+            var collider = container.AddComponent<PolygonCollider>();
 
-            //collider.Vertices = ;
+            collider.Vertices = PolygonTools.CreateRectangle(tilemap.TileSize.X / 2, tilemap.TileSize.Y / 2).ToArray();
             collider.Layer = Layer;
             collider.ColliderEnter += Collider_ColliderEnter;
             collider.ColliderExit += Collider_ColliderExit;

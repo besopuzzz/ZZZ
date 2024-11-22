@@ -1,33 +1,30 @@
-﻿using ZZZ.Framework.Components.Rendering;
+﻿using ZZZ.Framework;
+using ZZZ.Framework.Components;
 using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Rendering;
 
-public class GroupRender : RenderComponent
+public class GroupRender : Component, IGroupRenderer
 {
     public SortLayer LayerMask => SortLayer.All;
 
-    internal override IList<RenderComponent> DownNeighbors => empty;
+    public RenderContext Context => context;
 
-    private RenderContext localContext;
-    private static IList<RenderComponent> empty = Enumerable.Empty<RenderComponent>().ToList();
+    public int Order { get; set; }
 
-    protected override void Render(RenderContext renderContext)
+    public SortLayer Layer { get; set; }
+
+    private RenderContext context;
+
+    protected override void Awake()
     {
-        if (localContext == null)
-            localContext = new RenderContext(renderContext);
+        context = Services.Get<IRenderManager>().CreateInstance();
 
-        foreach (var child in base.DownNeighbors)
-            CheckAndAddToQueue(child);
-
-        localContext.RenderQueue(RenderContext.RenderMode.ToOneLayer);
+        base.Awake();
     }
 
-    void CheckAndAddToQueue(RenderComponent component)
+    void IRenderer.Render(IRenderProvider provider)
     {
-        if (LayerMask.HasFlag(component.Layer) && component.Enabled)
-            localContext.AddToQueue(component);
-
-        foreach (var child in component.DownNeighbors)
-            CheckAndAddToQueue(child);
+        context.Render(RenderContext.RenderMode.ToOneLayer, Camera.MainCamera);
     }
+
 }

@@ -1,29 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
+using System;
 using ZZZ.Framework;
-using ZZZ.Framework.Attributes;
 using ZZZ.Framework.Auding.Components;
 using ZZZ.Framework.Components;
-using ZZZ.Framework.Components.Attributes;
-using ZZZ.Framework.Components.Physics;
 using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Components.Rendering;
-using ZZZ.Framework.Components.Tiling;
 using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Components.Updating;
 using ZZZ.Framework.Core.Rendering;
+using ZZZ.Framework.Tiling.Components;
+using ZZZ.Framework.Updating;
 
 namespace ZZZ.KNI.GameProject
 {
-    [RequiredComponent(typeof(Rigidbody))]
-    [RequiredComponent(typeof(SoundListener))]
-    [RequiredComponent(typeof(FPSCounter))]
-    internal class HeroController : Component, IUpdateComponent, IStartupComponent
+    [RequiredComponent<Rigidbody>]
+    [RequiredComponent<FPSCounter>]
+    internal class HeroController : Component, IUpdater
     {
-        public Vector2 MaxSpeed { get; set; } = new Vector2(1f);
+        public Vector2 MaxSpeed { get; set; } = new Vector2(10f);
 
-        private PolygonCollider boxCollider;
         private Tilemap tilemap;
         private Rigidbody rigidbody;
         private SoundListener soundListener;
@@ -35,14 +30,7 @@ namespace ZZZ.KNI.GameProject
 
         protected override void Awake()
         {
-            tilemap = FindComponent<Tilemap>();
-            scene = FindGameObject<Scene>();
             rigidbody = GetComponent<Rigidbody>();
-
-
-            soundListener = GetComponent<SoundListener>();
-            tilemapCollider = FindComponent<TilemapCollider>();
-
 
             camera = ((Camera)Camera.MainCamera).Owner.GetComponent<Transformer>();
             myTransfrom = GetComponent<Transformer>();
@@ -51,10 +39,10 @@ namespace ZZZ.KNI.GameProject
             base.Awake();
         }
 
-        void IUpdateComponent.Update(GameTime gameTime)
+        void IUpdater.Update(TimeSpan time)
         {
             var keyboardState = Keyboard.GetState();
-            var speed = new Vector2();
+            var speed = new Vector2(0f);
             var scenePos = new Vector2();
             var sceneRotate = 0f;
             var sceneScale = Vector2.One;
@@ -72,13 +60,8 @@ namespace ZZZ.KNI.GameProject
             //if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
             //    rigidbody.Enabled = !rigidbody.Enabled;
 
-            //if (keyboardState.IsKeyDown(Keys.Space))
-            //    tilemap.TileSize += Vector2.One;
-
-            if (keyboardState.IsKeyDown(Keys.LeftShift))
-                if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
-                boxCollider.Enabled = !boxCollider.Enabled;
-
+            if (keyboardState.IsKeyDown(Keys.Space) & !oldState.IsKeyDown(Keys.Space))
+                fPSCounter.Enabled = !fPSCounter.Enabled;
 
             if (keyboardState.IsKeyDown(Keys.RightShift))
                 if (keyboardState.IsKeyDown(Keys.Space))
@@ -123,9 +106,9 @@ namespace ZZZ.KNI.GameProject
             //else if (keyboardState.IsKeyDown(Keys.OemMinus))
             //    updateRegistrar.UpdateOrders[typeof(Camera)].Order -= 1;
 
-            //myTransfrom.Local = new Transform2D(myTransfrom.Local.Position + MaxSpeed * speed);
+            myTransfrom.Local = new Transform2D(myTransfrom.Local.Position + MaxSpeed * speed);
 
-            rigidbody.Velocity += MaxSpeed * speed;
+            //rigidbody.Velocity += MaxSpeed * speed;
 
             //myTransfrom.Local = new Transform2D( Mouse.GetState().Position.ToVector2());
 
@@ -137,15 +120,5 @@ namespace ZZZ.KNI.GameProject
 
         TilemapCollider tilemapCollider;
 
-        void IStartupComponent.Startup()
-        {
-            boxCollider = GetComponent<PolygonCollider>();
-        }
-
-        [WaitComponent(typeof(SpriteRenderer), true)]
-        void WaitComponent(SpriteRenderer component, WaitComponentAttribute.WaitComponentOperation componentOperation)
-        {
-            
-        }
     }
 }
