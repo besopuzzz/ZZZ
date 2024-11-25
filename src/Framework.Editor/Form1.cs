@@ -1,9 +1,8 @@
 using ZZZ.Framework;
-using ZZZ.Framework.Components.Transforming;
 using ZZZ.Framework.Core;
 using ZZZ.Framework.Core.Registrars;
-using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Core.Transforming;
+using ZZZ.Framework.Rendering.Components;
 
 namespace Framework.Editor
 {

@@ -1,4 +1,6 @@
-﻿namespace ZZZ.Framework.Assets.Rendering
+﻿using ZZZ.Framework.Assets;
+
+namespace ZZZ.Framework.Rendering.Assets
 {
     public class Font : Asset
     {

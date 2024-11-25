@@ -1,6 +1,7 @@
-﻿using ZZZ.Framework.Tiling.Components;
+﻿using ZZZ.Framework.Tiling.Assets;
+using ZZZ.Framework.Tiling.Components;
 
-namespace ZZZ.Framework.Assets.Tiling.Physics
+namespace ZZZ.Framework.Tiling.Assets.Physics
 {
     public interface IColliderTile : ITile
     {

@@ -1,9 +1,8 @@
-﻿using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core.Rendering;
+﻿using ZZZ.Framework.Components;
 using ZZZ.Framework.Rendering;
 using ZZZ.Framework.Rendering.Assets;
 
-namespace ZZZ.Framework.Components.Rendering
+namespace ZZZ.Framework.Rendering.Components
 {
     [RequiredComponent<Transformer>]
     public class SpriteRenderer : Component, IRenderer

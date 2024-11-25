@@ -1,7 +1,7 @@
 ﻿using ZZZ.Framework.Animations.Assets;
 using ZZZ.Framework.Components;
-using ZZZ.Framework.Components.Rendering;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Rendering.Components;
 using ZZZ.Framework.Updating;
 
 namespace ZZZ.Framework.Animations.Components

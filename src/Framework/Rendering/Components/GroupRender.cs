@@ -1,7 +1,7 @@
 ﻿using ZZZ.Framework;
 using ZZZ.Framework.Components;
-using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Rendering;
+using ZZZ.Framework.Rendering.Components;
 
 public class GroupRender : Component, IGroupRenderer
 {

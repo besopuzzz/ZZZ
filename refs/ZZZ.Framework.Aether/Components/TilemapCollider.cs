@@ -1,8 +1,7 @@
 ﻿using nkast.Aether.Physics2D.Common;
-using ZZZ.Framework.Assets.Tiling;
-using ZZZ.Framework.Assets.Tiling.Physics;
-using ZZZ.Framework.Components.Physics;
 using ZZZ.Framework.Tiling;
+using ZZZ.Framework.Tiling.Assets;
+using ZZZ.Framework.Tiling.Assets.Physics;
 using ZZZ.Framework.Tiling.Components;
 
 namespace ZZZ.Framework.Components.Physics.Aether.Components

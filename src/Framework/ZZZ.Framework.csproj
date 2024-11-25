@@ -10,12 +10,4 @@
     <PackageReference Include="nkast.Xna.Framework" Version="3.12.9001" />
     <PackageReference Include="nkast.Xna.Framework.Ref" Version="3.12.9001" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Content\DiagnosticsFont.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Tiling\" />
-  </ItemGroup>
 </Project>

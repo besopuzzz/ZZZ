@@ -1,6 +1,6 @@
-﻿using ZZZ.Framework.Assets.Tiling;
-using ZZZ.Framework.Core.Rendering;
+﻿using ZZZ.Framework.Rendering.Components;
 using ZZZ.Framework.Tiling;
+using ZZZ.Framework.Tiling.Assets;
 using ZZZ.Framework.Updating;
 
 namespace ZZZ.Framework.Tiling.Components

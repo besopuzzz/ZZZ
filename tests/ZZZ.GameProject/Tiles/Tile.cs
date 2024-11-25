@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using ZZZ.Framework;
 using ZZZ.Framework.Assets;
-using ZZZ.Framework.Assets.Tiling;
-using ZZZ.Framework.Assets.Tiling.Physics;
 using ZZZ.Framework.Components.Physics;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Tiling.Assets;
+using ZZZ.Framework.Tiling.Assets.Physics;
 using ZZZ.Framework.Tiling.Components;
 
 namespace ZZZ.KNI.GameProject

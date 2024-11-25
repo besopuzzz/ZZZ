@@ -1,8 +1,7 @@
 ﻿using ZZZ.Framework.Components;
-using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Rendering;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Rendering.Components;
 
 namespace ZZZ.Framework.Tiling.Components
 {

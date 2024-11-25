@@ -1,8 +1,7 @@
-﻿using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core.Rendering;
+﻿using ZZZ.Framework.Components;
 using ZZZ.Framework.Rendering;
 
-namespace ZZZ.Framework.Components.Rendering
+namespace ZZZ.Framework.Rendering.Components
 {
     [RequiredComponent<Transformer>]
     public class TextRenderer : Component, IRenderer

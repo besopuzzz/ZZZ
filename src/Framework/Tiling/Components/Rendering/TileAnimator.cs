@@ -1,5 +1,5 @@
-﻿using ZZZ.Framework.Assets.Tiling;
-using ZZZ.Framework.Rendering.Assets;
+﻿using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Tiling.Assets;
 
 namespace ZZZ.Framework.Tiling.Components
 {

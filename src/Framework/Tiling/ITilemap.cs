@@ -1,4 +1,4 @@
-﻿using ZZZ.Framework.Assets.Tiling;
+﻿using ZZZ.Framework.Tiling.Assets;
 using ZZZ.Framework.Tiling.Components;
 
 namespace ZZZ.Framework.Tiling

@@ -1,5 +1,4 @@
 ﻿using ZZZ.Framework.Assets;
-using ZZZ.Framework.Rendering;
 using ZZZ.Framework.Rendering.Assets;
 
 namespace ZZZ.Framework.Animations.Assets
@@ -62,9 +61,7 @@ namespace ZZZ.Framework.Animations.Assets
             if (disposing)
             {
                 foreach (var item in frames.Values)
-                {
                     ((IDisposable)item)?.Dispose();
-                }
             }
 
             frames = null;

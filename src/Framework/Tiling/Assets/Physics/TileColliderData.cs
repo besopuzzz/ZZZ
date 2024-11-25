@@ -1,6 +1,4 @@
-﻿using ZZZ.Framework.Assets.Physics;
-
-namespace ZZZ.Framework.Assets.Tiling.Physics
+﻿namespace ZZZ.Framework.Tiling.Assets.Physics
 {
     public struct TileColliderData
     {

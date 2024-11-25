@@ -1,6 +1,4 @@
-﻿using ZZZ.Framework.Components.Transforming;
-
-namespace ZZZ.Framework.Editor.Components
+﻿namespace ZZZ.Framework.Editor.Components
 {
     public partial class MainViewControl : UserControl
     {

@@ -5,9 +5,7 @@ using ZZZ.Framework;
 using ZZZ.Framework.Auding.Components;
 using ZZZ.Framework.Components;
 using ZZZ.Framework.Components.Physics.Aether.Components;
-using ZZZ.Framework.Components.Rendering;
-using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core.Rendering;
+using ZZZ.Framework.Rendering.Components;
 using ZZZ.Framework.Tiling.Components;
 using ZZZ.Framework.Updating;
 
@@ -113,7 +111,7 @@ namespace ZZZ.KNI.GameProject
             //myTransfrom.Local = new Transform2D( Mouse.GetState().Position.ToVector2());
 
             var old = rigidbody.Owner.GetComponent<Transformer>().HasChanges;
-            MainGame.SetTitle((rigidbody.Velocity).ToString());
+            MainGame.SetTitle(fPSCounter.FPS.ToString());
 
             oldState = keyboardState;
         }

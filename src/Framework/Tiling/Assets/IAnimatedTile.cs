@@ -1,6 +1,6 @@
 ﻿using ZZZ.Framework.Tiling.Components;
 
-namespace ZZZ.Framework.Assets.Tiling
+namespace ZZZ.Framework.Tiling.Assets
 {
     public interface IAnimatedTile : IRenderTile
     {

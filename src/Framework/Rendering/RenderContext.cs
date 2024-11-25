@@ -1,5 +1,5 @@
 ﻿using ZZZ.Framework.Components;
-using ZZZ.Framework.Core.Rendering;
+using ZZZ.Framework.Rendering.Components;
 
 namespace ZZZ.Framework.Rendering
 {

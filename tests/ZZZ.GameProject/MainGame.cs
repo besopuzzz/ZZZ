@@ -3,13 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Threading.Tasks;
 using ZZZ.Framework;
-using ZZZ.Framework.Assets.Tiling.Physics;
 using ZZZ.Framework.Components.Physics.Aether.Components;
-using ZZZ.Framework.Components.Rendering;
-using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core.Rendering;
 using ZZZ.Framework.Extensions;
 using ZZZ.Framework.Rendering.Assets;
+using ZZZ.Framework.Rendering.Components;
+using ZZZ.Framework.Tiling.Assets.Physics;
 using ZZZ.Framework.Tiling.Components;
 using ZZZ.KNI.Content.Pipeline.Serializers;
 
@@ -66,7 +64,6 @@ namespace ZZZ.KNI.GameProject
             var cameraGB = gameObject.AddGameObject(new GameObject());
             cameraGB.AddComponent<Camera>();
             gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -400f);
-            //gameObject.AddComponent<Rigidbody>().Mass = 1f;
             gameObject.AddComponent<HeroController>();
             gameObject.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[0];
 

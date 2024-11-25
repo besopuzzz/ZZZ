@@ -1,9 +1,6 @@
 ﻿using ZZZ.Framework.Components;
-using ZZZ.Framework.Components.Rendering;
-using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Rendering;
 
-namespace ZZZ.Framework.Core.Rendering
+namespace ZZZ.Framework.Rendering.Components
 {
     /// <summary>
     /// Представляет компонент для проекции изображения на экран.
@@ -59,7 +56,7 @@ namespace ZZZ.Framework.Core.Rendering
             {
                 if (isMain == value) return;
 
-                ((Camera)mainCamera).IsMain = false;
+                mainCamera.IsMain = false;
 
                 isMain = value;
 
@@ -140,7 +137,7 @@ namespace ZZZ.Framework.Core.Rendering
                 projection.M42 += -0.5f * projection.M22;
             }
 
-            world = 
+            world =
                 Matrix.CreateTranslation(new Vector3(-worldTransform.Position, 0f))
                 * Matrix.CreateRotationZ(rotation)
                 * Matrix.CreateScale(new Vector3(local.Scale, 1f))

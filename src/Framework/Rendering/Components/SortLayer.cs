@@ -1,4 +1,4 @@
-﻿namespace ZZZ.Framework.Core.Rendering
+﻿namespace ZZZ.Framework.Rendering.Components
 {
     [Flags]
     public enum SortLayer

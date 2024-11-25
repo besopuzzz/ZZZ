@@ -1,10 +1,9 @@
 ﻿using ZZZ.Framework.Assets;
-using ZZZ.Framework.Components.Transforming;
-using ZZZ.Framework.Core.Rendering;
+using ZZZ.Framework.Components;
 using ZZZ.Framework.Rendering;
 using ZZZ.Framework.Updating;
 
-namespace ZZZ.Framework.Components.Rendering
+namespace ZZZ.Framework.Rendering.Components
 {
     /// <summary>
     /// Представляет компонент для подсчета кадров за секунду.
@@ -31,7 +30,7 @@ namespace ZZZ.Framework.Components.Rendering
         private int frameCount = 0;
         private float elapsedTime = 0.0f;
         private float fps = 0f;
-        private SpriteFont font;
+        //private SpriteFont font;
         private Transformer transformer;
         private int order = 10000;
 
@@ -44,7 +43,7 @@ namespace ZZZ.Framework.Components.Rendering
         protected override void Awake()
         {
 
-            font = AssetManager.Load<SpriteFont>("DiagnosticsFont");
+            //font = AssetManager.Load<SpriteFont>("DiagnosticsFont");
             transformer = GetComponent<Transformer>();
 
             base.Awake();
@@ -60,7 +59,7 @@ namespace ZZZ.Framework.Components.Rendering
                 elapsedTime = 0.0f;
             }
 
-            provider.RenderText(font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None);
+            //provider.RenderText(font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None);
         }
 
         void IUpdater.Update(TimeSpan time)

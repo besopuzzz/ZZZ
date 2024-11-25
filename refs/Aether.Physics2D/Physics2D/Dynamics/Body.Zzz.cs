@@ -1,6 +1,5 @@
 ﻿using nkast.Aether.Physics2D.Common;
 using ZZZ.Framework;
-using ZZZ.Framework.Components.Transforming;
 
 namespace nkast.Aether.Physics2D.Dynamics
 {

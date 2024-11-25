@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using ZZZ.Framework.Components;
 
-namespace ZZZ.Framework.Components.Transforming
+namespace ZZZ.Framework
 {
     /// <summary>
     /// Представляет основной компонент для позиционирования игровых <see cref="GameObject"/>.
@@ -46,8 +46,8 @@ namespace ZZZ.Framework.Components.Transforming
         public Transformer Parent => parent;
 
         [ContentSerializerIgnore]
-        public bool HasChanges 
-        { 
+        public bool HasChanges
+        {
             get => hasChanges;
             internal set
             {

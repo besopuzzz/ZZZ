@@ -32,12 +32,8 @@
     <Compile Include="HeroController.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Services\AssetProvider.cs" />
-    <Compile Include="Services\MonogameExtentions.cs" />
-    <Compile Include="Services\RenderManager.cs" />
-    <Compile Include="TestComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Tiles\Tile.cs" />
-    <Compile Include="ZZZExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX.9000" Version="3.12.9001" />

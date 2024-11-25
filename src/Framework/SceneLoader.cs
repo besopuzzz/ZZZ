@@ -1,6 +1,4 @@
-﻿using ZZZ.Framework.Core;
-
-namespace ZZZ.Framework
+﻿namespace ZZZ.Framework
 {
     public sealed class SceneLoader : Disposable
     {
