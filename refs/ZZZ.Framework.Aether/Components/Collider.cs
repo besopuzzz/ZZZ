@@ -16,24 +16,11 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
         }
     }
 
-    //[RequiredComponent(typeof(BodyController))]
-    public abstract class Collider : Component, ICollider
+    [RequiredComponent<BodyComponent>]
+    public abstract class Collider : Component
     {
-        public bool UseComposite
-        {
-            get
-            {
-                return useComposite;
-            }
+        internal Fixture Fixture => fixture;
 
-            set
-            {
-                if (useComposite == value)
-                    return;
-
-                useComposite = value;
-            }
-        }
         public Vector2 Offset
         {
             get => offset;
@@ -99,8 +86,7 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
         private Fixture fixture;
         private Vector2 offset;
         private Body body;
-        private bool useComposite = false;
-        private CompositeRigidbody compositeRigidbody;
+        private BodyComponent bodyComponent;
 
         protected Collider(Shape shape)
         {
@@ -118,16 +104,17 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             this.shape = shape;
         }
 
-        protected override void Awake()
+        protected override void OnCreated()
         {
-            //if(useComposite)
-            //{
-            //    compositeRigidbody = Owner.FindComponentOnTree<CompositeRigidbody>(true);
+            if (Owner == null)
+                return;
 
+            bodyComponent = GetComponent<BodyComponent>();
+            bodyComponent.Attach(this);
 
-            //}
+            fixture.CollidesWith = (Category)(int)layer; // Layer change throw error if Body is null...
 
-            base.Awake();
+            base.OnCreated();
         }
 
         private void OnSeparation(Fixture sender, Fixture other, Contact contact)
@@ -145,19 +132,5 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
         }
 
         protected abstract void OnOffsetChanged(Vector2 oldOffset, Vector2 offset);
-
-        void IRigidbody.Attach(Body body)
-        {
-            this.body = body;
-            body.Add(fixture);
-
-            fixture.CollidesWith = (Category)(int)layer; // Layer change throw error if Body is null...
-        }
-
-        void IRigidbody.Detach()
-        {
-            body.Remove(fixture);
-            body = null;
-        }
     }
 }

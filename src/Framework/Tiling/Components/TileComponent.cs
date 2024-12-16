@@ -4,28 +4,28 @@ using ZZZ.Framework.Tiling.Assets;
 namespace ZZZ.Framework.Tiling.Components
 {
     [RequiredComponent<Transformer>]
-    public class TileComponent : Component
+    public sealed class TileComponent : Component
     {
-        public Point Position { get; set; }
+        public Point Position { get; internal set; }
 
         [ContentSerializer(SharedResource = true)]
-        public ITile BaseTile { get; set; }
+        public ITile BaseTile { get; internal set; }
 
         private Tilemap tilemap;
         private Transformer transformer;
 
-        public TileComponent()
+        protected override void OnCreated()
         {
+            tilemap = Owner.Owner?.GetComponent<Tilemap>();
 
+            if (BaseTile != null)
+                return;
+
+            tilemap?.SetReference(this);
         }
 
         protected override void Awake()
         {
-            tilemap = Owner.Owner?.GetComponent<Tilemap>();
-
-            if (tilemap == null)
-                throw new Exception($"Tilemap not found in parent GameObject");
-
             transformer = GetComponent<Transformer>();
 
             BaseTile.Startup(Position, tilemap, Owner);
@@ -44,11 +44,11 @@ namespace ZZZ.Framework.Tiling.Components
 
         public void SetData()
         {
-            Transform2D offset = new Transform2D();
+            Transform2D offset = new();
 
             BaseTile.GetData(Position, tilemap, ref offset);
 
-            transformer.Local = offset * Transform2D.CreateTranslation(tilemap.GetPositionFromPoint(Position));
+            transformer.Local = offset * Transform2D.CreateTranslation(tilemap.GetPositionFromCell(Position));
         }
     }
 }

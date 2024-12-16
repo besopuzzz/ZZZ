@@ -58,11 +58,11 @@ namespace ZZZ.Framework
             components.ItemAdded += SendToParentsAdded;
             components.ItemRemoved += SendToParentsRemoved;
 
-            foreach (var item in comps)
-                SendToParentsAdded(components, item);
-
             foreach (var item in conts.ToList())
                 AwakeGameObject(containers, item);
+
+            foreach (var item in comps)
+                SendToParentsAdded(components, item);
         }
 
         ///<inheritdoc cref="GameObject.Shutdown"/>
@@ -71,11 +71,11 @@ namespace ZZZ.Framework
             var comps = components.ToList();
             var conts = containers.ToList();
 
-            foreach (var item in conts)
-                ShutdownGameObject(containers, item);
-
             foreach (var item in comps)
                 SendToParentsRemoved(components, item);
+
+            foreach (var item in conts)
+                ShutdownGameObject(containers, item);
 
             containers.ItemAdded -= AwakeGameObject;
             containers.ItemRemoved -= ShutdownGameObject;

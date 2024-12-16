@@ -2,18 +2,15 @@
 
 namespace ZZZ.Framework.Components.Physics.Aether.Components
 {
-    [RequiredComponent<Transformer>]
-    public class Rigidbody : Component, IRigidbody
+    [RequiredComponent<BodyComponent>]
+    public class Rigidbody : Component
     {
         public Vector2 Velocity
         {
-            get => body.LinearVelocity;
+            get => body.LinearVelocity * BodyComponent.PixelsPerMeter;
             set
             {
-                if (value == body.LinearVelocity)
-                    return;
-
-                body.LinearVelocity = value;
+                body.LinearVelocity = value / BodyComponent.PixelsPerMeter;
             }
         }
         public float AngularVelocity
@@ -50,23 +47,20 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
         }
         public float LinearDamping
         {
-            get => body.LinearDamping;
-            set => body.LinearDamping = value;
+            get => body.LinearDamping * BodyComponent.PixelsPerMeter;
+            set => body.LinearDamping = value / BodyComponent.PixelsPerMeter;
         }
         public float AngularDamping
         {
-            get => body.AngularDamping;
-            set => body.AngularDamping = value;
+            get => body.AngularDamping * BodyComponent.PixelsPerMeter;
+            set => body.AngularDamping = value / BodyComponent.PixelsPerMeter;
         }
         public float Inertia
         {
-            get => body.Inertia;
+            get => body.Inertia * BodyComponent.PixelsPerMeter;
             set
             {
-                if (value == body.Inertia)
-                    return;
-
-                body.Inertia = value;
+                body.Inertia = value / BodyComponent.PixelsPerMeter;
             }
         }
         public bool IsBullet
@@ -84,68 +78,42 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             get => body.IgnoreGravity;
             set => body.IgnoreGravity = value;
         }
-
+        public override bool Enabled 
+        {
+            get => true;
+            set { return; } 
+        }
         public bool IsComposite
         { 
             get => isComposite;
             set => isComposite = value;
         }
 
-        private Body body;
-        private Body spoof;
+        private Body body => bodyComponent.Body;
         private bool isComposite;
+        private BodyComponent bodyComponent;
 
-        public Rigidbody()
+        protected override void OnCreated()
         {
-            body = new Body();
-            body.BodyType = BodyType.Dynamic;
-            body.Mass = 1f;
-            body.LinearDamping = 1f;
-            body.AngularDamping = 1f;
-            body.IgnoreGravity = false;
-            body.Enabled = Enabled;
-        }
+            bodyComponent = GetComponent<BodyComponent>();
+            bodyComponent.Body.BodyType = BodyType.Dynamic;
 
-        void IRigidbody.Attach(Body spoof)
-        {
-            spoof.BodyType = body.BodyType;
-            spoof.Mass = body.Mass;
-            spoof.LinearDamping = body.LinearDamping;
-            spoof.AngularDamping = body.AngularDamping;
-            spoof.IgnoreGravity = body.IgnoreGravity;
-            spoof.Enabled = body.Enabled;
-
-            this.spoof = body;
-            body = spoof;
-        }
-
-        void IRigidbody.Detach()
-        {
-            spoof.BodyType = body.BodyType;
-            spoof.Mass = body.Mass;
-            spoof.LinearDamping = body.LinearDamping;
-            spoof.AngularDamping = body.AngularDamping;
-            spoof.IgnoreGravity = body.IgnoreGravity;
-            spoof.LocalCenter = body.LocalCenter;
-            spoof.Enabled = body.Enabled;
-
-            this.spoof = null;
-            body = spoof;
+            base.OnCreated();
         }
 
         public void ApplyForce(Vector2 vector)
         {
-            body.ApplyForce(vector);
+            body.ApplyForce(vector / BodyComponent.PixelsPerMeter);
         }
 
         public void ApplyAngularImpulse(float impulse)
         {
-            body.ApplyAngularImpulse(impulse);
+            body.ApplyAngularImpulse(impulse / BodyComponent.PixelsPerMeter);
         }
 
         public void ApplyLinearImpulse(Vector2 vector)
         {
-            body.ApplyLinearImpulse(vector);
+            body.ApplyLinearImpulse(vector / BodyComponent.PixelsPerMeter);
         }
 
         public void ApplyTorque(float torque)

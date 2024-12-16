@@ -36,6 +36,7 @@ namespace ZZZ.Framework
         /// <param name="y">Точка по y.</param>
         /// <returns>Новый экземпляр трансформации с единичным скаляром и нулевым поворотом.</returns>
         public static Transform2D CreateTranslation(float x, float y) => new Transform2D(x, y, 1f, 1f, 0f);
+
         public static Transform2D CreateTranslation(Vector2 position) => new Transform2D(position.X, position.Y, 1f, 1f, 0f);
 
         /// <summary>
@@ -179,34 +180,6 @@ namespace ZZZ.Framework
         {
             return (CreateTranslation(position) / world).Position;
         }
-
-        /// <summary>
-        /// Вычитает две трансформации и возвращает ее.
-        /// </summary>
-        /// <param name="a">Первая трансформация.</param>
-        /// <param name="b">Вторая трансформация.</param>
-        /// <returns>Новый экземпляр трансформации.</returns>
-        
-        //public bool Contains(float width, float height, float x, float y)
-        //{
-        //    //To check the intersection of a point and a rotating rectangle,
-        //    //it is enough to rotate the rectangle into the usual non-rotating
-        //    //Rectangle, rotate the point there, and then check the intersections
-        //    //using the classical algorithm.
-
-        //    Transform2D scaledSize = Transform2D.CreateScale( width, height) * Transform2D.CreateScale(ScaleX, ScaleY); // Scale current size
-        //    Vector2 position = (this * Transform2D.CreateRotation(-Rotation)).Position - scaledSize/2; // Rotate to 0f and move center
-        //    Vector2 rotatedPoint = (Transform2D.CreateTranslation(point) * Transform2D.CreateRotation(-Rotation)).Position; // Rotate point
-
-        //    if ((float)position.X <= rotatedPoint.X
-        //        && rotatedPoint.X < (float)(position.X + scaledSize.X)
-        //        && (float)position.Y <= rotatedPoint.Y)
-        //    {
-        //        return rotatedPoint.Y < (float)(position.Y + scaledSize.Y);
-        //    }
-
-        //    return false;
-        //}
 
         /// <summary>
         /// Сравнивает две трансформации на идентичность и возвращает результат.

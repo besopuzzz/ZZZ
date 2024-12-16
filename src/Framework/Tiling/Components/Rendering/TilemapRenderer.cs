@@ -9,29 +9,9 @@ namespace ZZZ.Framework.Tiling.Components
     public sealed class TilemapRenderer : GroupRender, ITilemap, IUpdater
     {
         public float Speed { get; set; } = 10f;
-        public new SortLayer Layer
-        {
-            get => base.Layer;
-            set
-            {
-                if (base.Layer == value) return;
-
-                base.Layer = value;
-
-                foreach (var item in cache.Values)
-                {
-                    item.Layer = base.Layer;
-                }
-            }
-        }
-        public bool Paused
-        {
-            get => paused == 0f;
-            set => paused = value ? 0f : 1f;
-        }
+        public bool Paused { get; set; }
         public TileRenderMode RenderMode { get; set; }
 
-        private float paused = 1f;
         private Dictionary<Point, TileRenderer> cache = new Dictionary<Point, TileRenderer>();
         private List<TileAnimator> animators = new List<TileAnimator>();
 
@@ -39,8 +19,6 @@ namespace ZZZ.Framework.Tiling.Components
         {
             cache.Clear();
             animators.Clear();
-
-
 
             base.Shutdown();
         }
@@ -52,7 +30,7 @@ namespace ZZZ.Framework.Tiling.Components
 
         void IUpdater.Update(TimeSpan time)
         {
-            animators.ForEach(x => x.Update((float)time.TotalSeconds * Speed * paused));
+            animators.ForEach(x => x.Update((float)time.TotalSeconds * Speed * Convert.ToInt32(Paused)));
         }
 
         private TileAnimator GetAnimator(IAnimatedTile animatedTile)

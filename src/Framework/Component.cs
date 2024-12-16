@@ -33,23 +33,56 @@ namespace ZZZ.Framework.Components
         public bool Awaked => awaked;
 
         [ContentSerializerIgnore]
-        internal GameContainer FactOwner { get; set; }
+        internal GameContainer FactOwner
+        {
+            get => owner;
+
+            set
+            {
+                if (owner == value)
+                    return;
+
+                owner = value;
+
+                if (owner != null)
+                    OnCreated();
+                else
+                {
+                    OnDestroy();
+
+                    ((IDisposable)this).Dispose();
+                }
+            }
+        }
 
         [ContentSerializer(ElementName = "Enabled")]
         private bool enabled = true;
 
+        private GameContainer owner;
         private bool awaked;
 
-        /// <inheritdoc cref="IComponent.Awake"/>
         protected virtual void Awake()
         {
             awaked = true;
         }
 
-        /// <inheritdoc cref="IComponent.Shutdown"/>
         protected virtual void Shutdown()
         {
             awaked = false;
+        }
+
+        /// <summary>
+        /// Вызывает событие, когда компонент создан и добавлен в родительский контейнер.
+        /// Метод гарантирует, что обязательные компоненты уже добавлены в родительский контейнер.
+        /// </summary>
+        protected virtual void OnCreated()
+        {
+
+        }
+
+        protected virtual void OnDestroy()
+        {
+
         }
 
         /// <inheritdoc cref="GameObject.AddGameObject"/>

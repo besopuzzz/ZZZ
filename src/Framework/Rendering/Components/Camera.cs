@@ -42,8 +42,6 @@ namespace ZZZ.Framework.Rendering.Components
 
         public Matrix World => world;
 
-
-
         /// <summary>
         /// Точка фокуса камеры. 
         /// </summary>

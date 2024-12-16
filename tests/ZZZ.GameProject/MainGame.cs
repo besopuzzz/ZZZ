@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Threading.Tasks;
 using ZZZ.Framework;
+using ZZZ.Framework.Assets;
+using ZZZ.Framework.Components.Physics.Aether;
 using ZZZ.Framework.Components.Physics.Aether.Components;
 using ZZZ.Framework.Extensions;
 using ZZZ.Framework.Rendering.Assets;
@@ -40,11 +43,6 @@ namespace ZZZ.KNI.GameProject
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
 
-            //graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            //graphics.ApplyChanges();
-
-            // Доделать использование сервисов в пределах одного Root
-
         }
 
 
@@ -52,6 +50,9 @@ namespace ZZZ.KNI.GameProject
         {
             root = new EngineBuilder()
                 .UseKNIUnityStyle(this)
+                .UseSystemBottom<AetherSystem>()
+                .RegisterService<IServiceProvider>(Services)
+                .UseSystemBottom<AetherRendererSystem>()
                 .Build();
 
             scene = new Scene() { Name = "Scene" };
@@ -63,14 +64,14 @@ namespace ZZZ.KNI.GameProject
             GameObject gameObject = new GameObject();
             var cameraGB = gameObject.AddGameObject(new GameObject());
             cameraGB.AddComponent<Camera>();
-            gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -400f);
+            gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -100f);
+            gameObject.AddComponent<BoxCollider>().Size = new Vector2(32f);
             gameObject.AddComponent<HeroController>();
             gameObject.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[0];
 
             scene.AddGameObject(gameObject);
 
             x.AddGameObject(TestNewTilemap());
-            //x.AddComponent<GroupRender>();
 
             base.Initialize();
 
@@ -91,7 +92,8 @@ namespace ZZZ.KNI.GameProject
 
             var container = new GameObject() { Name = "Tilemap" };
             FPSCounter comp = container.AddComponent<FPSCounter>();
-            //container.AddComponent<TilemapCollider>();
+            comp.Font = AssetManager.Load<SpriteFont>("Fonts/System");
+            container.AddComponent<TilemapCollider>();
 
             var renderer = container.AddComponent<TilemapRenderer>();
             renderer.RenderMode = TileRenderMode.Stretch;

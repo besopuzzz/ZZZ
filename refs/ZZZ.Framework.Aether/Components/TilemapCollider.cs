@@ -8,18 +8,19 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 {
     public sealed class TilemapColliderArgs : EventArgs
     {
-        public ICollider TileCollider { get; }
+        public Collider TileCollider { get; }
         public Point Position { get; }
 
-        public TilemapColliderArgs(ICollider collider) 
+        public TilemapColliderArgs(Collider collider) 
         {
             TileCollider = collider;
             Position = ((Component)collider).Owner.GetComponent<TileComponent>().Position;
         }
     }
 
-    public delegate void TilemapColliderEvent(TilemapColliderArgs args, ICollider other);
+    public delegate void TilemapColliderEvent(TilemapColliderArgs args, Collider other);
 
+    [RequiredTilemap]
     public sealed class TilemapCollider : Component, ITilemap
     {
         public ColliderLayer Layer
@@ -61,6 +62,14 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 
         private Dictionary<Point, PolygonCollider> cache = new Dictionary<Point, PolygonCollider>();
         private ColliderLayer category = ColliderLayer.Cat1;
+        private Tilemap tilemap;
+
+        protected override void Awake()
+        {
+            tilemap = GetComponent<Tilemap>();
+
+            base.Awake();
+        }
 
         void ITilemap.Add(GameObject container, ITile tile, Point position, Tilemap tilemap)
         {
@@ -77,12 +86,12 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             cache.Add(position, collider);
         }
 
-        private void Collider_ColliderExit(ICollider sender, ICollider other)
+        private void Collider_ColliderExit(Collider sender, Collider other)
         {
             ColliderExit?.Invoke(new TilemapColliderArgs(sender), other);
         }
 
-        private void Collider_ColliderEnter(ICollider sender, ICollider other)
+        private void Collider_ColliderEnter(Collider sender, Collider other)
         {
             ColliderEnter?.Invoke(new TilemapColliderArgs(sender), other);
         }

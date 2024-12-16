@@ -12,7 +12,6 @@ using ZZZ.Framework.Updating;
 namespace ZZZ.KNI.GameProject
 {
     [RequiredComponent<Rigidbody>]
-    [RequiredComponent<FPSCounter>]
     internal class HeroController : Component, IUpdater
     {
         public Vector2 MaxSpeed { get; set; } = new Vector2(10f);
@@ -24,7 +23,6 @@ namespace ZZZ.KNI.GameProject
         private Scene scene;
         private KeyboardState oldState;
         private Transformer myTransfrom;
-        private FPSCounter fPSCounter;
 
         protected override void Awake()
         {
@@ -32,7 +30,6 @@ namespace ZZZ.KNI.GameProject
 
             camera = ((Camera)Camera.MainCamera).Owner.GetComponent<Transformer>();
             myTransfrom = GetComponent<Transformer>();
-            fPSCounter = GetComponent<FPSCounter>();
 
             base.Awake();
         }
@@ -58,8 +55,8 @@ namespace ZZZ.KNI.GameProject
             //if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
             //    rigidbody.Enabled = !rigidbody.Enabled;
 
-            if (keyboardState.IsKeyDown(Keys.Space) & !oldState.IsKeyDown(Keys.Space))
-                fPSCounter.Enabled = !fPSCounter.Enabled;
+            //if (keyboardState.IsKeyDown(Keys.Space) & !oldState.IsKeyDown(Keys.Space))
+            //    fPSCounter.Enabled = !fPSCounter.Enabled;
 
             if (keyboardState.IsKeyDown(Keys.RightShift))
                 if (keyboardState.IsKeyDown(Keys.Space))
@@ -104,19 +101,19 @@ namespace ZZZ.KNI.GameProject
             //else if (keyboardState.IsKeyDown(Keys.OemMinus))
             //    updateRegistrar.UpdateOrders[typeof(Camera)].Order -= 1;
 
-            myTransfrom.Local = new Transform2D(myTransfrom.Local.Position + MaxSpeed * speed);
+            //myTransfrom.Local = new Transform2D(myTransfrom.Local.Position + MaxSpeed * speed);
 
-            //rigidbody.Velocity += MaxSpeed * speed;
+            rigidbody.Velocity += MaxSpeed * speed;
+
+            MainGame.SetTitle(rigidbody.Velocity.ToString());
 
             //myTransfrom.Local = new Transform2D( Mouse.GetState().Position.ToVector2());
 
             var old = rigidbody.Owner.GetComponent<Transformer>().HasChanges;
-            MainGame.SetTitle(fPSCounter.FPS.ToString());
 
             oldState = keyboardState;
         }
 
         TilemapCollider tilemapCollider;
-
     }
 }

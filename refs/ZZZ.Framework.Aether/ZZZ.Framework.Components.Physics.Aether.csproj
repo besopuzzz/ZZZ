@@ -6,18 +6,25 @@
 		<Nullable>disable</Nullable>
 		<LangVersion>12</LangVersion>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="C:\Users\u01\.nuget\packages\aether.physics2d.diagnostics.kni\2.1.0\contentFiles\any\net8.0\Content\DiagnosticsFont.xnb">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Aether.Physics2D.Diagnostics.KNI" Version="2.1.0" />
+		<PackageReference Include="Aether.Physics2D.KNI" Version="2.1.0" />
 		<PackageReference Include="nkast.Xna.Framework" Version="3.12.9001" />
 		<PackageReference Include="nkast.Xna.Framework.Ref" Version="3.12.9001" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Framework\ZZZ.Framework.csproj" />
-	  <ProjectReference Include="..\Aether.Physics2D\Physics2D\Aether.Physics2D.KNI.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Update="Content\DiagnosticsFont.xnb">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
+	  <Content Update="C:\Users\u01\.nuget\packages\aether.physics2d.diagnostics.kni\2.1.0\contentFiles\any\net8.0\Content\DiagnosticsFont.xnb">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 </Project>

@@ -35,8 +35,6 @@ namespace ZZZ.Framework
 
             component = Activator.CreateInstance(type, true) as Component;
 
-            component.FactOwner = this;
-
             OnComponentAdding(component);
 
             var attributes = type.GetCustomAttributes<RequiredComponentAttribute>();
@@ -47,6 +45,8 @@ namespace ZZZ.Framework
 
                 attribute.AutoReference?.Connect(component, other);
             }
+
+            component.FactOwner = this;
 
             components.Add(component);
 

@@ -19,7 +19,7 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             }
         }
 
-        private Vertices vertices = new nkast.Aether.Physics2D.Common.Vertices();
+        private Vertices vertices = new nkast.Aether.Physics2D.Common.Vertices() { new Vector2(), new Vector2(1,0), new Vector2(1)};
 
         public PolygonCollider() : base(Create())
         {
@@ -42,7 +42,7 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 
         private static PolygonShape Create()
         {
-            Vertices vertices = [new Vector2(), new Vector2(), new Vector2()];
+            Vertices vertices = [new Vector2(), new Vector2(1, 0), new Vector2(1)];
 
             return new PolygonShape(vertices, 1f);
         }

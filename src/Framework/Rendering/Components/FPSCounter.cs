@@ -25,12 +25,13 @@ namespace ZZZ.Framework.Rendering.Components
 
         public int Order { get => order; set => order = value; }
 
+        public SpriteFont Font { get; set; }
+
         private SortLayer layer = SortLayer.Layer1;
 
         private int frameCount = 0;
         private float elapsedTime = 0.0f;
         private float fps = 0f;
-        //private SpriteFont font;
         private Transformer transformer;
         private int order = 10000;
 
@@ -42,8 +43,6 @@ namespace ZZZ.Framework.Rendering.Components
 
         protected override void Awake()
         {
-
-            //font = AssetManager.Load<SpriteFont>("DiagnosticsFont");
             transformer = GetComponent<Transformer>();
 
             base.Awake();
@@ -59,7 +58,7 @@ namespace ZZZ.Framework.Rendering.Components
                 elapsedTime = 0.0f;
             }
 
-            //provider.RenderText(font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None);
+            provider.RenderText(Font, $"FPS: {fps}", transformer.World, Color.White, Vector2.Zero, SpriteEffects.None);
         }
 
         void IUpdater.Update(TimeSpan time)
