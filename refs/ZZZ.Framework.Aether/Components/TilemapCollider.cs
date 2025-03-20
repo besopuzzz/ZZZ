@@ -1,27 +1,12 @@
-﻿using nkast.Aether.Physics2D.Common;
-using ZZZ.Framework.Tiling;
+﻿using ZZZ.Framework.Tiling;
 using ZZZ.Framework.Tiling.Assets;
 using ZZZ.Framework.Tiling.Assets.Physics;
 using ZZZ.Framework.Tiling.Components;
 
-namespace ZZZ.Framework.Components.Physics.Aether.Components
+namespace ZZZ.Framework.Physics.Aether.Components
 {
-    public sealed class TilemapColliderArgs : EventArgs
-    {
-        public Collider TileCollider { get; }
-        public Point Position { get; }
-
-        public TilemapColliderArgs(Collider collider) 
-        {
-            TileCollider = collider;
-            Position = ((Component)collider).Owner.GetComponent<TileComponent>().Position;
-        }
-    }
-
-    public delegate void TilemapColliderEvent(TilemapColliderArgs args, Collider other);
-
     [RequiredTilemap]
-    public sealed class TilemapCollider : Component, ITilemap
+    public sealed class TilemapCollider : GroupCollider, ITilemap
     {
         public ColliderLayer Layer
         {
@@ -52,23 +37,26 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 
                 foreach (var item in cache.Values)
                 {
-                    item.Enabled = value;
+                    //item.Enabled = value;
                 }
             }
         }
 
-        public event TilemapColliderEvent ColliderEnter;
-        public event TilemapColliderEvent ColliderExit;
-
         private Dictionary<Point, PolygonCollider> cache = new Dictionary<Point, PolygonCollider>();
         private ColliderLayer category = ColliderLayer.Cat1;
-        private Tilemap tilemap;
 
-        protected override void Awake()
+        private void Refresh(PolygonCollider collider, IColliderTile colliderTile, Point position, Tilemap tilemap)
         {
-            tilemap = GetComponent<Tilemap>();
+            TileColliderData tileColliderData = default;
 
-            base.Awake();
+            colliderTile.GetColliderData(position, tilemap, ref tileColliderData);
+
+            collider.Vertices = tileColliderData.Vertices;
+            collider.Restitution = tileColliderData.Restitution;
+            collider.Friction = tileColliderData.Friction;
+            collider.Offset = tilemap.GetPositionFromCell(position) + tileColliderData.Offset;
+            collider.Density = tileColliderData.Density;
+            collider.Layer = Layer;
         }
 
         void ITilemap.Add(GameObject container, ITile tile, Point position, Tilemap tilemap)
@@ -76,24 +64,11 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             if (tile is not IColliderTile colliderTile)
                 return;
 
-            var collider = container.AddComponent<PolygonCollider>();
+            var collider = Add(new PolygonCollider());
 
-            collider.Vertices = PolygonTools.CreateRectangle(tilemap.TileSize.X / 2, tilemap.TileSize.Y / 2).ToArray();
-            collider.Layer = Layer;
-            collider.ColliderEnter += Collider_ColliderEnter;
-            collider.ColliderExit += Collider_ColliderExit;
+            Refresh(collider, colliderTile, position, tilemap);
 
             cache.Add(position, collider);
-        }
-
-        private void Collider_ColliderExit(Collider sender, Collider other)
-        {
-            ColliderExit?.Invoke(new TilemapColliderArgs(sender), other);
-        }
-
-        private void Collider_ColliderEnter(Collider sender, Collider other)
-        {
-            ColliderEnter?.Invoke(new TilemapColliderArgs(sender), other);
         }
 
         void ITilemap.Remove(GameObject container, ITile tile, Point position, Tilemap tilemap)
@@ -103,10 +78,7 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 
             var collider = cache[position];
 
-            container.RemoveComponent(collider);
-
-            collider.ColliderEnter -= Collider_ColliderEnter;
-            collider.ColliderExit -= Collider_ColliderExit;
+            container.RemoveComponent(collider.GetType());
 
             cache.Remove(position);
         }
@@ -118,23 +90,7 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 
             var collider = cache[position];
 
-            TileColliderData tileRenderData = new TileColliderData();
-
-            colliderTile.GetColliderData(position, tilemap, ref tileRenderData);
-
-            List<Vector2> vertices = new List<Vector2>();
-
-            if (tileRenderData.Vertices.Count >= 3) // Triangle or polygon
-                vertices.AddRange(tileRenderData.Vertices);
-            else vertices.AddRange(PolygonTools.CreateRectangle(tilemap.TileSize.X / 2, tilemap.TileSize.Y / 2));
-
-            collider.Vertices = vertices;
-            collider.Offset = tileRenderData.Offset;
-            collider.Restitution = tileRenderData.Restitution;
-            collider.Friction = tileRenderData.Friction;
-            collider.IsTrigger = tileRenderData.IsTrigger;
+            Refresh(collider, colliderTile, position, tilemap);
         }
-
-
     }
 }

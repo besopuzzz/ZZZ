@@ -10,10 +10,10 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\..\src\Framework.Pipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.dll
-/reference:..\..\..\src\Framework.Pipeline\bin\AnyCPU\Debug\net8.0\ZZZ.Framework.Pipeline.dll
-/reference:..\bin\AnyCPU\Debug\net8.0-windows\Aether.Physics2D.Diagnostics.dll
-/reference:..\bin\AnyCPU\Debug\net8.0-windows\Aether.Physics2D.dll
+/reference:..\bin\AnyCPU\Debug\net8.0-windows\ZZZ.Framework.dll
+/reference:..\bin\AnyCPU\Debug\net8.0-windows\ZZZ.Framework.KNI.dll
+/reference:..\bin\AnyCPU\Debug\net8.0-windows\ZZZ.Framework.Physics.Aether.dll
+/reference:..\bin\AnyCPU\Debug\net8.0-windows\ZZZ.Framework.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 

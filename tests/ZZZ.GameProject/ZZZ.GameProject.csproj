@@ -33,6 +33,7 @@
     <Compile Include="MainGame.cs" />
     <Compile Include="Services\AssetProvider.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Tiles\Components\TilemapEditor.cs" />
     <Compile Include="Tiles\Tile.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +49,8 @@
     <None Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\refs\ZZZ.Framework.Aether\ZZZ.Framework.Components.Physics.Aether.csproj" />
+    <ProjectReference Include="..\..\refs\ZZZ.Framework.Aether\ZZZ.Framework.Physics.Aether.csproj" />
+    <ProjectReference Include="..\..\src\Framework.KNI\ZZZ.Framework.KNI.csproj" />
     <ProjectReference Include="..\..\src\Framework.Pipeline\ZZZ.Framework.Pipeline.csproj" />
     <ProjectReference Include="..\..\src\Framework\ZZZ.Framework.csproj" />
   </ItemGroup>

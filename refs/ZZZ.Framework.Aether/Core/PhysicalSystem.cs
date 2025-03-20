@@ -1,6 +1,6 @@
 ﻿//using nkast.Aether.Physics2D.Diagnostics;
 //using nkast.Aether.Physics2D.Dynamics;
-//using ZZZ.Framework.Components.Physics.Aether.Components;
+//using ZZZ.Framework.Physics.Aether.Components;
 //using ZZZ.Framework.Core;
 //using ZZZ.Framework.Core.Rendering;
 

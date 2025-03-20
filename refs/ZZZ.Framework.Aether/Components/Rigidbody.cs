@@ -1,6 +1,6 @@
 ﻿using nkast.Aether.Physics2D.Dynamics;
 
-namespace ZZZ.Framework.Components.Physics.Aether.Components
+namespace ZZZ.Framework.Physics.Aether.Components
 {
     [RequiredComponent<BodyComponent>]
     public class Rigidbody : Component
@@ -83,22 +83,21 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             get => true;
             set { return; } 
         }
-        public bool IsComposite
-        { 
-            get => isComposite;
-            set => isComposite = value;
-        }
 
         private Body body => bodyComponent.Body;
-        private bool isComposite;
         private BodyComponent bodyComponent;
 
         protected override void OnCreated()
         {
             bodyComponent = GetComponent<BodyComponent>();
             bodyComponent.Body.BodyType = BodyType.Dynamic;
+        }
 
-            base.OnCreated();
+        protected override void OnDestroy()
+        {
+            bodyComponent.Body.BodyType = BodyType.Static;
+
+            base.OnDestroy();
         }
 
         public void ApplyForce(Vector2 vector)

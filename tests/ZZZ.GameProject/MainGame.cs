@@ -5,14 +5,18 @@ using System;
 using System.Threading.Tasks;
 using ZZZ.Framework;
 using ZZZ.Framework.Assets;
-using ZZZ.Framework.Components.Physics.Aether;
-using ZZZ.Framework.Components.Physics.Aether.Components;
+using ZZZ.Framework.Physics.Aether;
+using ZZZ.Framework.Physics.Aether.Components;
 using ZZZ.Framework.Extensions;
 using ZZZ.Framework.Rendering.Assets;
 using ZZZ.Framework.Rendering.Components;
 using ZZZ.Framework.Tiling.Assets.Physics;
 using ZZZ.Framework.Tiling.Components;
+using ZZZ.GameProject.Tiles.Components;
 using ZZZ.KNI.Content.Pipeline.Serializers;
+using ZZZ.Framework.Designing.UnityStyle;
+using ZZZ.Framework.KNI;
+using ZZZ.Framework.Designing.UnityStyle.Systems;
 
 namespace ZZZ.KNI.GameProject
 {
@@ -23,6 +27,8 @@ namespace ZZZ.KNI.GameProject
     {
         GraphicsDeviceManager graphics;
         Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch;
+
+        public static MainGame instance;
 
         private static MainGame game;
         private Scene scene;
@@ -37,6 +43,7 @@ namespace ZZZ.KNI.GameProject
         {
             ModuleInitializer.Initialize();
             
+            instance = this;
             game = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -49,9 +56,12 @@ namespace ZZZ.KNI.GameProject
         protected override void Initialize()
         {
             root = new EngineBuilder()
-                .UseKNIUnityStyle(this)
-                .UseSystemBottom<AetherSystem>()
+                .UseUnityStyle()
+                .UseKNISystemHandler(this)
+                .UseKNIStaticAssetManager(Services)
+                .RegisterKNIRenderManagerService(GraphicsDevice)
                 .RegisterService<IServiceProvider>(Services)
+                .UseSystemBottom<AetherSystem>()
                 .UseSystemBottom<AetherRendererSystem>()
                 .Build();
 
@@ -59,17 +69,38 @@ namespace ZZZ.KNI.GameProject
 
             SceneLoader.Load(scene);
 
-            var x = scene.AddGameObject(new GameObject());
 
             GameObject gameObject = new GameObject();
             var cameraGB = gameObject.AddGameObject(new GameObject());
             cameraGB.AddComponent<Camera>();
-            gameObject.AddComponent<Transformer>().Local = new Transform2D(-100f, -100f);
-            gameObject.AddComponent<BoxCollider>().Size = new Vector2(32f);
+            //cameraGB.GetComponent<Transformer>().Local = new Transform2D(0, 100);
+            gameObject.AddComponent<Transformer>().Local = new Transform2D(-200f, -200f);
+            gameObject.AddComponent<GroupCollider>().Add(
+                new BoxCollider() { Size = new Vector2(32), Friction = 1f }
+                //, new BoxCollider() {Offset = new Vector2(62), Size = new Vector2(32) }
+                );
             gameObject.AddComponent<HeroController>();
             gameObject.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[0];
 
-            scene.AddGameObject(gameObject);
+            //var testCollider = gameObject.AddGameObject(new GameObject()).AddGameObject(new GameObject());
+
+            //testCollider.AddComponent<Transformer>().Local = new Transform2D(-100f, -100f);
+            //testCollider.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[0];
+            //testCollider.AddComponent<GroupCollider>().Add(new BoxCollider() { Size = new Vector2(32) });
+            //testCollider.AddComponent<Rigidbody>().FixedRotation = true;
+
+            //testCollider = testCollider.AddGameObject(new GameObject());
+
+
+            //testCollider.AddComponent<Transformer>().Local = new Transform2D(-50f, -50f);
+            //testCollider.AddComponent<SpriteRenderer>().Sprite = Content.Load<Sprite>("Sprites/main")[2];
+
+            gameObject.SetParent(scene);
+
+            //scene.AddGameObject(gameObject);
+
+
+            var x = scene.AddGameObject(new GameObject());
 
             x.AddGameObject(TestNewTilemap());
 
@@ -101,6 +132,8 @@ namespace ZZZ.KNI.GameProject
 
             var tilemap = container.AddComponent<Tilemap>();
             tilemap.TileSize = new Vector2(32);
+
+            container.AddComponent<TilemapEditor>();
 
             //tilemap.Add(new Point(5, -2), heroTile);
 
@@ -140,23 +173,23 @@ namespace ZZZ.KNI.GameProject
         {
             public override void Startup(Point position, Tilemap tilemap, GameObject container)
             {
-                container.AddGameObject(new GameObject()).AddComponent<Camera>();
+                //container.AddGameObject(new GameObject()).AddComponent<Camera>();
                 //container.AddComponent<CircleCollider>().Offset = new Vector2(64f);
-                container.AddComponent<HeroController>();
+                //container.AddComponent<HeroController>();
 
 
 
-                var gameObj = container.AddGameObject(new GameObject());
-                gameObj.AddComponent<Transformer>().Local = new Transform2D(200f, 0f);
-                //gameObj.AddComponent<CircleCollider>();
-                gameObj.AddComponent<Rigidbody>();
+                //var gameObj = container.AddGameObject(new GameObject());
+                //gameObj.AddComponent<Transformer>().Local = new Transform2D(200f, 0f);
+                ////gameObj.AddComponent<CircleCollider>();
+                //gameObj.AddComponent<Rigidbody>();
 
-                gameObj = container.AddGameObject(new GameObject());
-                gameObj.AddComponent<Transformer>().Local = new Transform2D(100f, 0f);
-                gameObj.AddComponent<SpriteRenderer>().Sprite = this.Sprite;
-                //gameObj.AddComponent<CircleCollider>();
+                //gameObj = container.AddGameObject(new GameObject());
+                //gameObj.AddComponent<Transformer>().Local = new Transform2D(100f, 0f);
+                //gameObj.AddComponent<SpriteRenderer>().Sprite = this.Sprite;
+                ////gameObj.AddComponent<CircleCollider>();
 
-                base.Startup(position, tilemap, container);
+                //base.Startup(position, tilemap, container);
             }
 
             public override void GetColliderData(Point position, Tilemap tilemap, ref TileColliderData renderedTile)

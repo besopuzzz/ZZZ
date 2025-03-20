@@ -1,74 +1,26 @@
 ﻿using nkast.Aether.Physics2D.Diagnostics;
-using nkast.Aether.Physics2D.Dynamics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZZZ.Framework.Aether;
-using ZZZ.Framework.Assets;
+using ZZZ.Framework.Rendering;
 using ZZZ.Framework.Rendering.Components;
 
-namespace ZZZ.Framework.Components.Physics.Aether
+namespace ZZZ.Framework.Physics.Aether
 {
     [RequiredComponent<AetherSystem>]
-    public class AetherRendererSystem : System, IDrawable, IGameComponent
+    public class AetherRendererSystem : System, ISystemRenderer
     {
-        public int DrawOrder
-        {
-            get
-            {
-                return order;
-            }
-
-            set
-            {
-                if (order == value)
-                    return;
-
-                order = value;
-
-                DrawOrderChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public bool Visible
-        {
-            get
-            {
-                return base.Enabled;
-            }
-
-            set
-            {
-                if (Enabled == value)
-                    return;
-
-                Enabled = value;
-
-                VisibleChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public event EventHandler<EventArgs> DrawOrderChanged;
-        public event EventHandler<EventArgs> VisibleChanged;
-
-        private int order = 0;
         private AetherSystem aetherSystem;
         private DebugView debugView;
         private GraphicsDevice device;
 
-        void IDrawable.Draw(GameTime gameTime)
+        public void Render()
         {
-            var trans = Matrix.CreateScale(new Vector3(Vector2.One * PhysicalBody.PixelsPerMeter, 1f));
+            var viewport = device.Viewport;
 
-            debugView.RenderDebugData(Camera.MainCamera.Projection, Camera.MainCamera.View, trans * Camera.MainCamera.World);
+            var view = Matrix.CreateScale(new Vector3(Vector2.One * PhysicalBody.PixelsPerMeter, 1f));
 
-        }
+            var projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, -1, 10);
 
-        void IGameComponent.Initialize()
-        {
-
+            debugView.RenderDebugData(projection, view * Camera.MainCamera.View.GetMatrix());
         }
 
         protected override void Awake()

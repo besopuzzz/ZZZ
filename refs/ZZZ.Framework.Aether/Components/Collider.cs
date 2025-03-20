@@ -1,8 +1,10 @@
-﻿using nkast.Aether.Physics2D.Collision.Shapes;
+﻿using Microsoft.Xna.Framework.Graphics;
+using nkast.Aether.Physics2D.Collision.Shapes;
 using nkast.Aether.Physics2D.Dynamics;
 using nkast.Aether.Physics2D.Dynamics.Contacts;
+using System.Reflection.Emit;
 
-namespace ZZZ.Framework.Components.Physics.Aether.Components
+namespace ZZZ.Framework.Physics.Aether.Components
 {
     public delegate void ColliderEvent(Collider sender, Collider other);
 
@@ -16,8 +18,7 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
         }
     }
 
-    [RequiredComponent<BodyComponent>]
-    public abstract class Collider : Component
+    public abstract class Collider
     {
         internal Fixture Fixture => fixture;
 
@@ -78,9 +79,6 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
 
         protected virtual Shape Shape => shape;
 
-        public event ColliderEvent ColliderEnter;
-        public event ColliderEvent ColliderExit;
-
         private ColliderLayer layer = ColliderLayer.Cat1;
         private readonly Shape shape;
         private Fixture fixture;
@@ -98,38 +96,36 @@ namespace ZZZ.Framework.Components.Physics.Aether.Components
             type.GetProperty(nameof(fixture.Proxies)).SetValue(fixture, new FixtureProxy[shape.ChildCount]);
 
             fixture.Tag = this;
-            fixture.OnCollision = OnCollision;
-            fixture.OnSeparation = OnSeparation;
+            //fixture.OnCollision = OnCollision;
+            //fixture.OnSeparation = OnSeparation;
+
+            fixture.Friction = 10f;
 
             this.shape = shape;
         }
 
-        protected override void OnCreated()
-        {
-            if (Owner == null)
-                return;
+        //protected override void OnCreated()
+        //{
+        //    bodyComponent = GetComponent<BodyComponent>();
+        //    bodyComponent.Attach(this);
 
-            bodyComponent = GetComponent<BodyComponent>();
-            bodyComponent.Attach(this);
+        //    base.OnCreated();
+        //}
 
-            fixture.CollidesWith = (Category)(int)layer; // Layer change throw error if Body is null...
+        //private void OnSeparation(Fixture sender, Fixture other, Contact contact)
+        //{
+        //    if (ColliderExit != null & sender == fixture & sender.IsSensor)
+        //        ColliderExit.Invoke(this, other.Tag as Collider);
 
-            base.OnCreated();
-        }
+        //}
 
-        private void OnSeparation(Fixture sender, Fixture other, Contact contact)
-        {
-            if (sender == fixture & sender.IsSensor)
-                ColliderExit?.Invoke(this, other.Tag as Collider);
+        //private bool OnCollision(Fixture sender, Fixture other, Contact contact)
+        //{
+        //    if(ColliderEnter != null & (sender == fixture & sender.IsSensor & contact.IsTouching & Enabled))
+        //        ColliderEnter.Invoke(this, other.Tag as Collider);
 
-        }
-        private bool OnCollision(Fixture sender, Fixture other, Contact contact)
-        {
-            if (sender == fixture & sender.IsSensor & contact.IsTouching & Enabled)
-                ColliderEnter?.Invoke(this, other.Tag as Collider);
-
-            return Enabled;
-        }
+        //    return Enabled;
+        //}
 
         protected abstract void OnOffsetChanged(Vector2 oldOffset, Vector2 offset);
     }

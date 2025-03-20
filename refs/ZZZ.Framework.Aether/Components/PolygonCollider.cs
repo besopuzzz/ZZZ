@@ -1,7 +1,7 @@
 ﻿using nkast.Aether.Physics2D.Collision.Shapes;
 using nkast.Aether.Physics2D.Common;
 
-namespace ZZZ.Framework.Components.Physics.Aether.Components
+namespace ZZZ.Framework.Physics.Aether.Components
 {
     public class PolygonCollider : Collider<PolygonShape>
     {

@@ -1,6 +1,6 @@
 ﻿using nkast.Aether.Physics2D.Collision.Shapes;
 
-namespace ZZZ.Framework.Components.Physics.Aether.Components
+namespace ZZZ.Framework.Physics.Aether.Components
 {
     public partial class CircleCollider : Collider<CircleShape>
     {

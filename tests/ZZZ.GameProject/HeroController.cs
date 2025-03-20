@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Linq;
 using ZZZ.Framework;
 using ZZZ.Framework.Auding.Components;
-using ZZZ.Framework.Components;
-using ZZZ.Framework.Components.Physics.Aether.Components;
+using ZZZ.Framework.Physics.Aether.Components;
+using ZZZ.Framework.Rendering;
 using ZZZ.Framework.Rendering.Components;
 using ZZZ.Framework.Tiling.Components;
 using ZZZ.Framework.Updating;
@@ -30,6 +31,7 @@ namespace ZZZ.KNI.GameProject
 
             camera = ((Camera)Camera.MainCamera).Owner.GetComponent<Transformer>();
             myTransfrom = GetComponent<Transformer>();
+            
 
             base.Awake();
         }
@@ -42,15 +44,19 @@ namespace ZZZ.KNI.GameProject
             var sceneRotate = 0f;
             var sceneScale = Vector2.One;
 
-            if (keyboardState.IsKeyDown(Keys.A))
-                speed.X = -1f;
-            else if (keyboardState.IsKeyDown(Keys.D))
-                speed.X = 1f;
 
-            if (keyboardState.IsKeyDown(Keys.W))
-                speed.Y = -1f;
-            else if (keyboardState.IsKeyDown(Keys.S))
-                speed.Y = 1f;
+            if (!keyboardState.IsKeyDown(Keys.LeftShift))
+            {
+                if (keyboardState.IsKeyDown(Keys.A))
+                    speed.X = -1f;
+                else if (keyboardState.IsKeyDown(Keys.D))
+                    speed.X = 1f;
+
+                if (keyboardState.IsKeyDown(Keys.W))
+                    speed.Y = -1f;
+                else if (keyboardState.IsKeyDown(Keys.S))
+                    speed.Y = 1f;
+            }
 
             //if (keyboardState.IsKeyDown(Keys.Space) & oldState.IsKeyUp(Keys.Space))
             //    rigidbody.Enabled = !rigidbody.Enabled;
@@ -60,7 +66,12 @@ namespace ZZZ.KNI.GameProject
 
             if (keyboardState.IsKeyDown(Keys.RightShift))
                 if (keyboardState.IsKeyDown(Keys.Space))
-                    tilemap.Owner.GetComponent<TilemapCollider>().Enabled = !tilemap.Owner.GetComponent<TilemapCollider>().Enabled;
+                {
+                    var gb = new GameObject() { Name = "New Parent" };
+                    gb.AddComponent<Transformer>();
+
+                    camera.Owner.SetParent(Owner.AddGameObject(gb));
+                }
 
             if (keyboardState.IsKeyDown(Keys.LeftShift))
             {
@@ -105,11 +116,13 @@ namespace ZZZ.KNI.GameProject
 
             rigidbody.Velocity += MaxSpeed * speed;
 
-            MainGame.SetTitle(rigidbody.Velocity.ToString());
+
 
             //myTransfrom.Local = new Transform2D( Mouse.GetState().Position.ToVector2());
 
             var old = rigidbody.Owner.GetComponent<Transformer>().HasChanges;
+
+            MainGame.SetTitle(old.ToString());
 
             oldState = keyboardState;
         }

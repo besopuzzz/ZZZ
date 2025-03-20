@@ -1,6 +1,6 @@
 ﻿using nkast.Aether.Physics2D.Dynamics;
 
-namespace ZZZ.Framework.Components.Physics.Aether.Components
+namespace ZZZ.Framework.Physics.Aether.Components
 {
     public interface IRigidbody
     {

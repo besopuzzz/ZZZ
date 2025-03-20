@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using ZZZ.Framework;
 using ZZZ.Framework.Assets;
-using ZZZ.Framework.Components.Physics;
 using ZZZ.Framework.Rendering.Assets;
 using ZZZ.Framework.Tiling.Assets;
 using ZZZ.Framework.Tiling.Assets.Physics;
@@ -33,11 +32,19 @@ namespace ZZZ.KNI.GameProject
             data.Sprites = Sprites;
         }
 
-        public virtual void GetColliderData(Point position, Tilemap tilemap, ref TileColliderData renderedTile)
+        public virtual void GetColliderData(Point position, Tilemap tilemap, ref TileColliderData colliderData)
         {
+            var hxy = tilemap.TileSize / 2f;
 
-            //renderedTile.Offset = new Vector2(-16);
-            //renderedTile.Vertices = new List<Vector2>() { new Vector2(0, 0), new Vector2(0, 32), new Vector2(32), new Vector2(32,0) };
+            colliderData.Vertices = new List<Vector2>(4)
+            {
+                new Vector2(0f - hxy.X, 0f - hxy.Y),
+                new Vector2(hxy.X, 0f - hxy.Y),
+                new Vector2(hxy.X, hxy.Y),
+                new Vector2(0f - hxy.X, hxy.Y)
+            };
+
+            colliderData.Friction = 1f;
         }
 
         public virtual void GetData(Point position, Tilemap tilemap, ref Transform2D offset)
