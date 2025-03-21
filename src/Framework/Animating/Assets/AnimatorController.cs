@@ -1,4 +1,5 @@
-﻿using ZZZ.Framework.Assets;
+﻿using System.Collections.Generic;
+using ZZZ.Framework.Assets;
 
 namespace ZZZ.Framework.Animations.Assets
 {
@@ -30,7 +31,7 @@ namespace ZZZ.Framework.Animations.Assets
         /// </summary>
         public event EventHandler<AnimatorController, Stage> CurrentStageChanged;
 
-        private SharedDicitionary<string, Parameter> parameters = new SharedDicitionary<string, Parameter>();
+        private Dictionary<string, Parameter> parameters = new Dictionary<string, Parameter>();
         private Stages stages = new Stages();
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace ZZZ.Framework.Animations.Assets
         /// <summary>
         /// Предоставляет экземпляр контроллера анимации с заданными параметрами.
         /// </summary>
-        public AnimatorController(SharedDicitionary<string, Parameter> parametres, Stages stages, Stage startStage)
+        public AnimatorController(Dictionary<string, Parameter> parametres, Stages stages, Stage startStage)
         {
             this.parameters = parametres;
             this.stages = stages;

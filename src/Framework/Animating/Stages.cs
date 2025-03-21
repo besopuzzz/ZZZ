@@ -12,7 +12,7 @@ namespace ZZZ.Framework.Animations
         public int Count => stages.Count;
 
         [ContentSerializer(ElementName = "Stages")]
-        private SharedList<Stage> stages = new SharedList<Stage>();
+        private List<Stage> stages = new List<Stage>();
 
         internal Stages()
         {

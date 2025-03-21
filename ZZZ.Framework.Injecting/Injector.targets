@@ -14,15 +14,4 @@
 		</ItemGroup>
 
 	</Target>
-
-	<!-- Удаление временных файлов после сборки -->
-	<Target Name="CleanTempFiles" AfterTargets="Build">
-		<ItemGroup>
-			<!-- Получаем список временных файлов -->
-			<TempFilesToDelete Include="@(ModifiedCompileItems->'%(FullPath)')" />
-		</ItemGroup>
-
-		<!-- Удаляем временные файлы -->
-		<Delete Files="@(TempFilesToDelete)" />
-	</Target>
 </Project>
