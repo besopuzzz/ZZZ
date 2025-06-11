@@ -1,0 +1,24 @@
+﻿<Project>
+	<PropertyGroup>
+		<IsDebug>true</IsDebug>
+		<Editors>$(Editors)ZZZ.Framework.Injecting.Substance;</Editors>
+	</PropertyGroup>
+
+	<UsingTask
+			TaskName="InjectingTask"
+			AssemblyFile="$(MSBuildThisFileDirectory)ZZZ.Framework.Injecting.dll" />
+	<Target 
+		Name="ModifyAssembly" 
+		BeforeTargets="CopyFilesToOutputDirectory">
+		<Message Importance="High" Text="[ModifyAssembly]: Запуск модификации сборки" />
+
+		<InjectingTask
+			AssemblyFile="@(IntermediateAssembly)"
+			IsDebug="$(IsDebug)"			
+			References="@(ReferencePath)"
+			Editors="$(Editors)">
+		</InjectingTask>
+		
+		<Message Importance="High" Text="[ModifyAssembly]: Модификация сборки завершена" />
+	</Target>
+</Project>

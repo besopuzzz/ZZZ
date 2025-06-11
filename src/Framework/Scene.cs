@@ -1,4 +1,7 @@
-﻿namespace ZZZ.Framework
+﻿using ZZZ.Framework.Injecting;
+using ZZZ.Framework.Injecting.Substances.MethodListener;
+
+namespace ZZZ.Framework
 {
     public sealed class Scene : GameContainer
     {
@@ -7,6 +10,7 @@
 
         private Engine root;
 
+        [LogEventerAttribute]
         internal void Initialize(Engine root)
         {
             this.root = root;

@@ -1,4 +1,5 @@
 ﻿using ZZZ.Framework.Components;
+using ZZZ.Framework.Injecting;
 
 namespace ZZZ.Framework
 {

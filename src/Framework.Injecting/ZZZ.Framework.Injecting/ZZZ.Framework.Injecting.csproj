@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>12</LangVersion>
+		<PackageId>ZZZ.Framework.Injecting</PackageId>
+		<Version>1.0.43</Version>
+		<PackageOutputPath>..\..\..\packages</PackageOutputPath>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<Editors></Editors>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.11.4" PrivateAssets="all" />
+		<PackageReference Include="ZZZ.Framework.Injecting.Substance" Version="1.0.14" />
+	</ItemGroup>
+	<Target Name="CopyTestPackageDllsToBuild" AfterTargets="Build">
+		<ItemGroup>
+			<TestPackageDlls Include="$(NuGetPackageRoot)\Mono.Cecil\0.11.6\lib\net40\*.dll" />
+		</ItemGroup>
+		<Copy SourceFiles="@(TestPackageDlls)" DestinationFolder="$(ProjectDir)build" SkipUnchangedFiles="true" />
+	</Target>
+	<ItemGroup>
+		<None Include="$(OutputPath)ZZZ.Framework.Injecting.dll" Pack="True" PackagePath="build\" />
+		<None Include="$(OutputPath)ZZZ.Framework.Injecting.Substance.dll" Pack="True" PackagePath="build\" />
+		<Content Include="build\*" Pack="true" PackagePath="build\" />
+	</ItemGroup>
+	<PropertyGroup>
+		<NoWarn>NU1701</NoWarn>
+	</PropertyGroup>
+  </Project>

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>12</LangVersion>
+		<RootNamespace>ZZZ.Framework.Injecting</RootNamespace>
+		<PackageId>ZZZ.Framework.Injecting.Substance</PackageId>
+		<Version>1.0.14</Version>
+		<PackageOutputPath>..\..\..\packages</PackageOutputPath>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Mono.Cecil" Version="0.11.6" NoWarn="NU1701" />
+	</ItemGroup>
+</Project>
